@@ -1,0 +1,22 @@
+@import "./scssAbstracts/_mixins.scss";
+@import "./scssAbstracts/_typography.scss";
+@import "./scssAbstracts/_variables.scss";
+
+body {
+  margin: 0;
+  font-family: 'Gilroy', 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}

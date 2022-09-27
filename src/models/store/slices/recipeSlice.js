@@ -15,7 +15,7 @@ export const fetchRecipeDetails = createAsyncThunk(
   },
 );
 
-const recipeDetailsSlice = createSlice({
+const recipeSlice = createSlice({
   name: 'recipeDetails',
   initialState: {
     recipeDetails: {},
@@ -31,8 +31,7 @@ const recipeDetailsSlice = createSlice({
   },
   reducers: {},
   extraReducers: {
-    // eslint-disable-next-line no-unused-vars
-    [fetchRecipeDetails.pending]: (state, action) => {
+    [fetchRecipeDetails.pending]: (state) => {
       state.status = 'pending';
       state.error = null;
     },
@@ -47,4 +46,4 @@ const recipeDetailsSlice = createSlice({
   },
 });
 
-export default recipeDetailsSlice.reducer;
+export default recipeSlice.reducer;

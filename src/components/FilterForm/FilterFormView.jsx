@@ -7,17 +7,15 @@ import styles from './styles/FilterForm.module.scss';
 import Modal from '../defaultComponents/Modal/ModalController';
 import colors from '../../scssAbstracts/_variables.scss';
 import Slider from '../defaultComponents/Slider/SliderController';
+import { recipesShape } from '../../models/propTypesObjects/Recipes';
 
-// TODO: configure types of props later
 const FilterFormView = React.forwardRef(({
-// eslint-disable-next-line react/prop-types
   isModalOpened, handleClose, recipes, sliderOnChange, isFilterChanged, btnApplyOnClick,
-  checkboxOnChange, CAL_SLIDER_MIN_VALUE, CAL_SLIDER_MAX_VALUE,
+  checkboxOnChange,
 }, ref) => (
   <Modal isOpen={isModalOpened} handleClose={handleClose}>
     <div className={styles.modal_wrapper}>
       <h3>Filter</h3>
-      {/* eslint-disable-next-line react/prop-types */}
       {recipes.cuisines.map((item) => (
         <div key={item.id}>
           <div className={styles.cuisine_checkbox_wrapper}>
@@ -25,9 +23,7 @@ const FilterFormView = React.forwardRef(({
               control={(
                 <Checkbox
                   checked={
-                      // eslint-disable-next-line react/prop-types
                     recipes.curFilterState.cuisineFilter.length
-                      // eslint-disable-next-line react/prop-types
                       ? recipes.curFilterState.cuisineFilter.find((x) => x.id === item.id).status
                       : true
                   }
@@ -45,12 +41,11 @@ const FilterFormView = React.forwardRef(({
 
       <Slider
         minDistance={50}
-          /* eslint-disable-next-line react/prop-types */
         value={recipes.curFilterState.calFilter}
         ref={ref}
         onChange={sliderOnChange}
-        min={CAL_SLIDER_MIN_VALUE}
-        max={CAL_SLIDER_MAX_VALUE}
+        min={recipes.filterState.calFilter[0]}
+        max={recipes.filterState.calFilter[1]}
         className={styles.slider}
       />
       <p className={styles.p}>Calories, kCal</p>
@@ -93,13 +88,11 @@ const FilterFormView = React.forwardRef(({
 FilterFormView.propTypes = {
   isModalOpened: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
-  // recipes: PropTypes.arrayOf(PropTypes.shape({ cuisines: PropTypes })).isRequired,
+  recipes: recipesShape.isRequired,
   sliderOnChange: PropTypes.func.isRequired,
   isFilterChanged: PropTypes.func.isRequired,
   btnApplyOnClick: PropTypes.func.isRequired,
   checkboxOnChange: PropTypes.func.isRequired,
-  CAL_SLIDER_MIN_VALUE: PropTypes.number.isRequired,
-  CAL_SLIDER_MAX_VALUE: PropTypes.number.isRequired,
 };
 
 export default FilterFormView;

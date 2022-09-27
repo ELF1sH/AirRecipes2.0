@@ -1,9 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import recipesReducer from './recipesSlice';
-import recipeDetailsReducer from './recipeDetailsSlice';
+import recipesReducer from './slices/recipesListSlice';
+import recipeDetailsReducer from './slices/recipeSlice';
 
-// eslint-disable-next-line import/prefer-default-export
-export const store = configureStore({
+export default configureStore({
   reducer: {
     recipes: recipesReducer,
     recipeDetails: recipeDetailsReducer,

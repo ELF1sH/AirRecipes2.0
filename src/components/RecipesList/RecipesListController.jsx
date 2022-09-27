@@ -1,14 +1,12 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { recipeShape } from '../../models/propTypesObjects/Recipes';
 import RecipesListView from './RecipesListView';
-import { fetchRecipes } from '../../models/store/recipesSlice';
+import { fetchRecipes } from '../../models/store/slices/recipesListSlice';
 
-// TODO: point out structure
-// eslint-disable-next-line react/prop-types
 function RecipesListController({ recipesState }) {
   const dispatch = useDispatch();
   useEffect(() => {
-    // eslint-disable-next-line react/prop-types
     if (!recipesState.recipes.recipes) {
       dispatch(fetchRecipes());
       // dispatch(applyFilter());
@@ -19,5 +17,9 @@ function RecipesListController({ recipesState }) {
     <RecipesListView />
   );
 }
+
+RecipesListController.propTypes = {
+  recipesState: recipeShape.isRequired,
+};
 
 export default RecipesListController;

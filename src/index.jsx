@@ -3,7 +3,7 @@ import './index.scss';
 import './assets/fonts/Gilroy/stylesheet.css';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import { store } from './models/store/index';
+import store from './models/store/index';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 

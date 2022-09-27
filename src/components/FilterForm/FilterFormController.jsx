@@ -1,13 +1,10 @@
 import PropTypes from 'prop-types';
 import { useRef } from 'react';
 import FilterFormView from './FilterFormView';
-
-// TODO: dispatch them from global state later
-const CAL_SLIDER_MIN_VALUE = 100;
-const CAL_SLIDER_MAX_VALUE = 1000;
+import { recipesShape } from '../../models/propTypesObjects/Recipes';
+import { CAL_SLIDER_MAX_VALUE, CAL_SLIDER_MIN_VALUE } from '../../models/store/slices/recipesListSlice';
 
 function FilterFormController({ isModalOpened, setIsModalOpened, recipes }) {
-  console.log(recipes);
   // const dispatch = useDispatch();
 
   const checkboxOnChange = (id) => {
@@ -29,11 +26,7 @@ function FilterFormController({ isModalOpened, setIsModalOpened, recipes }) {
   const isFilterChanged = () => {
     if (recipes.curFilterState.calFilter[0] !== CAL_SLIDER_MIN_VALUE) return true;
     if (recipes.curFilterState.calFilter[1] !== CAL_SLIDER_MAX_VALUE) return true;
-    // eslint-disable-next-line consistent-return
-    recipes.curFilterState.cuisineFilter.forEach((item) => {
-      if (item.status === false) return true;
-    });
-    return false;
+    return !!recipes.curFilterState.cuisineFilter.find((item) => !item.status);
   };
 
   const handleClose = () => {
@@ -51,8 +44,6 @@ function FilterFormController({ isModalOpened, setIsModalOpened, recipes }) {
       isFilterChanged={isFilterChanged}
       btnApplyOnClick={btnApplyOnClick}
       checkboxOnChange={checkboxOnChange}
-      CAL_SLIDER_MIN_VALUE={CAL_SLIDER_MIN_VALUE}
-      CAL_SLIDER_MAX_VALUE={CAL_SLIDER_MAX_VALUE}
       ref={sliderRef}
     />
   );
@@ -61,9 +52,7 @@ function FilterFormController({ isModalOpened, setIsModalOpened, recipes }) {
 FilterFormController.propTypes = {
   isModalOpened: PropTypes.bool.isRequired,
   setIsModalOpened: PropTypes.func.isRequired,
-  // TODO: write recipes structure
-  // eslint-disable-next-line react/forbid-prop-types
-  recipes: PropTypes.object.isRequired,
+  recipes: recipesShape.isRequired,
 };
 
 export default FilterFormController;

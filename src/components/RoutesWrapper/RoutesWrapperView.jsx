@@ -1,7 +1,8 @@
-import { routes } from "./routes";
-import { Routes, Route } from "react-router-dom";
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import { routes } from './routes';
 
-const RoutesWrapperView = () => {
+function RoutesWrapperView() {
   return (
     <div>
       <Routes>
@@ -13,6 +14,6 @@ const RoutesWrapperView = () => {
       </Routes>
     </div>
   );
-};
+}
 
 export default RoutesWrapperView;

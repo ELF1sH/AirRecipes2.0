@@ -22,7 +22,7 @@ function ModalView({ isOpen, handleClose, children }) {
 }
 
 ModalView.propTypes = {
-  isOpen: PropTypes.func.isRequired,
+  isOpen: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
   children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.node), PropTypes.node]).isRequired,
 };

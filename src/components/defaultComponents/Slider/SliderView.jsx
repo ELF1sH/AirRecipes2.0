@@ -1,8 +1,9 @@
 import { Slider as MuiSlider } from '@mui/material';
+import PropTypes from 'prop-types';
 import colors from '../../../scssAbstracts/_variables.scss';
 
 function SliderView({
-  value, handleChange, min, max, className,
+  value, handleChange, min, max, className = '',
 }) {
   return (
     <MuiSlider
@@ -21,5 +22,17 @@ function SliderView({
     />
   );
 }
+
+SliderView.defaultProps = {
+  className: '',
+};
+
+SliderView.propTypes = {
+  value: PropTypes.arrayOf(PropTypes.number).isRequired,
+  handleChange: PropTypes.func.isRequired,
+  min: PropTypes.number.isRequired,
+  max: PropTypes.number.isRequired,
+  className: PropTypes.string,
+};
 
 export default SliderView;

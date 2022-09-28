@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import HeaderView from './HeaderView';
-import styles from './styles/Header.module.scss';
+import {
+  expandImage, fixImageToTop, shrinkImage, unfixImageFromTop,
+} from './HeaderBehaviorStates/HeaderScrollBehavior';
 // import { useDispatch } from "react-redux";
 
 function HeaderController() {
@@ -10,50 +12,38 @@ function HeaderController() {
   const ref = useRef({ textFieldRef, imageRef, headerWrapperRef });
 
   // const dispatch = useDispatch()
-
-  const defInputTop = useRef(0);
   const defImageHeight = useRef(0);
-
+  const prevImageHeight = useRef(0);
   const posFixed = useRef(false);
-
-  const prevHeight = useRef(0);
 
   const handleScroll = () => {
     const rectImage = imageRef.current.getBoundingClientRect();
     const rectInput = textFieldRef.current.getBoundingClientRect();
 
     if (rectImage.bottom > rectInput.top + rectInput.height / 2 + 10) {
-      window.scrollTo(0, 0);
-      imageRef.current.style.height = `${rectImage.height * 0.95}px`;
+      shrinkImage(imageRef, rectImage, headerWrapperRef, posFixed);
     }
 
-    if (rectImage.height === prevHeight.current && !posFixed.current) {
+    if (rectImage.height === prevImageHeight.current && !posFixed.current) {
       posFixed.current = true;
-
-      imageRef.current.className += ` ${styles.image_wrapper_fixed}`;
-      headerWrapperRef.current.style.marginBottom = `${rectImage.height}px`;
+      fixImageToTop(imageRef, rectImage, headerWrapperRef);
     }
 
-    prevHeight.current = rectImage.height;
+    prevImageHeight.current = rectImage.height;
   };
 
   const handleWheel = async (event) => {
-    const sleep = (ms) => new Promise((r) => { setTimeout(r, ms); });
     const rectImage = imageRef.current.getBoundingClientRect();
     const rectInput = textFieldRef.current.getBoundingClientRect();
     if (event.deltaY < 0 && rectImage.height < defImageHeight.current
-      && rectImage.bottom > rectInput.top && window.scrollY < 1) {
-      for (let i = 1; i <= 10; i += 1) {
-        imageRef.current.style.height = `${rectImage.height * (1 + 0.02 * i)}px`;
-        // eslint-disable-next-line no-await-in-loop
-        await sleep(1);
-      }
+      && rectImage.bottom > rectInput.top && window.scrollY < 1
+    ) {
+      await expandImage(imageRef, rectImage, headerWrapperRef);
     }
 
-    if (rectImage.height !== prevHeight.current && posFixed.current) {
+    if (rectImage.height !== prevImageHeight.current && posFixed.current && window.scrollY > 0) {
       posFixed.current = false;
-      imageRef.current.className = imageRef.current.className.replace(`${styles.image_wrapper_fixed}`, '');
-      headerWrapperRef.current.style.marginBottom = '0';
+      unfixImageFromTop(imageRef, headerWrapperRef);
     }
   };
 
@@ -67,14 +57,11 @@ function HeaderController() {
   };
 
   useEffect(() => {
-    const rectInput = textFieldRef.current.getBoundingClientRect();
     const rectImage = imageRef.current.getBoundingClientRect();
-    // need to set up default dimensions for further comparisons
-    defInputTop.current = rectInput.top + rectInput.height / 2;
     defImageHeight.current = rectImage.height;
 
-    window.addEventListener('scroll', handleScroll);
-    window.addEventListener('wheel', handleWheel);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('wheel', handleWheel, { passive: true });
     window.addEventListener('keyup', handleKeyUp);
     return () => {
       window.removeEventListener('scroll', handleScroll);

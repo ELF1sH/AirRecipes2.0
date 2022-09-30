@@ -1,13 +1,12 @@
-import RoutesWrapper from './components/RoutesWrapper/RoutesWrapperProvider';
-import Header from './components/Header/HeaderProvider';
+import React from 'react';
+import RoutesWrapper from './components/routes-wrapper/RoutesWrapperProvider';
+import Header from './components/header/HeaderProvider';
 
-function App() {
-  return (
-    <div>
-      <Header />
-      <RoutesWrapper />
-    </div>
-  );
-}
+const App = () => (
+  <div>
+    <Header />
+    <RoutesWrapper />
+  </div>
+);
 
 export default App;

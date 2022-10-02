@@ -1,9 +1,9 @@
-import { Button } from '@mui/material';
 import React from 'react';
+import { Button } from '@mui/material';
 import PropTypes from 'prop-types';
-import colors from '../../../scss-abstracts/_variables.scss';
+import colors from '../../../../scss-abstracts/_variables.scss';
 
-const ButtonRow = ({ isFilterChanged, handleBtnApplyClick }) => (
+const ButtonRowView = ({ isFilterChanged, handleBtnApplyClick }) => (
   <div>
     {
       isFilterChanged
@@ -37,9 +37,9 @@ const ButtonRow = ({ isFilterChanged, handleBtnApplyClick }) => (
   </div>
 );
 
-ButtonRow.propTypes = {
+ButtonRowView.propTypes = {
   isFilterChanged: PropTypes.bool.isRequired,
   handleBtnApplyClick: PropTypes.func.isRequired,
 };
 
-export default ButtonRow;
+export default ButtonRowView;

@@ -8,9 +8,10 @@ const FilterFormController = ({ isModalOpened, setIsModalOpened, recipes }) => {
   // const dispatch = useDispatch();
 
   const handleCheckboxChange = (id) => {
-    const prev = structuredClone(recipes.curFilterState.cuisineFilter);
-    prev.find((x) => x.id === id).status = !prev.find((x) => x.id === id).status;
-    // dispatch(setCuisineFilter(prev));
+    const curState = structuredClone(recipes.curFilterState.cuisineFilter);
+    const changedCuisineFilter = curState.find((x) => x.id === id);
+    changedCuisineFilter.status = !changedCuisineFilter.status;
+    // dispatch(setCuisineFilter(curState));
   };
 
   const sliderRef = useRef(null);
@@ -34,13 +35,6 @@ const FilterFormController = ({ isModalOpened, setIsModalOpened, recipes }) => {
     [recipes.curFilterState.calFilter, recipes.curFilterState.cuisineFilter],
   );
 
-  const getCurCuisinesFiltersStatus = () => (
-    recipes.curFilterState.cuisineFilter.reduce(
-      (acc, item) => ({ ...acc, [item.id]: item.status }),
-      {},
-    )
-  );
-
   const handleClose = () => {
     setIsModalOpened(false);
     // dispatch(resetCurFilterStateToFilterState());
@@ -57,7 +51,6 @@ const FilterFormController = ({ isModalOpened, setIsModalOpened, recipes }) => {
       handleBtnApplyClick={handleBtnApplyClick}
       handleCheckboxChange={handleCheckboxChange}
       handleSliderChange={handleSliderChange}
-      getCurCuisinesFiltersStatus={getCurCuisinesFiltersStatus}
     />
   );
 };

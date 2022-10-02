@@ -5,12 +5,12 @@ import styles from './styles/FilterForm.module.scss';
 import Modal from '../default-components/modal/ModalController';
 import Slider from '../default-components/slider/SliderController';
 import { recipesShape } from '../../models/propTypesObjects/Recipes';
-import ButtonRow from './components/ButtonRow';
+import ButtonRow from './components/button-row/ButtonRowController';
 import CuisinesFilterListController from './components/cuisines-filter-list/CuisinesFilterListController';
 
 const FilterFormView = React.forwardRef(({
   isModalOpened, handleClose, recipes, handleSliderChange, isFilterChanged, handleBtnApplyClick,
-  handleCheckboxChange, getCurCuisinesFiltersStatus,
+  handleCheckboxChange,
 }, ref) => (
   <Modal isOpen={isModalOpened} handleClose={handleClose}>
     <div className={styles.modal_wrapper}>
@@ -18,7 +18,6 @@ const FilterFormView = React.forwardRef(({
       <CuisinesFilterListController
         recipes={recipes}
         handleCheckboxChange={handleCheckboxChange}
-        getCurCuisinesFiltersStatus={getCurCuisinesFiltersStatus}
       />
 
       <Slider
@@ -48,7 +47,6 @@ FilterFormView.propTypes = {
   isFilterChanged: PropTypes.bool.isRequired,
   handleBtnApplyClick: PropTypes.func.isRequired,
   handleCheckboxChange: PropTypes.func.isRequired,
-  getCurCuisinesFiltersStatus: PropTypes.func.isRequired,
 };
 
 export default FilterFormView;

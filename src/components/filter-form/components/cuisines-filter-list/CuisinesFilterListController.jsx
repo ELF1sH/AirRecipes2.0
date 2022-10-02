@@ -3,10 +3,14 @@ import PropTypes from 'prop-types';
 import CuisinesFilterListView from './CuisinesFilterListView';
 import { recipesShape } from '../../../../models/propTypesObjects/Recipes';
 
-const CuisinesFilterListController = ({
-  recipes, handleCheckboxChange,
-  getCurCuisinesFiltersStatus,
-}) => {
+const CuisinesFilterListController = ({ recipes, handleCheckboxChange }) => {
+  const getCurCuisinesFiltersStatus = () => (
+    recipes.curFilterState.cuisineFilter.reduce(
+      (acc, item) => ({ ...acc, [item.id]: item.status }),
+      {},
+    )
+  );
+
   const curCuisinesFiltersStatus = useMemo(
     () => getCurCuisinesFiltersStatus(),
     [recipes.curFilterState.cuisineFilter],
@@ -24,7 +28,6 @@ const CuisinesFilterListController = ({
 CuisinesFilterListController.propTypes = {
   recipes: recipesShape.isRequired,
   handleCheckboxChange: PropTypes.func.isRequired,
-  getCurCuisinesFiltersStatus: PropTypes.func.isRequired,
 };
 
 export default CuisinesFilterListController;

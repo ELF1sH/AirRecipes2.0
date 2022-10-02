@@ -1,5 +1,5 @@
-import { Checkbox, Divider, FormControlLabel } from '@mui/material';
 import React from 'react';
+import { Checkbox, Divider, FormControlLabel } from '@mui/material';
 import PropTypes from 'prop-types';
 import styles from '../../styles/FilterForm.module.scss';
 import colors from '../../../../scss-abstracts/_variables.scss';

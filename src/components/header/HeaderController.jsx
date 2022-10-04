@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
+// import { useDispatch } from "react-redux";
+
 import HeaderView from './HeaderView';
 import {
   expandImage, fixImageToTop, shrinkImage, unfixImageFromTop,
-} from './header-scroll-behavior/HeaderScrollBehavior';
-// import { useDispatch } from "react-redux";
+} from '../../helpers/headerScrollBehavior';
 
 const HeaderController = () => {
   const textFieldRef = useRef(null);
@@ -13,14 +14,14 @@ const HeaderController = () => {
 
   // const dispatch = useDispatch()
   const defImageHeight = useRef(0);
+  const inputMiddleY = useRef(0);
   const prevImageHeight = useRef(0);
   const posFixed = useRef(false);
 
   const handleScroll = () => {
     const rectImage = imageRef.current.getBoundingClientRect();
-    const rectInput = textFieldRef.current.getBoundingClientRect();
 
-    if (rectImage.bottom > rectInput.top + rectInput.height / 2 + 10) {
+    if (rectImage.bottom > inputMiddleY.current) {
       shrinkImage(imageRef, rectImage, headerWrapperRef, posFixed);
     }
 
@@ -59,6 +60,9 @@ const HeaderController = () => {
   useEffect(() => {
     const rectImage = imageRef.current.getBoundingClientRect();
     defImageHeight.current = rectImage.height;
+
+    const rectInput = textFieldRef.current.getBoundingClientRect();
+    inputMiddleY.current = rectInput.top + rectInput.height / 2 + 10;
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('wheel', handleWheel, { passive: true });

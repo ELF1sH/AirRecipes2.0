@@ -22,8 +22,8 @@
 
 .image_wrapper {
   height: 520px;
-  background-color: #fff;
-  background-image: url("../../../assets/images/header-bg.png");
+  background-color: $bgColor;
+  background-image: url("../../../assets/images/headerBG.png");
   background-repeat: no-repeat;
   background-position: right center;
 }

@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { Typography } from '@mui/material';
-import styles from './styles/Header.module.scss';
-import TextField from '../default-components/text-field/TextFieldController';
-import RoundButton from '../default-components/round-button/RoundButtonController';
+
+import TextField from '../defaultComponents/textField/TextFieldController';
+import RoundButton from '../defaultComponents/roundButton/RoundButtonController';
+import FilterForm from '../filterForm/FilterFormProvider';
 import filterIcon from '../../assets/icons/filter.svg';
-import FilterForm from '../filter-form/FilterFormProvider';
+import styles from './styles/Header.module.scss';
 
 const HeaderView = React.forwardRef(({
   openFilterForm, searchValue, setSearchValue, isModalOpened, setIsModalOpened,

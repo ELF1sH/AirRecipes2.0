@@ -1,14 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.scss';
-import './assets/fonts/Gilroy/stylesheet.scss';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
+
 import { ThemeProvider } from '@mui/material';
-import store from './models/store/index';
+
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import store from './models/store/index';
 import theme from './theme/theme';
+import reportWebVitals from './reportWebVitals';
+import './assets/fonts/Gilroy/stylesheet.scss';
+import './index.scss';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

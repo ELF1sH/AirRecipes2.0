@@ -1,12 +1,21 @@
 import React, { useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
 
 import FilterFormView from './FilterFormView';
 import { recipesStateShape } from '../../models/propTypesObjects/Recipes';
-import { CAL_SLIDER_MAX_VALUE, CAL_SLIDER_MIN_VALUE } from '../../models/store/slices/recipesListSlice';
+import {
+  applyFilter,
+  CAL_SLIDER_MAX_VALUE,
+  CAL_SLIDER_MIN_VALUE,
+  clearFilter,
+  resetCurFilterStateToPreviousState,
+  setCalFilter,
+  setCuisineFilter,
+} from '../../models/store/slices/recipesListSlice';
 
 const FilterFormController = ({ isModalOpened, setIsModalOpened, recipes }) => {
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const handleCheckboxChange = (id) => {
     const curState = structuredClone(recipes.curFilterState.cuisineFilter);
@@ -15,17 +24,21 @@ const FilterFormController = ({ isModalOpened, setIsModalOpened, recipes }) => {
       throw new Error('Changed cuisine filter was not found');
     }
     changedCuisineFilter.status = !changedCuisineFilter.status;
-    // dispatch(setCuisineFilter(curState));
+    dispatch(setCuisineFilter(curState));
   };
 
   const sliderRef = useRef(null);
   const handleSliderChange = () => {
-    // dispatch(setCalFilter(sliderRef.current.getState()));
+    dispatch(setCalFilter(sliderRef.current.getState()));
   };
 
   const handleBtnApplyClick = () => {
-    // dispatch(applyFilter());
+    dispatch(applyFilter());
     setIsModalOpened(false);
+  };
+
+  const handleClearForm = () => {
+    dispatch(clearFilter());
   };
 
   const getIsFilterChanged = () => {
@@ -41,7 +54,7 @@ const FilterFormController = ({ isModalOpened, setIsModalOpened, recipes }) => {
 
   const handleClose = () => {
     setIsModalOpened(false);
-    // dispatch(resetCurFilterStateToFilterState());
+    dispatch(resetCurFilterStateToPreviousState());
     // cause curFilter wasn't applied. That's why we need to reset it
   };
 
@@ -53,6 +66,7 @@ const FilterFormController = ({ isModalOpened, setIsModalOpened, recipes }) => {
       isFilterChanged={isFilterChanged}
       handleClose={handleClose}
       handleBtnApplyClick={handleBtnApplyClick}
+      handleClearForm={handleClearForm}
       handleCheckboxChange={handleCheckboxChange}
       handleSliderChange={handleSliderChange}
     />

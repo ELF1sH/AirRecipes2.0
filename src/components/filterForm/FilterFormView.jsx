@@ -9,10 +9,11 @@ import ButtonRow from './components/buttonRow/ButtonRowController';
 import CuisinesFilterListController from './components/cuisinesFilterList/CuisinesFilterListController';
 import { recipesStateShape } from '../../models/propTypesObjects/Recipes';
 import styles from './styles/FilterForm.module.scss';
+import { CAL_SLIDER_MIN_VALUE, CAL_SLIDER_MAX_VALUE } from '../../models/store/slices/recipesListSlice';
 
 const FilterFormView = React.forwardRef(({
   isModalOpened, handleClose, recipes, handleSliderChange, isFilterChanged, handleBtnApplyClick,
-  handleCheckboxChange,
+  handleCheckboxChange, handleClearForm,
 }, ref) => (
   <Modal isOpen={isModalOpened} handleClose={handleClose}>
     <div className={styles.modal_wrapper}>
@@ -26,8 +27,8 @@ const FilterFormView = React.forwardRef(({
         ref={ref}
         minDistance={50}
         value={recipes.curFilterState.calFilter}
-        min={recipes.filterState.calFilter[0]}
-        max={recipes.filterState.calFilter[1]}
+        min={CAL_SLIDER_MIN_VALUE}
+        max={CAL_SLIDER_MAX_VALUE}
         className={styles.slider}
         onChange={handleSliderChange}
       />
@@ -36,6 +37,7 @@ const FilterFormView = React.forwardRef(({
       <ButtonRow
         isFilterChanged={isFilterChanged}
         handleBtnApplyClick={handleBtnApplyClick}
+        handleClearForm={handleClearForm}
       />
     </div>
   </Modal>
@@ -49,6 +51,7 @@ FilterFormView.propTypes = {
   isFilterChanged: PropTypes.bool.isRequired,
   handleBtnApplyClick: PropTypes.func.isRequired,
   handleCheckboxChange: PropTypes.func.isRequired,
+  handleClearForm: PropTypes.func.isRequired,
 };
 
 export default FilterFormView;

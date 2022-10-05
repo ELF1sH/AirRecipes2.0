@@ -6,11 +6,7 @@ export const CAL_SLIDER_MAX_VALUE = 1200;
 export const fetchRecipes = createAsyncThunk(
   'recipes/fetchRecipes', // redux toolkit names actions the same way
   async (_, { rejectWithValue }) => {
-    // eslint-disable-next-line no-promise-executor-return
-    const sleep = (time) => new Promise((r) => setTimeout(r, time));
-
     try {
-      await sleep(1000);
       const response = await fetch('https://test.kode-t.ru/list.json');
       if (!response.ok) {
         return Error('Server error');
@@ -59,11 +55,11 @@ const recipesListSlice = createSlice({
         { id: item.id, status: true }
       ));
     },
-    resetCurFilterStateToFilterState: (state) => {
+    resetCurFilterStateToPreviousState: (state) => {
       state.curFilterState = state.filterState;
     },
     applyFilter: (state) => {
-      let { recipes } = current(state.initialRecipes);
+      let recipes = current(state.initialRecipes);
       if (!recipes) return;
       state.filterState = state.curFilterState;
 
@@ -81,7 +77,7 @@ const recipesListSlice = createSlice({
         .map((x) => x.id);
       recipes = recipes.filter((x) => cuisinesIds.includes(x.cuisine.id));
 
-      state.recipes = { recipes };
+      state.recipes = recipes;
     },
   },
   extraReducers: {
@@ -93,7 +89,7 @@ const recipesListSlice = createSlice({
       state.status = 'resolved';
 
       state.recipes = action.payload.recipes;
-      state.initialRecipes = state.recipes;
+      state.initialRecipes = action.payload.recipes;
 
       state.cuisines = action.payload.recipes
         .map((recipe) => recipe.cuisine)
@@ -114,6 +110,6 @@ const recipesListSlice = createSlice({
 
 export const {
   setNameFilter, setCuisineFilter, setCalFilter, clearFilter,
-  applyFilter, resetCurFilterStateToFilterState,
+  applyFilter, resetCurFilterStateToPreviousState,
 } = recipesListSlice.actions;
 export default recipesListSlice.reducer;

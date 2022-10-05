@@ -28,7 +28,11 @@ const RecipeCardView = ({
 
     <CardContent sx={{ padding: '24px', userSelect: 'none' }}>
       <Typography variant="h3" className={styles.card_header}>{recipe.title}</Typography>
-      <Typography variant="body1">{recipe.description.length < 50 ? recipe.description : `${recipe.description.substring(0, 147)}...`}</Typography>
+      <Typography variant="body1">
+        {recipe.description.length < 50
+          ? recipe.description
+          : `${recipe.description.substring(0, 147)}...`}
+      </Typography>
     </CardContent>
   </Card>
 );

@@ -5,14 +5,14 @@ import { Button } from '@mui/material';
 
 import colors from '../../../../scssAbstracts/_variables.scss';
 
-const ButtonRowView = ({ isFilterChanged, handleBtnApplyClick }) => (
+const ButtonRowView = ({ isFilterChanged, handleBtnApplyClick, handleClearForm }) => (
   <div>
     {
       isFilterChanged
         ? (
           <Button
             variant="outlined"
-            // onClick={() => dispatch(clearFilter())}
+            onClick={handleClearForm}
             sx={{
               borderColor: colors.shade50,
               color: colors.shade50,
@@ -42,6 +42,7 @@ const ButtonRowView = ({ isFilterChanged, handleBtnApplyClick }) => (
 ButtonRowView.propTypes = {
   isFilterChanged: PropTypes.bool.isRequired,
   handleBtnApplyClick: PropTypes.func.isRequired,
+  handleClearForm: PropTypes.func.isRequired,
 };
 
 export default ButtonRowView;

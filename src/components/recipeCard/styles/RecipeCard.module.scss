@@ -1,0 +1,35 @@
+@import '../../../index';
+
+.card {
+  @include elevate-effect;
+  border-radius: 8px;
+  cursor: pointer;
+  position: relative;
+  height: 384px;
+  width: 348px;
+}
+
+.card_header {
+  margin-bottom: 8px;
+}
+
+.chips_container {
+  position: absolute;
+  height: 32px;
+  top: 156px;
+  right: 16px;
+  .chip {
+    background-color: $chipBgColor;
+    font-size: 12px;
+    margin-left: 8px;
+    user-select: none;
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 380px) {
+  .card {
+    width: 320px;
+    margin: 0 auto;
+  }
+}

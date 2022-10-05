@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
-import RecipeCardView from './recipeCardView';
+import RecipeCardView from './RecipeCardView';
 import { recipeShape } from '../../models/propTypesObjects/Recipes';
 
 const RecipeCardController = ({ recipe, className }) => {

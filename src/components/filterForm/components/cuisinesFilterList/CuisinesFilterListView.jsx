@@ -5,7 +5,7 @@ import { Checkbox, Divider, FormControlLabel } from '@mui/material';
 
 import styles from '../../styles/FilterForm.module.scss';
 import colors from '../../../../scssAbstracts/_variables.scss';
-import { recipesShape } from '../../../../models/propTypesObjects/Recipes';
+import { recipesStateShape } from '../../../../models/propTypesObjects/Recipes';
 
 const CuisinesFilterListView = ({ recipes, handleCheckboxChange, curCuisinesFiltersStatus }) => (
   recipes.cuisines.map((item) => (
@@ -35,7 +35,7 @@ const CuisinesFilterListView = ({ recipes, handleCheckboxChange, curCuisinesFilt
 );
 
 CuisinesFilterListView.propTypes = {
-  recipes: recipesShape.isRequired,
+  recipes: recipesStateShape.isRequired,
   handleCheckboxChange: PropTypes.func.isRequired,
   curCuisinesFiltersStatus: PropTypes.shape({
     id: PropTypes.bool,

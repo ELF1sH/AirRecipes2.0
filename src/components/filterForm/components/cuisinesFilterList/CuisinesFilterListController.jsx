@@ -2,7 +2,7 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 import CuisinesFilterListView from './CuisinesFilterListView';
-import { recipesShape } from '../../../../models/propTypesObjects/Recipes';
+import { recipesStateShape } from '../../../../models/propTypesObjects/Recipes';
 
 const CuisinesFilterListController = ({ recipes, handleCheckboxChange }) => {
   const getCurCuisinesFiltersStatus = () => (
@@ -27,7 +27,7 @@ const CuisinesFilterListController = ({ recipes, handleCheckboxChange }) => {
 };
 
 CuisinesFilterListController.propTypes = {
-  recipes: recipesShape.isRequired,
+  recipes: recipesStateShape.isRequired,
   handleCheckboxChange: PropTypes.func.isRequired,
 };
 

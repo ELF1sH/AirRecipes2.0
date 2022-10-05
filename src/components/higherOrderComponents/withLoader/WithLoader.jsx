@@ -4,12 +4,17 @@ import PropTypes from 'prop-types';
 import ProgressCircleView from '../../defaultComponents/progressCircle/ProgressCircleView';
 
 const WithLoader = (Component) => {
-  const ComponentWithLoader = ({ curStatus, ...props }) => (curStatus === 'pending'
-    ? <ProgressCircleView />
+  const ComponentWithLoader = ({ curStatus, progressCircleClassname, ...props }) => (curStatus === 'pending'
+    ? <ProgressCircleView className={progressCircleClassname} />
     : <Component {...props} />);
+
+  ComponentWithLoader.defaultProps = {
+    progressCircleClassname: '',
+  };
 
   ComponentWithLoader.propTypes = {
     curStatus: PropTypes.string.isRequired,
+    progressCircleClassname: PropTypes.string,
   };
 
   return ComponentWithLoader;

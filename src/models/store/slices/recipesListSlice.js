@@ -6,7 +6,11 @@ export const CAL_SLIDER_MAX_VALUE = 1200;
 export const fetchRecipes = createAsyncThunk(
   'recipes/fetchRecipes', // redux toolkit names actions the same way
   async (_, { rejectWithValue }) => {
+    // eslint-disable-next-line no-promise-executor-return
+    const sleep = (time) => new Promise((r) => setTimeout(r, time));
+
     try {
+      await sleep(1000);
       const response = await fetch('https://test.kode-t.ru/list.json');
       if (!response.ok) {
         return Error('Server error');

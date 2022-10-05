@@ -2,7 +2,7 @@ import React, { useMemo, useRef } from 'react';
 import PropTypes from 'prop-types';
 
 import FilterFormView from './FilterFormView';
-import { recipesShape } from '../../models/propTypesObjects/Recipes';
+import { recipesStateShape } from '../../models/propTypesObjects/Recipes';
 import { CAL_SLIDER_MAX_VALUE, CAL_SLIDER_MIN_VALUE } from '../../models/store/slices/recipesListSlice';
 
 const FilterFormController = ({ isModalOpened, setIsModalOpened, recipes }) => {
@@ -62,7 +62,7 @@ const FilterFormController = ({ isModalOpened, setIsModalOpened, recipes }) => {
 FilterFormController.propTypes = {
   isModalOpened: PropTypes.bool.isRequired,
   setIsModalOpened: PropTypes.func.isRequired,
-  recipes: recipesShape.isRequired,
+  recipes: recipesStateShape.isRequired,
 };
 
 export default FilterFormController;

@@ -7,7 +7,7 @@ import Modal from '../defaultComponents/modal/ModalController';
 import Slider from '../defaultComponents/slider/SliderController';
 import ButtonRow from './components/buttonRow/ButtonRowController';
 import CuisinesFilterListController from './components/cuisinesFilterList/CuisinesFilterListController';
-import { recipesShape } from '../../models/propTypesObjects/Recipes';
+import { recipesStateShape } from '../../models/propTypesObjects/Recipes';
 import styles from './styles/FilterForm.module.scss';
 
 const FilterFormView = React.forwardRef(({
@@ -44,7 +44,7 @@ const FilterFormView = React.forwardRef(({
 FilterFormView.propTypes = {
   isModalOpened: PropTypes.bool.isRequired,
   handleClose: PropTypes.func.isRequired,
-  recipes: recipesShape.isRequired,
+  recipes: recipesStateShape.isRequired,
   handleSliderChange: PropTypes.func.isRequired,
   isFilterChanged: PropTypes.bool.isRequired,
   handleBtnApplyClick: PropTypes.func.isRequired,

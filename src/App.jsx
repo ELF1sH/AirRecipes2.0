@@ -1,6 +1,6 @@
 import React from 'react';
 
-import RoutesWrapper from './components/routesWrapper/RoutesWrapperProvider';
+import RoutesWrapper from './components/routesWrapper/RoutesWrapper';
 import Header from './components/header/HeaderProvider';
 
 const App = () => (

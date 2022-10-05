@@ -3,9 +3,11 @@ $base1: #FFFFFF;
 $shade20: #DDDDDD;
 $shade40: #A9A9A9;
 $shade50: #82786A;
+$shade50hover: #746B5F;
 $easy: #2FB65D;
 $medium: #EB8A31;
 $hard: #EB3C31;
+$bgColor: #ffffff;
 
 :export {
   // to get the colors inside js
@@ -17,4 +19,6 @@ $hard: #EB3C31;
   easy: $easy;
   medium: $medium;
   hard: $hard;
+  bgColor: $bgColor;
+  shade50hover: $shade50hover;
 }

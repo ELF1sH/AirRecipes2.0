@@ -2,9 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
 import HeaderView from './HeaderView';
-import {
-  expandImage, fixImageToTop, shrinkImage, unfixImageFromTop,
-} from '../../helpers/headerScrollBehavior';
+import { expandImage, shrinkImage } from '../../helpers/headerScrollBehavior';
 import { applyFilter, setNameFilter } from '../../models/store/slices/recipesListSlice';
 
 const HeaderController = () => {
@@ -17,37 +15,23 @@ const HeaderController = () => {
 
   const defImageHeight = useRef(0);
   const inputMiddleY = useRef(0);
-  const prevImageHeight = useRef(0);
-  const posFixed = useRef(false);
+  const rectTextField = useRef(null);
 
   const handleScroll = () => {
     const rectImage = imageRef.current.getBoundingClientRect();
 
     if (rectImage.bottom > inputMiddleY.current) {
-      shrinkImage(imageRef, rectImage, headerWrapperRef, posFixed);
+      shrinkImage(imageRef, rectImage, headerWrapperRef);
     }
-
-    if (rectImage.height === prevImageHeight.current && !posFixed.current) {
-      posFixed.current = true;
-      fixImageToTop(imageRef, rectImage, headerWrapperRef);
-    }
-
-    prevImageHeight.current = rectImage.height;
   };
 
   const handleWheel = async (event) => {
     const rectImage = imageRef.current.getBoundingClientRect();
-    const rectInput = textFieldRef.current.getBoundingClientRect();
 
     if (event.deltaY < 0 && rectImage.height < defImageHeight.current
-      && rectImage.bottom > rectInput.top && window.scrollY < 1
+      && rectImage.bottom > rectTextField.current.top && window.scrollY < 1
     ) {
       await expandImage(imageRef, rectImage, headerWrapperRef);
-    }
-
-    if (rectImage.height !== prevImageHeight.current && posFixed.current && window.scrollY > 0) {
-      posFixed.current = false;
-      unfixImageFromTop(imageRef, headerWrapperRef);
     }
   };
 
@@ -69,8 +53,10 @@ const HeaderController = () => {
     const rectImage = imageRef.current.getBoundingClientRect();
     defImageHeight.current = rectImage.height;
 
-    const rectInput = textFieldRef.current.getBoundingClientRect();
-    inputMiddleY.current = rectInput.top + rectInput.height / 2 + 10;
+    rectTextField.current = textFieldRef.current.getBoundingClientRect();
+    inputMiddleY.current = rectTextField.current.top + rectTextField.current.height / 2 + 10;
+
+    headerWrapperRef.current.style.marginBottom = `${rectImage.height}px`;
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     window.addEventListener('wheel', handleWheel, { passive: true });

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 
 import FilterFormView from './FilterFormView';
-import { recipesStateShape } from '../../models/propTypesObjects/Recipes';
+import { recipesStateShape } from '../../models/propTypesObjects/recipes';
 import {
   applyFilter,
   CAL_SLIDER_MAX_VALUE,

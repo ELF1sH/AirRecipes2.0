@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import RecipeCardController from '../recipeCard/RecipeCardController';
 import AppearAnimation from '../higherOrderComponents/appearAnimation/AppearAnimation';
-import { recipeShape } from '../../models/propTypesObjects/Recipes';
+import { recipeShape } from '../../models/propTypesObjects/recipes';
 import styles from './styles/RecipesList.module.scss';
 
 const RecipeCardWithAppearAnim = AppearAnimation(RecipeCardController, 'slideBottom');

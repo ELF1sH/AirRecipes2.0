@@ -38,6 +38,6 @@ export const recipesStateShape = PropTypes.shape({
     .isRequired,
   error: PropTypes.string,
   status: PropTypes
-    .string
+    .oneOf(['pending', 'resolved', 'rejected'])
     .isRequired,
 });

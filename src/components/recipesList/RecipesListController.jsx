@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { recipeShape } from '../../models/propTypesObjects/Recipes';
+import { recipeShape } from '../../models/propTypesObjects/recipes';
 import RecipesListView from './RecipesListView';
 import { applyFilter, fetchRecipes } from '../../models/store/slices/recipesListSlice';
 import WithLoader from '../higherOrderComponents/withLoader/WithLoader';

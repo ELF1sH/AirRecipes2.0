@@ -5,7 +5,7 @@ import {
   Card, CardContent, CardMedia, Chip, Typography,
 } from '@mui/material';
 
-import { recipeShape } from '../../models/propTypesObjects/Recipes';
+import { recipeShape } from '../../models/propTypesObjects/recipes';
 import { getCookTime } from '../../helpers/recipesCalculations';
 import styles from './styles/RecipeCard.module.scss';
 

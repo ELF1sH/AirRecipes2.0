@@ -7,36 +7,37 @@ import { ReactComponent as CuisineIcon } from '../../../../assets/icons/recipeDe
 import { ReactComponent as TimeIcon } from '../../../../assets/icons/recipeDetailsIcons/timeIcon.svg';
 import { getCookTime } from '../../../../helpers/recipesCalculations';
 import styles from './styles/BriefInfoPanel.module.scss';
-import colors from '../../../../scssAbstracts/_variables.scss';
+import IconWithText from '../../../iconWithText/IconWithText';
 
 const BriefInfoPanel = ({
   difficulty, cookTime, caloricity, cuisineTitle, className,
 }) => (
   <div className={`${styles.brief_info} ${className}`}>
 
-    <div className={styles.item}>
-      <DifficultyIcon
-        fill={colors[difficulty]}
-        stroke={colors[difficulty]}
-        className={styles.icon}
-      />
-      <p className={styles[difficulty]}>{difficulty}</p>
-    </div>
+    <IconWithText
+      text={difficulty}
+      Icon={DifficultyIcon}
+      color={difficulty}
+      className={styles.icon_with_text}
+    />
 
-    <div className={styles.item}>
-      <TimeIcon className={styles.icon} />
-      <p>{getCookTime(cookTime)}</p>
-    </div>
+    <IconWithText
+      text={getCookTime(cookTime)}
+      Icon={TimeIcon}
+      className={styles.icon_with_text}
+    />
 
-    <div className={styles.item}>
-      <CaloriesIcon className={styles.icon} />
-      <p>{caloricity}</p>
-    </div>
+    <IconWithText
+      text={caloricity}
+      Icon={CaloriesIcon}
+      className={styles.icon_with_text}
+    />
 
-    <div className={styles.item}>
-      <CuisineIcon className={styles.icon} />
-      <p>{cuisineTitle}</p>
-    </div>
+    <IconWithText
+      text={cuisineTitle}
+      Icon={CuisineIcon}
+      className={styles.icon_with_text}
+    />
 
   </div>
 );

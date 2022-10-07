@@ -28,7 +28,7 @@ const RecipeView = ({ recipeDetails }) => (
         cookTime={recipeDetails.cookTime}
         caloricity={recipeDetails.caloricity}
         cuisineTitle={recipeDetails.cuisine.title}
-        className={styles.mb24}
+        className={styles.mb32}
       />
       <List header="Ingredients" items={recipeDetails.ingredients} className={styles.mb32} />
       <List header="Instructions" items={recipeDetails.instructions} countBullet />

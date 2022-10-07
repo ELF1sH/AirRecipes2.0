@@ -3,31 +3,7 @@
 .brief_info {
   display: flex;
   flex-wrap: wrap;
-  .item {
-    display: flex;
+  .icon_with_text {
     margin-right: 32px;
-    margin-bottom: 8px;
-    align-items: center;
-    &:last-child {
-      margin-right: 0;
-    }
-    .icon {
-      margin-right: 9px;
-    }
-    p {
-      &:first-letter {
-        text-transform: uppercase;
-      }
-    }
   }
-}
-
-.easy {
-  color: $easy;
-}
-.medium {
-  color: $medium;
-}
-.hard {
-  color: $hard;
 }

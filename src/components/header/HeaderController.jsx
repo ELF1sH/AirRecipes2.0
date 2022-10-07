@@ -1,11 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import HeaderView from './HeaderView';
-import { expandImage, shrinkImage } from '../../helpers/headerScrollBehavior';
 import { applyFilter, setNameFilter } from '../../models/store/slices/recipesListSlice';
+import getHeaderState from './headerBehaviorStates/getHeaderState';
 
-const HeaderController = () => {
+const HeaderController = ({ isFixed }) => {
   const dispatch = useDispatch();
 
   const textFieldRef = useRef(null);
@@ -17,22 +18,14 @@ const HeaderController = () => {
   const inputMiddleY = useRef(0);
   const rectTextField = useRef(null);
 
-  const handleScroll = () => {
-    const rectImage = imageRef.current.getBoundingClientRect();
+  let headerState = null;
 
-    if (rectImage.bottom > inputMiddleY.current) {
-      shrinkImage(imageRef, rectImage, headerWrapperRef);
-    }
+  const handleScroll = () => {
+    headerState.handleScroll();
   };
 
   const handleWheel = async (event) => {
-    const rectImage = imageRef.current.getBoundingClientRect();
-
-    if (event.deltaY < 0 && rectImage.height < defImageHeight.current
-      && rectImage.bottom > rectTextField.current.top && window.scrollY < 1
-    ) {
-      await expandImage(imageRef, rectImage, headerWrapperRef);
-    }
+    await headerState.handleWheel(event);
   };
 
   const handleSearchFieldChange = (value) => {
@@ -54,35 +47,52 @@ const HeaderController = () => {
     defImageHeight.current = rectImage.height;
 
     rectTextField.current = textFieldRef.current.getBoundingClientRect();
-    inputMiddleY.current = rectTextField.current.top + rectTextField.current.height / 2 + 10;
+    inputMiddleY.current = rectTextField.current.top + rectTextField.current.height / 2;
 
     headerWrapperRef.current.style.marginBottom = `${rectImage.height}px`;
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('wheel', handleWheel, { passive: true });
     window.addEventListener('keyup', handleKeyUp);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('wheel', handleWheel);
       window.removeEventListener('keyup', handleKeyUp);
     };
   }, []);
 
-  const [isModalOpened, setIsModalOpened] = useState(false);
+  useEffect(() => {
+    headerState = getHeaderState(
+      isFixed,
+      imageRef,
+      headerWrapperRef,
+      rectTextField,
+      inputMiddleY,
+      defImageHeight,
+    );
 
-  const openFilterForm = () => {
-    setIsModalOpened(true);
-  };
+    headerState.init();
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('wheel', handleWheel, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('wheel', handleWheel);
+    };
+  }, [isFixed]);
+
+  const [isModalOpened, setIsModalOpened] = useState(false);
 
   return (
     <HeaderView
       ref={ref}
+      isFixed={isFixed}
       isModalOpened={isModalOpened}
-      openFilterForm={openFilterForm}
       setIsModalOpened={setIsModalOpened}
       handleSearchFieldChange={handleSearchFieldChange}
     />
   );
+};
+
+HeaderController.propTypes = {
+  isFixed: PropTypes.bool.isRequired,
 };
 
 export default HeaderController;

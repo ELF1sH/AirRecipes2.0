@@ -3,11 +3,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 export const fetchRecipeDetails = createAsyncThunk(
   'recipes/fetchRecipeDetails', // redux toolkit names actions the same way
   async ({ id }, { rejectWithValue }) => {
-    // TODO: DON'T FORGET TO GET RID OF THIS
-    const sleep = (time) => new Promise((r) => { setTimeout(r, time); });
-
     try {
-      await sleep(2000);
       const response = await fetch(`https://test.kode-t.ru/detail_${id}.json`);
       if (!response.ok) {
         return Error('Server error');

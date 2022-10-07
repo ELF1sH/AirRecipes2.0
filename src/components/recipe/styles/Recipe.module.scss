@@ -29,7 +29,18 @@
 .image {
   width: 100%;
   max-width: 600px;
-  margin: 0 auto;
+  float: right;
+}
+
+@media (max-width: 1900px) {
+  .flex_container {
+    padding: 0 100px;
+  }
+}
+@media (max-width: 1400px) {
+  .flex_container {
+    padding: 0;
+  }
 }
 
 @media (max-width: 1000px) {
@@ -43,7 +54,11 @@
       }
       &:last-child {
         margin-left: 0;
+        .image {
+          float: left;
+        }
       }
     }
   }
+
 }

@@ -2,6 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Carousel from 'react-material-ui-carousel';
 
+import colors from '../../../scssAbstracts/_variables.scss';
+import styles from './styles/Carousel.module.scss';
+
 const CarouselView = ({ images, className }) => {
   if (!images.length) return null;
   return (
@@ -13,21 +16,37 @@ const CarouselView = ({ images, className }) => {
           stopAutoPlayOnHover
           swipe
           animation="slide"
+          duration={300}
           cycleNavigation={false}
           className={className}
           navButtonsAlwaysVisible
           indicators
-          indicatorContainerProps={{
+          fullHeightHover
+          navButtonsProps={{
             style: {
-              zIndex: 1,
-              position: 'relative',
-              top: '-10px',
+              backgroundColor: colors.shade50,
+            },
+          }}
+          activeIndicatorIconButtonProps={{
+            style: {
+              color: colors.shade50,
+            },
+          }}
+          indicatorIconButtonProps={{
+            style: {
+              color: colors.shade20,
             },
           }}
         >
           {
             images.map((item, idx) => (
-              <img key={idx} src={item} alt="" style={{ width: '100%' }} draggable={false} />
+              <div
+                key={idx}
+                style={{
+                  backgroundImage: `url("${item}")`,
+                }}
+                className={styles.carousel_item}
+              />
             ))
           }
         </Carousel>

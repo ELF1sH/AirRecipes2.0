@@ -2,12 +2,14 @@ import { expandImage, shrinkImage } from '../../../../helpers/headerScrollBehavi
 import { HeaderState } from '../headerState';
 
 export class UnfixedHeaderState extends HeaderState {
-  init() { return undefined; }
+  init() { }
+
+  OFFSET_Y = 10;
 
   handleScroll() {
     const rectImage = this.imageRef.current.getBoundingClientRect();
 
-    if (rectImage.bottom > this.inputMiddleY.current + 10) {
+    if (rectImage.bottom > this.inputMiddleY.current + this.OFFSET_Y) {
       shrinkImage(this.imageRef, rectImage, this.headerWrapperRef);
     }
   }

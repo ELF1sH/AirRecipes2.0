@@ -16,6 +16,7 @@ export const TextFieldController = React.forwardRef((
   }, [value]);
 
   const handleClear = () => {
+    setLocalValue('');
     onChange('');
   };
 

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Typography } from '@mui/material';
 
 import styles from './styles/IconWithText.module.scss';
-import colors from '../../scssAbstracts/_variables.scss';
+import colors from '../../../scssAbstracts/_variables.scss';
 
 const IconWithText = ({
   Icon, text, color, className,

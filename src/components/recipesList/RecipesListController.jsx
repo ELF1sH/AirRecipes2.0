@@ -18,7 +18,6 @@ const RecipesListController = ({ recipesState }) => {
       dispatch(applyFilter());
     }
   }, []);
-  console.log(recipesState);
 
   return (
     <RecipesListViewWithLoader

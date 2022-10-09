@@ -7,7 +7,7 @@ import { ReactComponent as CuisineIcon } from '../../../../assets/icons/recipeDe
 import { ReactComponent as TimeIcon } from '../../../../assets/icons/recipeDetailsIcons/timeIcon.svg';
 import { getCookTime } from '../../../../helpers/recipesCalculations';
 import styles from './styles/BriefInfoPanel.module.scss';
-import IconWithText from '../../../iconWithText/IconWithText';
+import IconWithText from '../../../defaultComponents/iconWithText/IconWithText';
 
 const BriefInfoPanel = ({
   difficulty, cookTime, caloricity, cuisineTitle, className,

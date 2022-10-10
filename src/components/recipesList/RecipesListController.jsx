@@ -1,21 +1,30 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { recipeShape } from '../../models/propTypesObjects/Recipes';
+import { recipeShape } from '../../models/propTypesObjects/recipes';
 import RecipesListView from './RecipesListView';
-import { fetchRecipes } from '../../models/store/slices/recipesListSlice';
+import { applyFilter, fetchRecipes } from '../../models/store/slices/recipesListSlice';
+import WithLoader from '../higherOrderComponents/withLoader/WithLoader';
+import styles from './styles/RecipesList.module.scss';
+
+const RecipesListViewWithLoader = WithLoader(RecipesListView);
 
 const RecipesListController = ({ recipesState }) => {
   const dispatch = useDispatch();
+
   useEffect(() => {
-    if (!recipesState.recipes.recipes) {
+    if (!recipesState.recipes.length) {
       dispatch(fetchRecipes());
-      // dispatch(applyFilter());
+      dispatch(applyFilter());
     }
   }, []);
 
   return (
-    <RecipesListView />
+    <RecipesListViewWithLoader
+      recipes={recipesState.recipes}
+      curStatus={recipesState.status}
+      progressCircleClassname={styles.progress_circle}
+    />
   );
 };
 

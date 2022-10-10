@@ -1,4 +1,4 @@
-import React, { useImperativeHandle, useState } from 'react';
+import React, { useEffect, useImperativeHandle, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import SliderView from './SliderView';
@@ -6,26 +6,30 @@ import SliderView from './SliderView';
 const SliderController = React.forwardRef(({
   value, onChange, min, max, className, minDistance,
 }, ref) => {
-  const [localValue, setValue] = useState(value);
+  const [localValue, setLocalValue] = useState(value);
+
+  useEffect(() => {
+    setLocalValue(value);
+  }, [value]);
 
   const handleChange = (event, newValue, activeThumb) => {
     if (!Array.isArray(newValue)) {
-      setValue(newValue);
+      setLocalValue(newValue);
       return;
     }
 
     if (activeThumb === 0) {
-      setValue([Math.min(newValue[0], value[1] - minDistance), value[1]]);
+      setLocalValue([Math.min(newValue[0], value[1] - minDistance), value[1]]);
     } else {
-      setValue([value[0], Math.max(newValue[1], value[0] + minDistance)]);
+      setLocalValue([value[0], Math.max(newValue[1], value[0] + minDistance)]);
     }
 
     onChange();
   };
 
   useImperativeHandle(ref, () => ({
-    getState: () => value,
-  }), [value]);
+    getState: () => localValue,
+  }), [localValue]);
 
   return (
     <SliderView
@@ -40,6 +44,7 @@ const SliderController = React.forwardRef(({
 
 SliderController.defaultProps = {
   className: '',
+  onChange: null,
 };
 
 SliderController.propTypes = {
@@ -48,7 +53,7 @@ SliderController.propTypes = {
   max: PropTypes.number.isRequired,
   minDistance: PropTypes.number.isRequired,
   className: PropTypes.string,
-  onChange: PropTypes.func.isRequired,
+  onChange: PropTypes.func,
 };
 
 export default SliderController;

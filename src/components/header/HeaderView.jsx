@@ -10,7 +10,7 @@ import filterIcon from '../../assets/icons/filter.svg';
 import styles from './styles/Header.module.scss';
 
 const HeaderView = React.forwardRef(({
-  openFilterForm, searchValue, setSearchValue, isModalOpened, setIsModalOpened,
+  isModalOpened, isFixed, setIsModalOpened, handleSearchFieldChange,
 }, ref) => {
   const { headerWrapperRef, textFieldRef, imageRef } = ref.current;
 
@@ -20,16 +20,17 @@ const HeaderView = React.forwardRef(({
         <div className={`${styles.header_content}`}>
           <Typography variant="h1">Air Recipes</Typography>
           <Typography variant="body1" className={styles.header_desc}>Best Recipes for Best People</Typography>
-          <div className={styles.filter_container}>
+
+          <div className={styles.filter_container} style={{ visibility: isFixed ? 'hidden' : 'initial' }}>
             <TextField
               ref={textFieldRef}
-              value={searchValue}
               className={styles.text_field}
               placeholder="Search"
-              setValue={setSearchValue}
+              onChange={handleSearchFieldChange}
             />
-            <RoundButton onClick={openFilterForm} iconSrc={filterIcon} />
+            <RoundButton onClick={() => setIsModalOpened(true)} iconSrc={filterIcon} />
           </div>
+
         </div>
       </div>
 
@@ -41,11 +42,10 @@ const HeaderView = React.forwardRef(({
 });
 
 HeaderView.propTypes = {
-  openFilterForm: PropTypes.func.isRequired,
-  searchValue: PropTypes.string.isRequired,
-  setSearchValue: PropTypes.func.isRequired,
   isModalOpened: PropTypes.bool.isRequired,
+  isFixed: PropTypes.bool.isRequired,
   setIsModalOpened: PropTypes.func.isRequired,
+  handleSearchFieldChange: PropTypes.func.isRequired,
 };
 
 export default HeaderView;

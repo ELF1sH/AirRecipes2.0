@@ -1,5 +1,3 @@
-import styles from '../components/header/styles/Header.module.scss';
-
 const IMAGE_HEIGHT_EXPAND_MULTIPLIER = 0.02;
 const IMAGE_HEIGHT_SHRINK_MULTIPLIER = 0.95;
 
@@ -17,22 +15,8 @@ export const expandImage = async (imageRef, rectImage, headerWrapperRef) => {
   }
 };
 
-export const shrinkImage = (imageRef, rectImage, headerWrapperRef, posFixed) => {
+export const shrinkImage = (imageRef, rectImage, headerWrapperRef) => {
   window.scrollTo(0, 0);
   imageRef.current.style.height = `${rectImage.height * IMAGE_HEIGHT_SHRINK_MULTIPLIER}px`;
-  if (posFixed.current) {
-    headerWrapperRef.current.style.marginBottom = `${rectImage.height}px`;
-  } else {
-    headerWrapperRef.current.style.marginBottom = `${0}px`;
-  }
-};
-
-export const fixImageToTop = (imageRef, rectImage, headerWrapperRef) => {
-  imageRef.current.className += ` ${styles.image_wrapper_fixed}`;
   headerWrapperRef.current.style.marginBottom = `${rectImage.height}px`;
-};
-
-export const unfixImageFromTop = (imageRef, headerWrapperRef) => {
-  imageRef.current.className = imageRef.current.className.replace(`${styles.image_wrapper_fixed}`, '');
-  headerWrapperRef.current.style.marginBottom = '0';
 };

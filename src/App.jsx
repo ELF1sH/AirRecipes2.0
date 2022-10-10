@@ -1,13 +1,12 @@
 import React from 'react';
 
-import RoutesWrapper from './components/routesWrapper/RoutesWrapperProvider';
-import Header from './components/header/HeaderProvider';
+import RoutesWrapper from './components/routesWrapper/RoutesWrapper';
+import MainContainer from './components/mainContainer/MainContainer';
 
 const App = () => (
-  <div>
-    <Header />
+  <MainContainer>
     <RoutesWrapper />
-  </div>
+  </MainContainer>
 );
 
 export default App;

@@ -1,0 +1,15 @@
+@import "../../../../scssAbstracts/variables";
+
+.wrapper {
+  display: flex;
+  align-items: center;
+  .icon {
+    margin-right: 9px;
+  }
+  &:last-child {
+    margin-right: 0;
+    &:first-letter {
+      text-transform: uppercase;
+    }
+  }
+}

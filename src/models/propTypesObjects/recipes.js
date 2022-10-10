@@ -24,7 +24,7 @@ export const filterShape = PropTypes.shape({
   nameFilter: PropTypes.string,
 });
 
-export const recipesShape = PropTypes.shape({
+export const recipesStateShape = PropTypes.shape({
   cuisines: PropTypes
     .arrayOf(cuisineShape)
     .isRequired,
@@ -38,6 +38,6 @@ export const recipesShape = PropTypes.shape({
     .isRequired,
   error: PropTypes.string,
   status: PropTypes
-    .string
+    .oneOf(['pending', 'resolved', 'rejected'])
     .isRequired,
 });

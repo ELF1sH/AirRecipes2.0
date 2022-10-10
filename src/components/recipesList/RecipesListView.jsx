@@ -1,64 +1,21 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-const RecipesListView = () => (
-  <>
-    <p>1</p>
-    <p>2</p>
-    <p>3</p>
-    <p>4</p>
-    <p>5</p>
-    <p>6</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-    <p>Recipes list</p>
-  </>
+import RecipeCardController from '../recipeCard/RecipeCardController';
+import WithAppearAnimation from '../higherOrderComponents/withAppearAnimation/WithAppearAnimation';
+import { recipeShape } from '../../models/propTypesObjects/recipes';
+import styles from './styles/RecipesList.module.scss';
+
+const RecipeCardWithAppearAnim = WithAppearAnimation(RecipeCardController, 'slideBottom');
+
+const RecipesListView = ({ recipes }) => (
+  <div className={styles.grid_wrapper}>
+    {recipes.map((recipe) => <RecipeCardWithAppearAnim key={recipe.id} recipe={recipe} />)}
+  </div>
 );
+
+RecipesListView.propTypes = {
+  recipes: PropTypes.arrayOf(recipeShape).isRequired,
+};
 
 export default RecipesListView;

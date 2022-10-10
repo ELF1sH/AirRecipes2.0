@@ -55,11 +55,11 @@ const recipesListSlice = createSlice({
         { id: item.id, status: true }
       ));
     },
-    resetCurFilterStateToFilterState: (state) => {
+    resetCurFilterStateToPreviousState: (state) => {
       state.curFilterState = state.filterState;
     },
     applyFilter: (state) => {
-      let { recipes } = current(state.initialRecipes);
+      let recipes = current(state.initialRecipes);
       if (!recipes) return;
       state.filterState = state.curFilterState;
 
@@ -77,7 +77,7 @@ const recipesListSlice = createSlice({
         .map((x) => x.id);
       recipes = recipes.filter((x) => cuisinesIds.includes(x.cuisine.id));
 
-      state.recipes = { recipes };
+      state.recipes = recipes;
     },
   },
   extraReducers: {
@@ -89,7 +89,7 @@ const recipesListSlice = createSlice({
       state.status = 'resolved';
 
       state.recipes = action.payload.recipes;
-      state.initialRecipes = state.recipes;
+      state.initialRecipes = action.payload.recipes;
 
       state.cuisines = action.payload.recipes
         .map((recipe) => recipe.cuisine)
@@ -110,6 +110,6 @@ const recipesListSlice = createSlice({
 
 export const {
   setNameFilter, setCuisineFilter, setCalFilter, clearFilter,
-  applyFilter, resetCurFilterStateToFilterState,
+  applyFilter, resetCurFilterStateToPreviousState,
 } = recipesListSlice.actions;
 export default recipesListSlice.reducer;

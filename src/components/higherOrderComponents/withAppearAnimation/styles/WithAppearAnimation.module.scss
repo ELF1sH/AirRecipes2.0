@@ -1,0 +1,25 @@
+.slideBottom {
+  transform: translateY(-40px);
+  opacity: 0;
+  animation: slideBottom 0.3s ease-in forwards;
+}
+
+@keyframes slideBottom {
+  100% {
+    transform: translateY(0px);
+    opacity: 1;
+  }
+}
+
+.slideRight {
+  transform: translateX(-40px);
+  opacity: 0;
+  animation: slideRight 0.3s ease-in forwards;
+}
+
+@keyframes slideRight {
+  100% {
+    transform: translateX(0px);
+    opacity: 1;
+  }
+}

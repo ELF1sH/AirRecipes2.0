@@ -1,59 +1,44 @@
 import React, { useEffect, useRef, useState } from 'react';
-// import { useDispatch } from "react-redux";
+import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import HeaderView from './HeaderView';
-import {
-  expandImage, fixImageToTop, shrinkImage, unfixImageFromTop,
-} from '../../helpers/headerScrollBehavior';
+import { applyFilter, setNameFilter } from '../../models/store/slices/recipesListSlice';
+import getHeaderState from './headerBehaviorStates/getHeaderState';
 
-const HeaderController = () => {
+const HeaderController = ({ isFixed }) => {
+  const dispatch = useDispatch();
+
   const textFieldRef = useRef(null);
   const imageRef = useRef(null);
   const headerWrapperRef = useRef(null);
   const ref = useRef({ textFieldRef, imageRef, headerWrapperRef });
 
-  // const dispatch = useDispatch()
   const defImageHeight = useRef(0);
   const inputMiddleY = useRef(0);
-  const prevImageHeight = useRef(0);
-  const posFixed = useRef(false);
+  const rectTextField = useRef(null);
+
+  let headerState = null;
 
   const handleScroll = () => {
-    const rectImage = imageRef.current.getBoundingClientRect();
-
-    if (rectImage.bottom > inputMiddleY.current) {
-      shrinkImage(imageRef, rectImage, headerWrapperRef, posFixed);
-    }
-
-    if (rectImage.height === prevImageHeight.current && !posFixed.current) {
-      posFixed.current = true;
-      fixImageToTop(imageRef, rectImage, headerWrapperRef);
-    }
-
-    prevImageHeight.current = rectImage.height;
+    headerState.handleScroll();
   };
 
   const handleWheel = async (event) => {
-    const rectImage = imageRef.current.getBoundingClientRect();
-    const rectInput = textFieldRef.current.getBoundingClientRect();
-    if (event.deltaY < 0 && rectImage.height < defImageHeight.current
-      && rectImage.bottom > rectInput.top && window.scrollY < 1
-    ) {
-      await expandImage(imageRef, rectImage, headerWrapperRef);
-    }
+    await headerState.handleWheel(event);
+  };
 
-    if (rectImage.height !== prevImageHeight.current && posFixed.current && window.scrollY > 0) {
-      posFixed.current = false;
-      unfixImageFromTop(imageRef, headerWrapperRef);
+  const handleSearchFieldChange = (value) => {
+    if (!value) {
+      dispatch(setNameFilter(value));
+      dispatch(applyFilter());
     }
   };
 
-  const [isModalOpened, setIsModalOpened] = useState(false);
-
   const handleKeyUp = (event) => {
     if (event.key === 'Enter') {
-      // dispatch(setNameFilter(searchValue.current.trim()))
-      // dispatch(applyFilter())
+      dispatch(setNameFilter(textFieldRef.current.value.trim()));
+      dispatch(applyFilter());
     }
   };
 
@@ -61,43 +46,53 @@ const HeaderController = () => {
     const rectImage = imageRef.current.getBoundingClientRect();
     defImageHeight.current = rectImage.height;
 
-    const rectInput = textFieldRef.current.getBoundingClientRect();
-    inputMiddleY.current = rectInput.top + rectInput.height / 2 + 10;
+    rectTextField.current = textFieldRef.current.getBoundingClientRect();
+    inputMiddleY.current = rectTextField.current.top + rectTextField.current.height / 2;
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('wheel', handleWheel, { passive: true });
+    headerWrapperRef.current.style.marginBottom = `${rectImage.height}px`;
+
     window.addEventListener('keyup', handleKeyUp);
     return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('wheel', handleWheel);
       window.removeEventListener('keyup', handleKeyUp);
     };
   }, []);
 
-  const openFilterForm = () => {
-    setIsModalOpened(true);
-  };
+  useEffect(() => {
+    headerState = getHeaderState(
+      isFixed,
+      imageRef,
+      headerWrapperRef,
+      rectTextField,
+      inputMiddleY,
+      defImageHeight,
+    );
 
-  const [searchValue, setSearchValue] = useState('');
+    headerState.init();
 
-  // const searchFieldOnChange = (value) => {
-  //   setSearchValue(value);
-  //   if (!value) {
-  //     // dispatch(setNameFilter(value))
-  //     // dispatch(applyFilter())
-  //   }
-  // };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('wheel', handleWheel, { passive: true });
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('wheel', handleWheel);
+    };
+  }, [isFixed]);
+
+  const [isModalOpened, setIsModalOpened] = useState(false);
 
   return (
     <HeaderView
       ref={ref}
-      searchValue={searchValue}
+      isFixed={isFixed}
       isModalOpened={isModalOpened}
-      setSearchValue={setSearchValue}
-      openFilterForm={openFilterForm}
       setIsModalOpened={setIsModalOpened}
+      handleSearchFieldChange={handleSearchFieldChange}
     />
   );
+};
+
+HeaderController.propTypes = {
+  isFixed: PropTypes.bool.isRequired,
 };
 
 export default HeaderController;

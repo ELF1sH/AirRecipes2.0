@@ -7,7 +7,9 @@ const RecipesListProvider = () => {
   const recipesState = useSelector((state) => state.recipes);
 
   return (
-    <RecipesListController recipesState={recipesState} />
+    <RecipesListController
+      recipesState={recipesState}
+    />
   );
 };
 

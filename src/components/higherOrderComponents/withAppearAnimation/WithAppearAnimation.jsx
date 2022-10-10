@@ -1,10 +1,10 @@
 import React from 'react';
 
-import styles from './styles/AppearAnimation.module.scss';
+import styles from './styles/WithAppearAnimation.module.scss';
 
 const availableAnimations = ['slideBottom', 'slideRight'];
 
-const AppearAnimation = (Component, animType) => {
+const WithAppearAnimation = (Component, animType) => {
   if (!availableAnimations.includes(animType)) {
     throw new Error(`Unknown animation type '${animType}'`);
   }
@@ -12,4 +12,4 @@ const AppearAnimation = (Component, animType) => {
   return (props) => <Component className={styles[animType]} {...props} />;
 };
 
-export default AppearAnimation;
+export default WithAppearAnimation;

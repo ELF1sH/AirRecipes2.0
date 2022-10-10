@@ -6,22 +6,22 @@ import SliderView from './SliderView';
 const SliderController = React.forwardRef(({
   value, onChange, min, max, className, minDistance,
 }, ref) => {
-  const [localValue, setValue] = useState(value);
+  const [localValue, setLocalValue] = useState(value);
 
   useEffect(() => {
-    setValue(value);
+    setLocalValue(value);
   }, [value]);
 
   const handleChange = (event, newValue, activeThumb) => {
     if (!Array.isArray(newValue)) {
-      setValue(newValue);
+      setLocalValue(newValue);
       return;
     }
 
     if (activeThumb === 0) {
-      setValue([Math.min(newValue[0], value[1] - minDistance), value[1]]);
+      setLocalValue([Math.min(newValue[0], value[1] - minDistance), value[1]]);
     } else {
-      setValue([value[0], Math.max(newValue[1], value[0] + minDistance)]);
+      setLocalValue([value[0], Math.max(newValue[1], value[0] + minDistance)]);
     }
 
     onChange();

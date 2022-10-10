@@ -14,6 +14,7 @@ const getHeaderState = (
       new FixedHeaderState(imageRef, headerWrapperRef, rectTextField, inputMiddleY, defImageHeight)
     );
   }
+
   return (
     new UnfixedHeaderState(imageRef, headerWrapperRef, rectTextField, inputMiddleY, defImageHeight)
   );

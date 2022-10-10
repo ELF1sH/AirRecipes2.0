@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import RecipeCardController from '../recipeCard/RecipeCardController';
-import AppearAnimation from '../higherOrderComponents/appearAnimation/AppearAnimation';
+import WithAppearAnimation from '../higherOrderComponents/withAppearAnimation/WithAppearAnimation';
 import { recipeShape } from '../../models/propTypesObjects/recipes';
 import styles from './styles/RecipesList.module.scss';
 
-const RecipeCardWithAppearAnim = AppearAnimation(RecipeCardController, 'slideBottom');
+const RecipeCardWithAppearAnim = WithAppearAnimation(RecipeCardController, 'slideBottom');
 
 const RecipesListView = ({ recipes }) => (
   <div className={styles.grid_wrapper}>

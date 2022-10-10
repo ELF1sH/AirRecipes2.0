@@ -28,10 +28,16 @@ const RecipeCardView = ({
 
     <CardContent sx={{ padding: '24px', userSelect: 'none' }}>
       <Typography variant="h3" className={styles.card_header}>{recipe.title}</Typography>
-      <Typography variant="body1">
-        {recipe.description.length < 50
-          ? recipe.description
-          : `${recipe.description.substring(0, 147)}...`}
+      <Typography
+        variant="body1"
+        sx={{
+          display: '-webkit-box',
+          WebkitLineClamp: '4',
+          WebkitBoxOrient: 'vertical',
+          overflow: 'hidden',
+        }}
+      >
+        {recipe.description}
       </Typography>
     </CardContent>
   </Card>

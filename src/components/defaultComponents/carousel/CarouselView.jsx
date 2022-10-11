@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
-// import colors from '../../../scssAbstracts/_variables.scss';
-// import styles from './styles/Carousel.module.scss';
 import './styles/carousel.scss';
 
 const CarouselView = ({ images, className }) => {

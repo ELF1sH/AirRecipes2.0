@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Carousel from 'react-material-ui-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css'; // requires a loader
+import { Carousel } from 'react-responsive-carousel';
 
-import colors from '../../../scssAbstracts/_variables.scss';
-import styles from './styles/Carousel.module.scss';
+// import colors from '../../../scssAbstracts/_variables.scss';
+// import styles from './styles/Carousel.module.scss';
+import './styles/carousel.scss';
 
 const CarouselView = ({ images, className }) => {
   if (!images.length) return null;
@@ -12,41 +14,19 @@ const CarouselView = ({ images, className }) => {
       ? <img src={images[0]} alt="" style={{ width: '100%' }} className={className} />
       : (
         <Carousel
-          autoPlay
-          stopAutoPlayOnHover
-          swipe
-          animation="slide"
-          duration={300}
-          cycleNavigation={false}
-          className={className}
-          navButtonsAlwaysVisible
-          indicators
-          fullHeightHover
-          navButtonsProps={{
-            style: {
-              backgroundColor: colors.shade50,
-            },
-          }}
-          activeIndicatorIconButtonProps={{
-            style: {
-              color: colors.shade50,
-            },
-          }}
-          indicatorIconButtonProps={{
-            style: {
-              color: colors.shade20,
-            },
-          }}
+          showThumbs
+          swipeable
+          showStatus={false}
+          thumbWidth={56}
         >
           {
             images.map((item, idx) => (
               <div
                 key={idx}
-                style={{
-                  backgroundImage: `url("${item}")`,
-                }}
-                className={styles.carousel_item}
-              />
+                className="item-wrapper"
+              >
+                <img src={item} alt="" className="carousel-item" />
+              </div>
             ))
           }
         </Carousel>

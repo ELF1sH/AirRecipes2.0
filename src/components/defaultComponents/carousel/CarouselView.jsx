@@ -13,9 +13,9 @@ const CarouselView = ({ images, className }) => {
       : (
         <Carousel
           showThumbs
-          swipeable
           showStatus={false}
           thumbWidth={56}
+          emulateTouch
         >
           {
             images.map((item, idx) => (

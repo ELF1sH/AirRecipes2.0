@@ -2,7 +2,8 @@ import React, { useMemo } from 'react';
 import PropTypes from 'prop-types';
 
 import CuisinesFilterListView from './CuisinesFilterListView';
-import { recipesStateShape } from '../../../../models/propTypesObjects/recipes';
+
+import { recipesStateShape } from '@models/propTypesObjects/recipes';
 
 const CuisinesFilterListController = ({ recipes, handleCheckboxChange }) => {
   const getCurCuisinesFiltersStatus = () => (

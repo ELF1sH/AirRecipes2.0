@@ -5,9 +5,10 @@ import {
   Card, CardContent, CardMedia, Chip, Typography,
 } from '@mui/material';
 
-import { recipeShape } from '../../models/propTypesObjects/recipes';
-import { getCookTime } from '../../helpers/recipesCalculations';
 import styles from './styles/RecipeCard.module.scss';
+
+import { recipeShape } from '@models/propTypesObjects/recipes';
+import { getCookTime } from '@helpers/recipesCalculations';
 
 const RecipeCardView = ({
   recipe, className, handleClick,

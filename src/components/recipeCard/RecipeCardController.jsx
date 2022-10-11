@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 
 import RecipeCardView from './RecipeCardView';
-import { recipeShape } from '../../models/propTypesObjects/recipes';
+
+import { recipeShape } from '@models/propTypesObjects/recipes';
 
 const RecipeCardController = ({ recipe, className }) => {
   const navigate = useNavigate();

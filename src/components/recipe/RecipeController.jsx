@@ -3,10 +3,11 @@ import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 
 import RecipeView from './RecipeView';
-import WithLoader from '../higherOrderComponents/withLoader/WithLoader';
-import { fetchRecipeDetails } from '../../models/store/slices/recipeSlice';
-import { recipeDetailsStateShape } from '../../models/propTypesObjects/recipeDetails';
 import styles from './styles/Recipe.module.scss';
+
+import WithLoader from '@higherOrderComponents/withLoader/WithLoader';
+import { fetchRecipeDetails } from '@models/store/slices/recipeSlice';
+import { recipeDetailsStateShape } from '@models/propTypesObjects/recipeDetails';
 
 const RecipeViewWithLoader = WithLoader(RecipeView);
 

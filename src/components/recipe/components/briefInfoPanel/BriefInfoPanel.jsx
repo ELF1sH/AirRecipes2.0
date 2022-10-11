@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { ReactComponent as DifficultyIcon } from '../../../../assets/icons/recipeDetailsIcons/difficultyIcon.svg';
-import { ReactComponent as CaloriesIcon } from '../../../../assets/icons/recipeDetailsIcons/caloriesIcon.svg';
-import { ReactComponent as CuisineIcon } from '../../../../assets/icons/recipeDetailsIcons/cuisineIcon.svg';
-import { ReactComponent as TimeIcon } from '../../../../assets/icons/recipeDetailsIcons/timeIcon.svg';
-import { getCookTime } from '../../../../helpers/recipesCalculations';
 import styles from './styles/BriefInfoPanel.module.scss';
-import IconWithText from '../../../defaultComponents/iconWithText/IconWithText';
+
+import { ReactComponent as DifficultyIcon } from '@assets/icons/recipeDetailsIcons/difficultyIcon.svg';
+import { ReactComponent as CaloriesIcon } from '@assets/icons/recipeDetailsIcons/caloriesIcon.svg';
+import { ReactComponent as CuisineIcon } from '@assets/icons/recipeDetailsIcons/cuisineIcon.svg';
+import { ReactComponent as TimeIcon } from '@assets/icons/recipeDetailsIcons/timeIcon.svg';
+import { getCookTime } from '@helpers/recipesCalculations';
+import IconWithText from '@defaultComponents/iconWithText/IconWithText';
 
 const BriefInfoPanel = ({
   difficulty, cookTime, caloricity, cuisineTitle, className,

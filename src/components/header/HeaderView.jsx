@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 
 import { Typography } from '@mui/material';
 
-import TextField from '../defaultComponents/textField/TextFieldController';
-import RoundButton from '../defaultComponents/roundButton/RoundButtonController';
-import FilterForm from '../filterForm/FilterFormProvider';
-import filterIcon from '../../assets/icons/filter.svg';
 import styles from './styles/Header.module.scss';
+
+import RoundButton from '@defaultComponents/roundButton/RoundButtonController';
+import TextField from '@defaultComponents/textField/TextFieldController';
+import FilterForm from '@components/filterForm/FilterFormProvider';
+import filterIcon from '@assets/icons/filter.svg';
 
 const HeaderView = React.forwardRef(({
   isModalOpened, isFixed, setIsModalOpened, handleSearchFieldChange,

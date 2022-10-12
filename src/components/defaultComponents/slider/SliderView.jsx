@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Slider as MuiSlider } from '@mui/material';
 
-import colors from '../../../scssAbstracts/_variables.scss';
+import colors from '@scssAbstracts/_variables.scss';
 
 const SliderView = ({
   value, handleChange, min, max, className,

@@ -3,13 +3,14 @@ import PropTypes from 'prop-types';
 
 import { Typography } from '@mui/material';
 
-import Modal from '../defaultComponents/modal/ModalController';
-import Slider from '../defaultComponents/slider/SliderController';
 import ButtonRow from './components/buttonRow/ButtonRowController';
 import CuisinesFilterListController from './components/cuisinesFilterList/CuisinesFilterListController';
-import { recipesStateShape } from '../../models/propTypesObjects/recipes';
 import styles from './styles/FilterForm.module.scss';
-import { CAL_SLIDER_MIN_VALUE, CAL_SLIDER_MAX_VALUE } from '../../models/store/slices/recipesListSlice';
+
+import Modal from '@defaultComponents/modal/ModalController';
+import Slider from '@defaultComponents/slider/SliderController';
+import { recipesStateShape } from '@models/propTypesObjects/recipes';
+import { CAL_SLIDER_MIN_VALUE, CAL_SLIDER_MAX_VALUE } from '@models/store/slices/recipesListSlice';
 
 const FilterFormView = React.forwardRef(({
   isModalOpened, handleClose, recipes, handleSliderChange, isFilterChanged, handleBtnApplyClick,

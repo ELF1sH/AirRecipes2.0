@@ -2,11 +2,12 @@ import React from 'react';
 
 import { Typography } from '@mui/material';
 
-import { recipeDetailsShape } from '../../models/propTypesObjects/recipeDetails';
 import BriefInfoPanel from './components/briefInfoPanel/BriefInfoPanel';
-import List from '../defaultComponents/list/ListController';
 import styles from './styles/Recipe.module.scss';
-import Carousel from '../defaultComponents/carousel/CarouselView';
+
+import { recipeDetailsShape } from '@models/propTypesObjects/recipeDetails';
+import List from '@defaultComponents/list/ListController';
+import Carousel from '@defaultComponents/carousel/CarouselView';
 
 const RecipeView = ({ recipeDetails }) => (
   <div className={styles.flex_container}>

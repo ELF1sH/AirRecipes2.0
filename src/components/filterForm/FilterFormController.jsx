@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 
 import FilterFormView from './FilterFormView';
-import { recipesStateShape } from '../../models/propTypesObjects/recipes';
+
 import {
   applyFilter,
   CAL_SLIDER_MAX_VALUE,
@@ -12,7 +12,8 @@ import {
   resetCurFilterStateToPreviousState,
   setCalFilter,
   setCuisineFilter,
-} from '../../models/store/slices/recipesListSlice';
+} from '@models/store/slices/recipesListSlice';
+import { recipesStateShape } from '@models/propTypesObjects/recipes';
 
 const FilterFormController = ({ isModalOpened, setIsModalOpened, recipes }) => {
   const dispatch = useDispatch();

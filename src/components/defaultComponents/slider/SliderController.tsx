@@ -3,9 +3,18 @@ import PropTypes from 'prop-types';
 
 import SliderView from './SliderView';
 
+interface SliderControllerProps {
+  value: Array<number>,
+  onChange: () => void,
+  min: number,
+  max: number,
+  className: string,
+  minDistance: number,
+}
+
 const SliderController = React.forwardRef(({
   value, onChange, min, max, className, minDistance,
-}, ref) => {
+}: SliderControllerProps, ref) => {
   const [localValue, setLocalValue] = useState(value);
 
   useEffect(() => {

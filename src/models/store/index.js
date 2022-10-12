@@ -1,7 +1,7 @@
-import { configureStore } from '@reduxjs/toolkit';
-
 import recipesReducer from './slices/recipesListSlice';
 import recipeDetailsReducer from './slices/recipeSlice';
+
+import { configureStore } from '@reduxjs/toolkit';
 
 export default configureStore({
   reducer: {

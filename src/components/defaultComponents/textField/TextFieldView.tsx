@@ -1,13 +1,27 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { ChangeEvent } from 'react';
 
 import styles from './styles/TextField.module.scss';
 import searchIcon from '../../../assets/icons/search.svg';
 import clearInputIcon from '../../../assets/icons/clearInput.svg';
 
-const TextFieldView = React.forwardRef(({
-  handleChange, handleClear, className, placeholder, value,
-}, ref) => (
+interface TextFieldViewProps {
+  handleChange: (event : ChangeEvent<HTMLInputElement>) => void,
+  handleClear: () => void,
+  className: string,
+  placeholder: string,
+  value: string,
+}
+
+const TextFieldView = React.forwardRef((
+  {
+    handleChange,
+    handleClear,
+    className,
+    placeholder,
+    value,
+  } : TextFieldViewProps,
+  ref : React.RefObject<HTMLInputElement>,
+) => (
   <div className={`${styles.input_wrapper} ${className}`}>
     <img src={searchIcon} className={styles.search_icon} alt="" draggable={false} />
     <input
@@ -25,13 +39,5 @@ const TextFieldView = React.forwardRef(({
       }
   </div>
 ));
-
-TextFieldView.propTypes = {
-  handleChange: PropTypes.func.isRequired,
-  handleClear: PropTypes.func.isRequired,
-  className: PropTypes.string.isRequired,
-  placeholder: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
-};
 
 export default TextFieldView;

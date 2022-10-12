@@ -1,15 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 
 import TextFieldView from './TextFieldView';
 
-export const TextFieldController = React.forwardRef((
+interface TextFieldControllerProps {
+  value?: string,
+  onChange?: (value: string) => void,
+  className?: string,
+  placeholder?: string,
+}
+
+const TextFieldController = React.forwardRef((
   {
-    value, onChange, className, placeholder,
-  },
-  ref,
+    value = '',
+    onChange = null,
+    className = '',
+    placeholder = '',
+  } : TextFieldControllerProps,
+  ref : React.RefObject<HTMLInputElement>,
 ) => {
-  const [localValue, setLocalValue] = useState(value);
+  const [localValue, setLocalValue] = useState<string>(value);
 
   useEffect(() => {
     setLocalValue(value);
@@ -36,19 +45,5 @@ export const TextFieldController = React.forwardRef((
     />
   );
 });
-
-TextFieldController.defaultProps = {
-  value: '',
-  onChange: null,
-  className: '',
-  placeholder: '',
-};
-
-TextFieldController.propTypes = {
-  value: PropTypes.string,
-  className: PropTypes.string,
-  placeholder: PropTypes.string,
-  onChange: PropTypes.func,
-};
 
 export default TextFieldController;

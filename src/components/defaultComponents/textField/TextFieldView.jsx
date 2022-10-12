@@ -2,9 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import styles from './styles/TextField.module.scss';
-
-import searchIcon from '@assets/icons/search.svg';
-import clearInputIcon from '@assets/icons/clearInput.svg';
+import searchIcon from '../../../assets/icons/search.svg';
+import clearInputIcon from '../../../assets/icons/clearInput.svg';
 
 const TextFieldView = React.forwardRef(({
   handleChange, handleClear, className, placeholder, value,

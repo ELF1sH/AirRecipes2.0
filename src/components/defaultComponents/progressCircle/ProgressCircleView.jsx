@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { CircularProgress } from '@mui/material';
 
-import colors from '@scssAbstracts/_variables.scss';
+import colors from '../../../scssAbstracts/_variables.scss';
 
 const ProgressCircleView = ({ className }) => (
   <CircularProgress

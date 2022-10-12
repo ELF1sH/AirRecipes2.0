@@ -2,10 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { IconButton, Modal as MuiModal } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
 import styles from './styles/Modal.module.scss';
-
-import CloseIcon from '@mui/icons-material/Close';
 
 const ModalView = ({ isOpen, handleClose, children }) => (
   <MuiModal

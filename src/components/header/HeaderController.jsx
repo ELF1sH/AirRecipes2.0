@@ -3,9 +3,8 @@ import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import HeaderView from './HeaderView';
+import { applyFilter, setNameFilter } from '../../models/store/slices/recipesListSlice';
 import getHeaderState from './headerBehaviorStates/getHeaderState';
-
-import { applyFilter, setNameFilter } from '@models/store/slices/recipesListSlice';
 
 const HeaderController = ({ isFixed }) => {
   const dispatch = useDispatch();

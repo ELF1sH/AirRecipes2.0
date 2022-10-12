@@ -3,8 +3,7 @@ import useRipple from 'use-ripple-hook/ripple';
 import PropTypes from 'prop-types';
 
 import RoundButtonView from './RoundButtonView';
-
-import colors from '@scssAbstracts/_variables.scss';
+import colors from '../../../scssAbstracts/_variables.scss';
 
 const RoundButtonController = ({ onClick, iconSrc }) => {
   const [ripple, event] = useRipple({

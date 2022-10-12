@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import { Button } from '@mui/material';
 
-import colors from '@scssAbstracts/_variables.scss';
+import colors from '../../../../scssAbstracts/_variables.scss';
 
 const ButtonRowView = ({ isFilterChanged, handleBtnApplyClick, handleClearForm }) => (
   <div>

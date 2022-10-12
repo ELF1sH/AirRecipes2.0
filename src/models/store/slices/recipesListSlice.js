@@ -100,6 +100,7 @@ const recipesListSlice = createSlice({
       state.curFilterState.cuisineFilter = state.cuisines.map((item) => (
         { id: item.id, status: true }
       ));
+      state.filterState.cuisineFilter = state.curFilterState.cuisineFilter;
     },
     [fetchRecipes.rejected]: (state, action) => {
       state.status = 'rejected';

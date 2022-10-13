@@ -1,11 +1,18 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import { Typography } from '@mui/material';
 
 import styles from './styles/List.module.scss';
+import { ListItem } from './types';
 
-const ListView = ({
+interface ListViewProps {
+  items: ListItem[],
+  className: string,
+  countBullet: boolean,
+  header: string,
+}
+
+const ListView: React.FC<ListViewProps> = ({
   items, className, countBullet, header,
 }) => (
   <div className={className}>
@@ -33,15 +40,5 @@ const ListView = ({
     }
   </div>
 );
-
-ListView.propTypes = {
-  items: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.number,
-    value: PropTypes.string,
-  })).isRequired,
-  className: PropTypes.string.isRequired,
-  countBullet: PropTypes.bool.isRequired,
-  header: PropTypes.string.isRequired,
-};
 
 export default ListView;

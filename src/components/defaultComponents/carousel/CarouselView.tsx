@@ -1,11 +1,18 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 import './styles/carousel.scss';
 
-const CarouselView = ({ images, className }) => {
+interface CarouselViewProps {
+  images: string[],
+  className?: string,
+}
+
+const CarouselView: React.FC<CarouselViewProps> = ({
+  images,
+  className = '',
+}) => {
   if (!images.length) return null;
   return (
     images.length === 1
@@ -18,7 +25,7 @@ const CarouselView = ({ images, className }) => {
           emulateTouch
         >
           {
-            images.map((item, idx) => (
+            images.map((item: string, idx: number) => (
               <div
                 key={idx}
                 className="item-wrapper"
@@ -30,15 +37,6 @@ const CarouselView = ({ images, className }) => {
         </Carousel>
       )
   );
-};
-
-CarouselView.defaultProps = {
-  className: '',
-};
-
-CarouselView.propTypes = {
-  images: PropTypes.arrayOf(PropTypes.string).isRequired,
-  className: PropTypes.string,
 };
 
 export default CarouselView;

@@ -1,33 +1,30 @@
 import React from 'react';
 import useRipple from 'use-ripple-hook/ripple';
-import PropTypes from 'prop-types';
 
 import RoundButtonView from './RoundButtonView';
 import colors from '../../../scssAbstracts/_variables.scss';
 
-const RoundButtonController = ({ onClick, iconSrc }) => {
-  const [ripple, event] = useRipple({
+interface RoundButtonControllerProps {
+  onClick?: () => void,
+  iconSrc?: string,
+}
+
+const RoundButtonController: React.FC<RoundButtonControllerProps> = ({
+  onClick = null,
+  iconSrc = null,
+}) => {
+  const [ripple, onRipple] = useRipple({
     color: colors.shade20,
   });
 
   return (
     <RoundButtonView
-      ref={ripple}
       iconSrc={iconSrc}
       handleClick={onClick}
-      event={event}
+      ref={ripple}
+      onRipple={onRipple}
     />
   );
-};
-
-RoundButtonController.defaultProps = {
-  iconSrc: null,
-  onClick: null,
-};
-
-RoundButtonController.propTypes = {
-  iconSrc: PropTypes.string,
-  onClick: PropTypes.func,
 };
 
 export default RoundButtonController;

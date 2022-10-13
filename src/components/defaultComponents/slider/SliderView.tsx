@@ -5,10 +5,10 @@ import { Slider as MuiSlider } from '@mui/material';
 import { sliderSx } from './styles/styles';
 
 interface SliderViewProps {
-  value: Array<number>,
+  value: number[],
   min: number,
   max: number,
-  handleChange: (event: Event, newValue: Array<number>, activeThumb: 0 | 1) => void,
+  handleChange: (event: Event, newValue: number[], activeThumb: 0 | 1) => void,
   className: string,
 }
 

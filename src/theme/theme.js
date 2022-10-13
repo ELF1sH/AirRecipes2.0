@@ -1,6 +1,6 @@
-import { createTheme } from '@mui/material/styles';
-
 import colors from '../scssAbstracts/_variables.scss';
+
+import { createTheme } from '@mui/material/styles';
 
 const theme = createTheme({
   typography: {
@@ -34,6 +34,15 @@ const theme = createTheme({
     },
     span: {
       fontFamily: ['Roboto', 'sans-serif'].join(','),
+    },
+  },
+  components: {
+    MuiBackdrop: {
+      styleOverrides: {
+        root: {
+          backgroundColor: 'rgba(255, 255, 255, 0.5)',
+        },
+      },
     },
   },
 });

@@ -1,11 +1,16 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import { CircularProgress } from '@mui/material';
 
 import colors from '../../../scssAbstracts/_variables.scss';
 
-const ProgressCircleView = ({ className }) => (
+interface ProgressCircleViewProps {
+  className?: string,
+}
+
+const ProgressCircleView: React.FC<ProgressCircleViewProps> = ({
+  className = '',
+}) => (
   <CircularProgress
     size="3rem"
     sx={{
@@ -17,13 +22,5 @@ const ProgressCircleView = ({ className }) => (
     className={className}
   />
 );
-
-ProgressCircleView.defaultProps = {
-  className: '',
-};
-
-ProgressCircleView.propTypes = {
-  className: PropTypes.string,
-};
 
 export default ProgressCircleView;

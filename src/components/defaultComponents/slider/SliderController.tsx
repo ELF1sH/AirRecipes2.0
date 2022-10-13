@@ -1,27 +1,29 @@
-import React, { useEffect, useImperativeHandle, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, {
+  useEffect, useImperativeHandle, useState, RefObject,
+} from 'react';
 
 import SliderView from './SliderView';
+import { GetStateHandle } from '../textField/types';
 
 interface SliderControllerProps {
-  value: Array<number>,
-  onChange: () => void,
+  value: number[],
   min: number,
   max: number,
-  className: string,
   minDistance: number,
+  className?: string,
+  onChange?: () => void,
 }
 
 const SliderController = React.forwardRef(({
-  value, onChange, min, max, className, minDistance,
-}: SliderControllerProps, ref) => {
+  value, min, max, minDistance, className = '', onChange = null,
+}: SliderControllerProps, ref: RefObject<GetStateHandle>) => {
   const [localValue, setLocalValue] = useState(value);
 
   useEffect(() => {
     setLocalValue(value);
   }, [value]);
 
-  const handleChange = (event, newValue, activeThumb) => {
+  const handleChange = (event: Event, newValue: number[], activeThumb: 0 | 1) => {
     if (!Array.isArray(newValue)) {
       setLocalValue(newValue);
       return;
@@ -50,19 +52,5 @@ const SliderController = React.forwardRef(({
     />
   );
 });
-
-SliderController.defaultProps = {
-  className: '',
-  onChange: null,
-};
-
-SliderController.propTypes = {
-  value: PropTypes.arrayOf(PropTypes.number).isRequired,
-  min: PropTypes.number.isRequired,
-  max: PropTypes.number.isRequired,
-  minDistance: PropTypes.number.isRequired,
-  className: PropTypes.string,
-  onChange: PropTypes.func,
-};
 
 export default SliderController;

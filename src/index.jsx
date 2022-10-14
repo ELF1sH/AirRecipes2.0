@@ -6,7 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material';
 
 import App from './App';
-import store from './models/store/index';
+import store from './models/store';
 import theme from './theme/theme';
 import reportWebVitals from './reportWebVitals';
 import './assets/fonts/Gilroy/stylesheet.scss';

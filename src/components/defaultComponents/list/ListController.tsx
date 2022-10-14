@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 
 import ListView from './ListView';
-import { GetItemWithIdsType, ListItem } from './types';
+import { ListItem } from './types';
 
 interface ListControllerProps {
   items: string[],
@@ -13,7 +13,7 @@ interface ListControllerProps {
 const ListController: React.FC<ListControllerProps> = ({
   items, className = '', countBullet = false, header = '',
 }) => {
-  const getItemsWithIds: GetItemWithIdsType = (array: string[]) => array.map(
+  const getItemsWithIds = (array: string[]): ListItem[] => array.map(
     (item: string, id: number) => ({ id, value: item }),
   );
 

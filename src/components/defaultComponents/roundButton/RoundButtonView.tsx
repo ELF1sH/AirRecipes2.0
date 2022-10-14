@@ -9,9 +9,7 @@ interface RoundButtonViewProps {
   handleClick: () => void,
 }
 
-type RefType = HTMLButtonElement;
-
-const RoundButtonView = React.forwardRef<RefType, RoundButtonViewProps>(({
+const RoundButtonView = React.forwardRef<HTMLButtonElement, RoundButtonViewProps>(({
   iconSrc,
   onRipple,
   handleClick,

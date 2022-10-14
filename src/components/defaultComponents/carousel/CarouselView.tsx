@@ -5,18 +5,18 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import './styles/carousel.scss';
 
 interface CarouselViewProps {
-  images: string[],
+  imagesSrc: string[],
   className?: string,
 }
 
 const CarouselView: React.FC<CarouselViewProps> = ({
-  images,
+  imagesSrc,
   className = '',
 }) => {
-  if (!images.length) return null;
+  if (!imagesSrc.length) return null;
   return (
-    images.length === 1
-      ? <img src={images[0]} alt="" style={{ width: '100%' }} className={className} />
+    imagesSrc.length === 1
+      ? <img src={imagesSrc[0]} alt="" style={{ width: '100%' }} className={className} />
       : (
         <Carousel
           showThumbs
@@ -25,7 +25,7 @@ const CarouselView: React.FC<CarouselViewProps> = ({
           emulateTouch
         >
           {
-            images.map((item: string, idx: number) => (
+            imagesSrc.map((item: string, idx: number) => (
               <div
                 key={idx}
                 className="item-wrapper"

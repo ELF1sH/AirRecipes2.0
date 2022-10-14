@@ -39,7 +39,7 @@ const RecipeView: React.FC<RecipeViewProps> = ({ recipeDetails }) => (
     </div>
 
     <div className={styles.flex_column}>
-      <Carousel images={recipeDetails.images} className={styles.image} />
+      <Carousel imagesSrc={recipeDetails.images} className={styles.image} />
     </div>
   </div>
 );

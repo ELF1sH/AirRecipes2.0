@@ -1,7 +1,4 @@
-import React, {
-  SetStateAction, Dispatch, RefObject,
-} from 'react';
-import PropTypes from 'prop-types';
+import React, { RefObject } from 'react';
 
 import { Typography } from '@mui/material';
 
@@ -10,23 +7,18 @@ import RoundButton from '../defaultComponents/roundButton/RoundButtonController'
 import FilterForm from '../filterForm/FilterFormProvider';
 import filterIcon from '../../assets/icons/filter.svg';
 import styles from './styles/Header.module.scss';
+import { CombinedRef } from './types';
 
 interface HeaderViewProps {
   isModalOpened: boolean,
   isFixed: boolean,
-  setIsModalOpened: Dispatch<SetStateAction<boolean>>,
+  setIsModalOpened: (value: boolean) => void,
   handleSearchFieldChange: (value: string) => void,
 }
 
-type RefType = {
-  textFieldRef: RefObject<HTMLInputElement>,
-  imageRef: RefObject<HTMLDivElement>,
-  headerWrapperRef: RefObject<HTMLDivElement>,
-};
-
-const HeaderView = React.forwardRef<RefType, HeaderViewProps>(({
+const HeaderView = React.forwardRef<CombinedRef, HeaderViewProps>(({
   isModalOpened, isFixed, setIsModalOpened, handleSearchFieldChange,
-}, ref: RefObject<RefType>) => {
+}, ref: RefObject<CombinedRef>) => {
   const { headerWrapperRef, textFieldRef, imageRef } = ref.current;
 
   return (
@@ -55,12 +47,5 @@ const HeaderView = React.forwardRef<RefType, HeaderViewProps>(({
     </>
   );
 });
-
-HeaderView.propTypes = {
-  isModalOpened: PropTypes.bool.isRequired,
-  isFixed: PropTypes.bool.isRequired,
-  setIsModalOpened: PropTypes.func.isRequired,
-  handleSearchFieldChange: PropTypes.func.isRequired,
-};
 
 export default HeaderView;

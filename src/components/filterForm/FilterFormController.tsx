@@ -64,7 +64,7 @@ const FilterFormController: React.FC<FilterFormControllerProps> = ({
   const handleClose = () => {
     setIsModalOpened(false);
     dispatch(resetCurFilterStateToPreviousState());
-    // cause curFilter wasn't applied. That's why we need to reset it
+    // cause curFilter wasn't applied. That's why we need to reset it to previous state
   };
 
   return (

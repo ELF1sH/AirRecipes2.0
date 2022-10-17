@@ -1,13 +1,15 @@
+import { RefObject } from 'react';
+
 import { FixedHeaderState } from './states/fixedHeaderState';
 import { UnfixedHeaderState } from './states/unfixedHeaderState';
 
 const getHeaderState = (
-  isFixed,
-  imageRef,
-  headerWrapperRef,
-  rectTextField,
-  inputMiddleY,
-  defImageHeight,
+  isFixed: boolean,
+  imageRef: RefObject<HTMLDivElement>,
+  headerWrapperRef: RefObject<HTMLDivElement>,
+  rectTextField: RefObject<DOMRect>,
+  inputMiddleY: RefObject<number>,
+  defImageHeight: RefObject<number>,
 ) => {
   if (isFixed) {
     return (

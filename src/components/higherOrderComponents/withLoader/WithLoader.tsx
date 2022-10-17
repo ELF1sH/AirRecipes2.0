@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
 import ProgressCircleView from '../../defaultComponents/progressCircle/ProgressCircleView';
 import { Status } from '../../../models/types/recipes';
@@ -20,10 +19,6 @@ const WithLoader = (Component: React.ComponentType) => {
     : <Component {...props} />);
 
   return ComponentWithLoader;
-};
-
-WithLoader.propTypes = {
-  curStatus: PropTypes.string.isRequired,
 };
 
 export default WithLoader;

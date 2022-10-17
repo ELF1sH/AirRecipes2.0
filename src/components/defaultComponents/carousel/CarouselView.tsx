@@ -16,13 +16,14 @@ const CarouselView: React.FC<CarouselViewProps> = ({
   if (!imagesSrc.length) return null;
   return (
     imagesSrc.length === 1
-      ? <img src={imagesSrc[0]} alt="" style={{ width: '100%' }} className={className} />
+      ? <img src={imagesSrc[0]} alt="" className={className} />
       : (
         <Carousel
           showThumbs
           showStatus={false}
           thumbWidth={56}
           emulateTouch
+          className={className}
         >
           {
             imagesSrc.map((item: string, idx: number) => (

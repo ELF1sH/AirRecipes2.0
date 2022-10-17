@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import HeaderView from './HeaderView';
 import { applyFilter, setNameFilter } from '../../models/store/slices/recipesListSlice';
 import getHeaderState from './headerBehaviorStates/getHeaderState';
+import { CombinedRef } from './types';
 
 interface HeaderControllerProps {
   isFixed: boolean,
@@ -12,14 +13,14 @@ interface HeaderControllerProps {
 const HeaderController: React.FC<HeaderControllerProps> = ({ isFixed }) => {
   const dispatch = useDispatch();
 
-  const textFieldRef = useRef(null);
-  const imageRef = useRef(null);
-  const headerWrapperRef = useRef(null);
-  const ref = useRef({ textFieldRef, imageRef, headerWrapperRef });
+  const textFieldRef = useRef<HTMLInputElement>(null);
+  const imageRef = useRef<HTMLDivElement>(null);
+  const headerWrapperRef = useRef<HTMLDivElement>(null);
+  const ref = useRef<CombinedRef>({ textFieldRef, imageRef, headerWrapperRef });
 
-  const defImageHeight = useRef(0);
-  const inputMiddleY = useRef(0);
-  const rectTextField = useRef(null);
+  const defImageHeight = useRef<number>(0);
+  const inputMiddleY = useRef<number>(0);
+  const rectTextField = useRef<DOMRect>(null);
 
   let headerState = null;
 
@@ -81,7 +82,7 @@ const HeaderController: React.FC<HeaderControllerProps> = ({ isFixed }) => {
     };
   }, [isFixed]);
 
-  const [isModalOpened, setIsModalOpened] = useState(false);
+  const [isModalOpened, setIsModalOpened] = useState<boolean>(false);
 
   return (
     <HeaderView

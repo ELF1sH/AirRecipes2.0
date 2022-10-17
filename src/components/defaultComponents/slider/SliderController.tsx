@@ -17,7 +17,7 @@ interface SliderControllerProps {
 const SliderController = React.forwardRef(({
   value, min, max, minDistance, className = '', onChange = null,
 }: SliderControllerProps, ref: RefObject<GetStateHandle>) => {
-  const [localValue, setLocalValue] = useState(value);
+  const [localValue, setLocalValue] = useState<number[]>(value);
 
   useEffect(() => {
     setLocalValue(value);

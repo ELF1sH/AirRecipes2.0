@@ -1,12 +1,21 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 
 import FilterFormController from './FilterFormController';
 import { RootState } from '../../models/store';
+import { RecipesStateType } from '../../models/types/recipes';
 
-const FilterFormProvider = ({ isModalOpened, setIsModalOpened }) => {
-  const recipesState = useSelector<RootState>((state) => state.recipes);
+interface FilterFormProviderProps {
+  isModalOpened: boolean,
+  setIsModalOpened: (value: boolean) => void,
+}
+
+const FilterFormProvider: React.FC<FilterFormProviderProps> = ({
+  isModalOpened,
+  setIsModalOpened,
+}) => {
+  const recipesState = useSelector<RootState>((state) => state.recipes) as RecipesStateType;
+
   return (
     <FilterFormController
       recipesState={recipesState}
@@ -14,11 +23,6 @@ const FilterFormProvider = ({ isModalOpened, setIsModalOpened }) => {
       setIsModalOpened={setIsModalOpened}
     />
   );
-};
-
-FilterFormProvider.propTypes = {
-  isModalOpened: PropTypes.bool.isRequired,
-  setIsModalOpened: PropTypes.func.isRequired,
 };
 
 export default FilterFormProvider;

@@ -2,8 +2,6 @@ import React from 'react';
 
 import { Slider as MuiSlider } from '@mui/material';
 
-import { sliderSx } from './styles/styles';
-
 interface SliderViewProps {
   value: number[],
   min: number,
@@ -21,7 +19,6 @@ const SliderView = ({
     valueLabelDisplay="on"
     disableSwap
     size="small"
-    sx={sliderSx}
     min={min ?? 0}
     max={max ?? 100}
     className={className}

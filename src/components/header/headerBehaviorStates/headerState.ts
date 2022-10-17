@@ -11,7 +11,13 @@ export class HeaderState {
 
   defImageHeight: RefObject<number>;
 
-  constructor(imageRef, headerWrapperRef, rectTextField, inputMiddleY, defImageHeight) {
+  constructor(
+    imageRef: RefObject<HTMLDivElement>,
+    headerWrapperRef: RefObject<HTMLDivElement>,
+    rectTextField: RefObject<DOMRect>,
+    inputMiddleY: RefObject<number>,
+    defImageHeight: RefObject<number>,
+  ) {
     this.imageRef = imageRef;
     this.headerWrapperRef = headerWrapperRef;
     this.rectTextField = rectTextField;

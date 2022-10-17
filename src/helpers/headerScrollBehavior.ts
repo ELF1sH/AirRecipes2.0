@@ -1,7 +1,9 @@
+import React from 'react';
+
+import { sleep } from './asyncHelper';
+
 const IMAGE_HEIGHT_EXPAND_MULTIPLIER = 0.02;
 const IMAGE_HEIGHT_SHRINK_MULTIPLIER = 0.95;
-
-const sleep = (ms) => new Promise((r) => { setTimeout(r, ms); });
 
 const disableScroll = () => {
   // Get the current page scroll position
@@ -18,7 +20,11 @@ const enableScroll = () => {
   window.onscroll = () => {};
 };
 
-export const expandImage = async (imageRef, rectImage, headerWrapperRef) => {
+export const expandImage = async (
+  imageRef: React.RefObject<HTMLDivElement>,
+  rectImage: DOMRect,
+  headerWrapperRef: React.RefObject<HTMLDivElement>,
+) => {
   for (let i = 1; i <= 10; i += 1) {
     const newHeight = rectImage.height * (1 + IMAGE_HEIGHT_EXPAND_MULTIPLIER * i);
     imageRef.current.style.height = `${newHeight}px`;
@@ -30,7 +36,11 @@ export const expandImage = async (imageRef, rectImage, headerWrapperRef) => {
   }
 };
 
-export const shrinkImage = (imageRef, rectImage, headerWrapperRef) => {
+export const shrinkImage = (
+  imageRef: React.RefObject<HTMLDivElement>,
+  rectImage: DOMRect,
+  headerWrapperRef: React.RefObject<HTMLDivElement>,
+) => {
   disableScroll();
   imageRef.current.style.height = `${rectImage.height * IMAGE_HEIGHT_SHRINK_MULTIPLIER}px`;
   headerWrapperRef.current.style.marginBottom = `${rectImage.height}px`;

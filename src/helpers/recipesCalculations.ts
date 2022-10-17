@@ -1,4 +1,4 @@
-export const getCookTime = (seconds) => {
+export const getCookTime = (seconds: number) : string => {
   if (seconds < 60) return `${seconds} sec`;
 
   const minutes = seconds / 60;

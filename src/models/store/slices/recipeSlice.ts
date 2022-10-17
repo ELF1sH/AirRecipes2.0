@@ -43,20 +43,6 @@ const recipeSlice = createSlice({
       state.error = action.payload as string;
     });
   },
-  // extraReducers: {
-  //   [fetchRecipeDetails.pending]: (state) => {
-  //     state.status = 'pending';
-  //     state.error = null;
-  //   },
-  //   [fetchRecipeDetails.fulfilled]: (state, action) => {
-  //     state.status = 'resolved';
-  //     state.recipeDetails = action.payload.recipe;
-  //   },
-  //   [fetchRecipeDetails.rejected]: (state, action) => {
-  //     state.status = 'rejected';
-  //     state.error = action.payload;
-  //   },
-  // },
 });
 
 export default recipeSlice.reducer;

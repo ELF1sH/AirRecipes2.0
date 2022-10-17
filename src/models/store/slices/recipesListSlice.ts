@@ -109,33 +109,6 @@ const recipesListSlice = createSlice({
       state.error = action.payload as string;
     });
   },
-  // extraReducers: {
-  //   [fetchRecipes.pending]: (state) => {
-  //     state.status = 'pending';
-  //     state.error = null;
-  //   },
-  //   [fetchRecipes.fulfilled]: (state, action) => {
-  //     state.status = 'resolved';
-  //
-  //     state.recipes = action.payload.recipes;
-  //     state.initialRecipes = action.payload.recipes;
-  //
-  //     state.cuisines = action.payload.recipes
-  //       .map((recipe) => recipe.cuisine)
-  //       .reduce((acc, cuisine) => ((acc.findIndex((x) => x.id === cuisine.id) === -1)
-  //         ? [...acc, cuisine]
-  //         : [...acc]), []);
-  //
-  //     state.curFilterState.cuisineFilter = state.cuisines.map((item) => (
-  //       { id: item.id, status: true }
-  //     ));
-  //     state.filterState.cuisineFilter = state.curFilterState.cuisineFilter;
-  //   },
-  //   [fetchRecipes.rejected]: (state, action) => {
-  //     state.status = 'rejected';
-  //     state.error = action.payload;
-  //   },
-  // },
 });
 
 export const {

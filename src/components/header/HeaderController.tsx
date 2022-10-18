@@ -28,7 +28,7 @@ const HeaderController: React.FC<HeaderControllerProps> = ({ isFixed }) => {
     headerState.handleScroll();
   };
 
-  const handleWheel = async (event) => {
+  const handleWheel = async (event: MouseEvent) => {
     await headerState.handleWheel(event);
   };
 
@@ -39,7 +39,7 @@ const HeaderController: React.FC<HeaderControllerProps> = ({ isFixed }) => {
     }
   };
 
-  const handleKeyUp = (event) => {
+  const handleKeyUp = (event: KeyboardEvent) => {
     if (event.key === 'Enter') {
       dispatch(setNameFilter(textFieldRef.current.value.trim()));
       dispatch(applyFilter());

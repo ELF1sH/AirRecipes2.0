@@ -8,8 +8,6 @@ import { useAppDispatch } from '../../models/store';
 import { RecipeDetailsStateType } from '../../models/types/recipeDetails';
 import styles from './styles/Recipe.module.scss';
 
-const RecipeViewWithLoader = WithLoader(RecipeView);
-
 interface RecipeControllerProps {
   recipeDetailsState: RecipeDetailsStateType,
 }
@@ -24,13 +22,17 @@ const RecipeController: React.FC<RecipeControllerProps> = ({
     dispatch(fetchRecipeDetails({ id: params.recipeId }));
   }, []);
 
-  return (
-    <RecipeViewWithLoader
-      curStatus={recipeDetailsState.status}
-      recipeDetails={recipeDetailsState.recipeDetails}
-      progressCircleClassname={styles.progress_circle}
-    />
-  );
+  if (Object.keys(recipeDetailsState.recipeDetails).length) {
+    const RecipeViewWithLoader = WithLoader(RecipeView);
+    return (
+      <RecipeViewWithLoader
+        curStatus={recipeDetailsState.status}
+        recipeDetails={recipeDetailsState.recipeDetails}
+        progressCircleClassname={styles.progress_circle}
+      />
+    );
+  }
+  return null;
 };
 
 export default RecipeController;

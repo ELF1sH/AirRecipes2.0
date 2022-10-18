@@ -17,7 +17,7 @@ export type RecipeDetailsType = {
 };
 
 export type RecipeDetailsStateType = {
-  recipeDetails: RecipeDetailsType,
+  recipeDetails?: RecipeDetailsType,
   error: string,
   status: Status,
 };

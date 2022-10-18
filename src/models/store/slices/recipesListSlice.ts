@@ -1,19 +1,22 @@
-import { RecipesStateType } from '../../types/recipes';
+import { CuisineFilter, RecipesStateType, RecipeType } from '../../types/recipes';
+import { AsyncThunkConfigRecipesList } from '../../types/requestsTypes';
 
-import { createAsyncThunk, createSlice, current } from '@reduxjs/toolkit';
+import {
+  createAsyncThunk, createSlice, current, PayloadAction,
+} from '@reduxjs/toolkit';
 
 export const CAL_SLIDER_MIN_VALUE = 100;
 export const CAL_SLIDER_MAX_VALUE = 1200;
 
-export const fetchRecipes = createAsyncThunk(
-  'recipes/fetchRecipes', // redux toolkit names actions the same way
+export const fetchRecipes = createAsyncThunk<RecipeType[], null, AsyncThunkConfigRecipesList>(
+  'recipes/fetchRecipes',
   async (_, { rejectWithValue }) => {
     try {
       const response = await fetch('https://test.kode-t.ru/list.json');
       if (!response.ok) {
         return Error('Server error');
       }
-      return await response.json();
+      return (await response.json()).recipes;
     } catch (error) {
       return rejectWithValue(error.message);
     }
@@ -22,6 +25,7 @@ export const fetchRecipes = createAsyncThunk(
 
 const recipesListSlice = createSlice({
   name: 'recipes',
+
   initialState: {
     recipes: [],
     status: 'pending',
@@ -41,26 +45,27 @@ const recipesListSlice = createSlice({
       cuisineFilter: [],
     },
   } as RecipesStateType,
+
   reducers: {
-    setNameFilter: (state, action) => {
+    setNameFilter: (state: RecipesStateType, action: PayloadAction<string>) => {
       state.curFilterState.nameFilter = action.payload;
     },
-    setCuisineFilter: (state, action) => {
+    setCuisineFilter: (state: RecipesStateType, action: PayloadAction<CuisineFilter[]>) => {
       state.curFilterState.cuisineFilter = action.payload;
     },
-    setCalFilter: (state, action) => {
+    setCalFilter: (state: RecipesStateType, action: PayloadAction<number[]>) => {
       state.curFilterState.calFilter = action.payload;
     },
-    clearFilter: (state) => {
+    clearFilter: (state: RecipesStateType) => {
       state.curFilterState.calFilter = [CAL_SLIDER_MIN_VALUE, CAL_SLIDER_MAX_VALUE];
       state.curFilterState.cuisineFilter = state.cuisines.map((item) => (
         { id: item.id, status: true }
       ));
     },
-    resetCurFilterStateToPreviousState: (state) => {
+    resetCurFilterStateToPreviousState: (state: RecipesStateType) => {
       state.curFilterState = state.filterState;
     },
-    applyFilter: (state) => {
+    applyFilter: (state: RecipesStateType) => {
       let recipes = current(state.initialRecipes);
       if (!recipes) return;
       state.filterState = state.curFilterState;
@@ -82,18 +87,23 @@ const recipesListSlice = createSlice({
       state.recipes = recipes;
     },
   },
+
   extraReducers: (builder) => {
-    builder.addCase(fetchRecipes.pending, (state) => {
+    builder.addCase(fetchRecipes.pending, (state: RecipesStateType) => {
       state.status = 'pending';
       state.error = null;
     });
-    builder.addCase(fetchRecipes.fulfilled, (state, action) => {
+
+    builder.addCase(fetchRecipes.fulfilled, (
+      state: RecipesStateType,
+      action: PayloadAction<RecipeType[]>,
+    ) => {
       state.status = 'resolved';
 
-      state.recipes = action.payload.recipes;
-      state.initialRecipes = action.payload.recipes;
+      state.recipes = action.payload;
+      state.initialRecipes = action.payload;
 
-      state.cuisines = action.payload.recipes
+      state.cuisines = action.payload
         .map((recipe) => recipe.cuisine)
         .reduce((acc, cuisine) => ((acc.findIndex((x) => x.id === cuisine.id) === -1)
           ? [...acc, cuisine]
@@ -104,9 +114,13 @@ const recipesListSlice = createSlice({
       ));
       state.filterState.cuisineFilter = state.curFilterState.cuisineFilter;
     });
-    builder.addCase(fetchRecipes.rejected, (state, action) => {
+
+    builder.addCase(fetchRecipes.rejected, (
+      state: RecipesStateType,
+      action: PayloadAction<string>,
+    ) => {
       state.status = 'rejected';
-      state.error = action.payload as string;
+      state.error = action.payload;
     });
   },
 });

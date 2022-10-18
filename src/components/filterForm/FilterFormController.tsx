@@ -12,6 +12,7 @@ import {
   setCalFilter,
   setCuisineFilter,
 } from '../../models/store/slices/recipesListSlice';
+import { GetStateHandle } from '../defaultComponents/textField/types';
 
 interface FilterFormControllerProps {
   isModalOpened: boolean,
@@ -36,7 +37,7 @@ const FilterFormController: React.FC<FilterFormControllerProps> = ({
     dispatch(setCuisineFilter(curState));
   };
 
-  const sliderRef = useRef(null);
+  const sliderRef = useRef<GetStateHandle>(null);
   const handleSliderChange = () => {
     dispatch(setCalFilter(sliderRef.current.getState()));
   };

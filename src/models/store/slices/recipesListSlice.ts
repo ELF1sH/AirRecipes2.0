@@ -18,7 +18,7 @@ export const fetchRecipes = createAsyncThunk<RecipeType[], null, AsyncThunkConfi
       }
       return (await response.json()).recipes;
     } catch (error) {
-      return rejectWithValue(error.message);
+      return rejectWithValue(error);
     }
   },
 );

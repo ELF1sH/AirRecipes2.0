@@ -14,7 +14,7 @@ export const fetchRecipeDetails = createAsyncThunk<
       const response = await fetch(`https://test.kode-t.ru/detail_${id}.json`);
       return (await response.json()).recipe;
     } catch (error) {
-      return rejectWithValue(error as string);
+      return rejectWithValue(error);
     }
   },
 );

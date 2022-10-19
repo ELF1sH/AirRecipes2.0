@@ -34,44 +34,6 @@
     "strictNullChecks": true,
     "jsx": "preserve",
     "baseUrl": ".",
-    "paths": {
-      "@public/*": [
-        "public/*"
-      ],
-      "@app/*": [
-        "app/*"
-      ],
-      "@formatters/*": [
-        "app/formatters/*"
-      ],
-      "@hooks/*": [
-        "app/hooks/*"
-      ],
-      "@icons/*": [
-        "app/icons/*"
-      ],
-      "@helpers/*": [
-        "src/helpers/*"
-      ],
-      "@ui/*": [
-        "app/ui/*"
-      ],
-//      "@components/*": [
-//        "src/components/*"
-//      ],
-      "@modules/*": [
-        "app/modules/*"
-      ],
-      "@pages/*": [
-        "app/pages/*"
-      ],
-      "@utils/*": [
-        "app/utils/*"
-      ],
-      "@/*": [
-        "./*"
-      ]
-    },
     "incremental": true
   },
   "include": [

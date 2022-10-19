@@ -1,20 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, {
+  useEffect, useState, ChangeEvent,
+} from 'react';
 
 import TextFieldView from './TextFieldView';
 
 interface TextFieldControllerProps {
   value?: string,
-  onChange?: (value: string) => void,
   className?: string,
   placeholder?: string,
+  onChange?: (value: string) => void,
 }
 
 const TextFieldController = React.forwardRef((
   {
     value = '',
-    onChange = null,
     className = '',
     placeholder = '',
+    onChange,
   } : TextFieldControllerProps,
   ref : React.RefObject<HTMLInputElement>,
 ) => {
@@ -26,12 +28,12 @@ const TextFieldController = React.forwardRef((
 
   const handleClear = () => {
     setLocalValue('');
-    onChange('');
+    onChange?.('');
   };
 
-  const localOnChange = (event) => {
+  const localOnChange = (event: ChangeEvent<HTMLInputElement>) => {
     setLocalValue(event.target.value);
-    onChange(event.target.value);
+    onChange?.(event.target.value);
   };
 
   return (

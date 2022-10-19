@@ -13,14 +13,16 @@ interface ModalControllerProps {
 const ModalController: React.FC<ModalControllerProps> = ({
   isOpen,
   handleClose,
-  children = null,
+  children,
 }) => {
   const [className, setClassName] = useState<string>('');
 
   const localHandleClose = async () => {
     setClassName(styles.disappear_animation);
+
     await sleep(200);
     handleClose();
+
     setClassName('');
   };
 

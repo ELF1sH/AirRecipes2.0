@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { Typography } from '@mui/material';
+import Typography from '@mui/material/Typography';
 
 import Modal from '../defaultComponents/modal/ModalController';
 import Slider from '../defaultComponents/slider/SliderController';
@@ -9,14 +9,14 @@ import CuisinesFilterListController from './components/cuisinesFilterList/Cuisin
 import styles from './styles/FilterForm.module.scss';
 import { CAL_SLIDER_MIN_VALUE, CAL_SLIDER_MAX_VALUE } from '../../models/store/slices/recipesListSlice';
 import { GetStateHandle } from '../defaultComponents/textField/types';
-import { RecipesStateType } from '../../models/types/recipes';
+import { RecipesStateType } from '../../models/types/recipesListTypes';
 
 interface FilterFormViewProps {
-  isModalOpened: boolean,
-  handleClose: () => void,
   recipesState: RecipesStateType,
-  handleSliderChange: () => void,
+  isModalOpened: boolean,
   isFilterChanged: boolean,
+  handleClose: () => void,
+  handleSliderChange: () => void,
   handleBtnApplyClick: () => void,
   handleCheckboxChange: (id: number) => void,
   handleClearForm: () => void,
@@ -43,7 +43,7 @@ const FilterFormView = React.forwardRef<GetStateHandle, FilterFormViewProps>(({
       <Slider
         ref={ref}
         minDistance={50}
-        value={recipesState.curFilterState.calFilter}
+        value={recipesState.curFilterState?.calFilter}
         min={CAL_SLIDER_MIN_VALUE}
         max={CAL_SLIDER_MAX_VALUE}
         className={styles.slider}

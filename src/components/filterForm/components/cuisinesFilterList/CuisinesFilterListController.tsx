@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 
 import CuisinesFilterListView from './CuisinesFilterListView';
-import { RecipesStateType } from '../../../../models/types/recipes';
+import { RecipesStateType } from '../../../../models/types/recipesListTypes';
 import { CuisineFilterStatus } from './types';
 
 interface CuisinesFilterListControllerProps {
@@ -14,15 +14,15 @@ const CuisinesFilterListController: React.FC<CuisinesFilterListControllerProps> 
   handleCheckboxChange,
 }) => {
   const getCurCuisinesFiltersStatus = () => (
-    recipesState.curFilterState.cuisineFilter.reduce(
+    recipesState.curFilterState?.cuisineFilter.reduce(
       (acc, item) => ({ ...acc, [item.id]: item.status }),
       {},
     )
   );
 
-  const curCuisinesFiltersStatus: CuisineFilterStatus = useMemo(
+  const curCuisinesFiltersStatus: CuisineFilterStatus | undefined = useMemo(
     () => getCurCuisinesFiltersStatus(),
-    [recipesState.curFilterState.cuisineFilter],
+    [recipesState?.curFilterState?.cuisineFilter],
   );
 
   return (

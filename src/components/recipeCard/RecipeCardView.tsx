@@ -1,10 +1,12 @@
 import React from 'react';
 
-import {
-  Card, CardContent, CardMedia, Chip, Typography,
-} from '@mui/material';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Chip from '@mui/material/Chip';
+import Typography from '@mui/material/Typography';
 
-import { RecipeType } from '../../models/types/recipes';
+import { RecipeType } from '../../models/types/recipesListTypes';
 import { getCookTime } from '../../helpers/recipesCalculations';
 import styles from './styles/RecipeCard.module.scss';
 

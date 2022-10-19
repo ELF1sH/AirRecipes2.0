@@ -1,10 +1,86 @@
+//{
+//  "compilerOptions": {
+//    "outDir": "./built",
+//    "allowJs": true,
+//    "target": "es5",
+//    "allowSyntheticDefaultImports": true,
+//    "jsx": "react"
+//  },
+//  "include": ["./src/**/*"]
+//}
 {
   "compilerOptions": {
-    "outDir": "./built",
+    "target": "es6",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
-    "target": "es5",
+    "skipLibCheck": true,
+    "strict": false,
+    "noImplicitAny": true,
+    "experimentalDecorators": true,
+    "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
-    "jsx": "react"
+    "useDefineForClassFields": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "jsx": "preserve",
+    "baseUrl": ".",
+    "paths": {
+      "@public/*": [
+        "public/*"
+      ],
+      "@app/*": [
+        "app/*"
+      ],
+      "@formatters/*": [
+        "app/formatters/*"
+      ],
+      "@hooks/*": [
+        "app/hooks/*"
+      ],
+      "@icons/*": [
+        "app/icons/*"
+      ],
+      "@helpers/*": [
+        "src/helpers/*"
+      ],
+      "@ui/*": [
+        "app/ui/*"
+      ],
+//      "@components/*": [
+//        "src/components/*"
+//      ],
+      "@modules/*": [
+        "app/modules/*"
+      ],
+      "@pages/*": [
+        "app/pages/*"
+      ],
+      "@utils/*": [
+        "app/utils/*"
+      ],
+      "@/*": [
+        "./*"
+      ]
+    },
+    "incremental": true
   },
-  "include": ["./src/**/*"]
+  "include": [
+    "./src/**/*",
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

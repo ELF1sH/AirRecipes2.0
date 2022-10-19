@@ -1,32 +1,34 @@
 import React from 'react';
 
-import { Checkbox, Divider, FormControlLabel } from '@mui/material';
+import Checkbox from '@mui/material/Checkbox';
+import Divider from '@mui/material/Divider';
+import FormControlLabel from '@mui/material/FormControlLabel';
 
 import styles from '../../styles/FilterForm.module.scss';
 import colors from '../../../../scssAbstracts/_variables.scss';
-import { CuisineType, RecipesStateType } from '../../../../models/types/recipes';
+import { CuisineType, RecipesStateType } from '../../../../models/types/recipesListTypes';
 import { CuisineFilterStatus } from './types';
 
 interface CuisinesFilterListViewProps {
   recipesState: RecipesStateType,
+  curCuisinesFiltersStatus?: CuisineFilterStatus,
   handleCheckboxChange: (id: number) => void,
-  curCuisinesFiltersStatus: CuisineFilterStatus,
 }
 
 const CuisinesFilterListView: React.FC<CuisinesFilterListViewProps> = ({
   recipesState,
-  handleCheckboxChange,
   curCuisinesFiltersStatus,
+  handleCheckboxChange,
 }) => (
   <>
     {
-      recipesState.cuisines.map((item: CuisineType) => (
+      recipesState?.cuisines?.map((item: CuisineType) => (
         <div key={item.id}>
           <div className={styles.cuisine_checkbox_wrapper}>
             <FormControlLabel
               control={(
                 <Checkbox
-                  checked={curCuisinesFiltersStatus[item.id]}
+                  checked={curCuisinesFiltersStatus ? curCuisinesFiltersStatus[item.id] : true}
                   sx={{ color: colors.shade50, '&.Mui-checked': { color: colors.shade50 } }}
                   onChange={() => handleCheckboxChange(item.id)}
                 />

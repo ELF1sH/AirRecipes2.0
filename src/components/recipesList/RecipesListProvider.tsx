@@ -3,10 +3,10 @@ import { useSelector } from 'react-redux';
 
 import { RootState } from '../../models/store';
 import RecipesListController from './RecipesListController';
-import { RecipesStateType } from '../../models/types/recipes';
+import { RecipesStateType } from '../../models/types/recipesListTypes';
 
 const RecipesListProvider = () => {
-  const recipesState: RecipesStateType = useSelector<RootState>((state) => state.recipes);
+  const recipesState = useSelector<RootState>((state) => state.recipes) as RecipesStateType;
 
   return (
     <RecipesListController

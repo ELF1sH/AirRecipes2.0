@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import RecipeCardView from './RecipeCardView';
-import { RecipeType } from '../../models/types/recipes';
+import { RecipeType } from '../../models/types/recipesListTypes';
 
 interface RecipeCardControllerProps {
   recipe: RecipeType,

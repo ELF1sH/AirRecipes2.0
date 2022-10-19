@@ -2,7 +2,7 @@ import React from 'react';
 
 import RecipeCardController from '../recipeCard/RecipeCardController';
 import WithAppearAnimation from '../higherOrderComponents/withAppearAnimation/WithAppearAnimation';
-import { RecipeType } from '../../models/types/recipes';
+import { RecipeType } from '../../models/types/recipesListTypes';
 import styles from './styles/RecipesList.module.scss';
 
 const RecipeCardWithAppearAnim = WithAppearAnimation(RecipeCardController, 'slideBottom');

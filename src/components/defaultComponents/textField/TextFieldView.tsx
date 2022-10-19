@@ -5,11 +5,11 @@ import searchIcon from '../../../assets/icons/search.svg';
 import clearInputIcon from '../../../assets/icons/clearInput.svg';
 
 interface TextFieldViewProps {
-  handleChange: (event : ChangeEvent<HTMLInputElement>) => void,
-  handleClear: () => void,
   className: string,
   placeholder: string,
   value: string,
+  handleClear: () => void,
+  handleChange?: (event : ChangeEvent<HTMLInputElement>) => void,
 }
 
 const TextFieldView = React.forwardRef((

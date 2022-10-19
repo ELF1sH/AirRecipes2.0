@@ -1,6 +1,6 @@
-import colors from '../scssAbstracts/_variables.scss';
-
 import { createTheme } from '@mui/material/styles';
+
+import colors from '../scssAbstracts/_variables.scss';
 
 const theme = createTheme({
   typography: {

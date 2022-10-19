@@ -1,3 +1,3 @@
-export type GetStateHandle = {
+export interface GetStateHandle {
   getState: () => number[],
 }

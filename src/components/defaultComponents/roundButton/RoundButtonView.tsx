@@ -4,9 +4,9 @@ import { MinimalEvent } from 'use-ripple-hook/ripple';
 import styles from './styles/RoundButton.module.scss';
 
 interface RoundButtonViewProps {
-  iconSrc: string,
   onRipple: (event: MinimalEvent) => void,
-  handleClick: () => void,
+  iconSrc?: string,
+  handleClick?: () => void,
 }
 
 const RoundButtonView = React.forwardRef<HTMLButtonElement, RoundButtonViewProps>(({

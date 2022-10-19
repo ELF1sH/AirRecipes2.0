@@ -1,4 +1,4 @@
-export type ListItem = {
+export interface ListItem {
   id: number,
   value: string,
 }

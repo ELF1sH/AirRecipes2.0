@@ -1,12 +1,12 @@
-import { RecipeDetailsStateType } from './recipeDetails';
+import { RecipeDetailsStateType } from './recipeTypes';
 import { AppDispatch } from '../store';
-import { RecipesStateType } from './recipes';
+import { RecipesStateType } from './recipesListTypes';
 
-export type RecipeDetailsFetchParam = {
+export interface RecipeDetailsFetchParam {
   id: number | string,
 }
 
-export type AsyncThunkConfigRecipeDetails = {
+export interface AsyncThunkConfigRecipeDetails {
   /** return type for `thunkApi.getState` */
   state?: RecipeDetailsStateType
   /** type for `thunkApi.dispatch` */
@@ -16,7 +16,7 @@ export type AsyncThunkConfigRecipeDetails = {
   rejectValue: string
 }
 
-export type AsyncThunkConfigRecipesList = {
+export interface AsyncThunkConfigRecipesList {
   /** return type for `thunkApi.getState` */
   state?: RecipesStateType
   /** type for `thunkApi.dispatch` */

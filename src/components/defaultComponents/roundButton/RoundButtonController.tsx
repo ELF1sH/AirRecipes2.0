@@ -5,13 +5,13 @@ import RoundButtonView from './RoundButtonView';
 import colors from '../../../scssAbstracts/_variables.scss';
 
 interface RoundButtonControllerProps {
-  onClick?: () => void,
   iconSrc?: string,
+  onClick?: () => void,
 }
 
 const RoundButtonController: React.FC<RoundButtonControllerProps> = ({
-  onClick = null,
-  iconSrc = null,
+  iconSrc,
+  onClick,
 }) => {
   const [ripple, onRipple] = useRipple({
     color: colors.shade20,
@@ -21,8 +21,8 @@ const RoundButtonController: React.FC<RoundButtonControllerProps> = ({
     <RoundButtonView
       iconSrc={iconSrc}
       handleClick={onClick}
-      ref={ripple}
       onRipple={onRipple}
+      ref={ripple}
     />
   );
 };

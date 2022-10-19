@@ -1,7 +1,7 @@
 import React from 'react';
 
-export type RouteType = {
+export interface RouteType {
   id: number,
   path: string,
   element: React.ReactElement,
-};
+}

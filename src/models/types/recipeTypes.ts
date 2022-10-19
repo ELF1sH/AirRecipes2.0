@@ -1,8 +1,8 @@
-import { CuisineType, Status } from './recipes';
+import { CuisineType, Status } from './recipesListTypes';
 
 export type Difficulty = 'easy' | 'medium' | 'hard';
 
-export type RecipeDetailsType = {
+export interface RecipeDetailsType {
   id: number,
   caloricity: number,
   cookTime: number,
@@ -14,10 +14,10 @@ export type RecipeDetailsType = {
   instructions: string[],
   thumbnail: string,
   title: string,
-};
+}
 
-export type RecipeDetailsStateType = {
+export interface RecipeDetailsStateType {
   recipeDetails?: RecipeDetailsType,
-  error: string,
+  error: undefined | string,
   status: Status,
-};
+}

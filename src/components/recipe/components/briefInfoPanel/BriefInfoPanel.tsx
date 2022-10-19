@@ -7,7 +7,7 @@ import { ReactComponent as TimeIcon } from '../../../../assets/icons/recipeDetai
 import { getCookTime } from '../../../../helpers/recipesCalculations';
 import styles from './styles/BriefInfoPanel.module.scss';
 import IconWithText from '../../../defaultComponents/iconWithText/IconWithText';
-import { Difficulty } from '../../../../models/types/recipeDetails';
+import { Difficulty } from '../../../../models/types/recipeTypes';
 
 interface BriefInfoPanelProps {
   difficulty: Difficulty,

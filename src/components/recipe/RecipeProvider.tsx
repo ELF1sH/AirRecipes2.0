@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 import RecipeController from './RecipeController';
 import { RootState } from '../../models/store';
-import { RecipeDetailsStateType } from '../../models/types/recipeDetails';
+import { RecipeDetailsStateType } from '../../models/types/recipeTypes';
 
 const RecipeProvider = () => {
   const recipeDetailsState = useSelector<RootState>(

@@ -1,4 +1,6 @@
-import { CuisineFilter, RecipesStateType, RecipeType } from '../../types/recipes';
+import {
+  CuisineFilter, CuisineType, RecipesStateType, RecipeType,
+} from '../../types/recipesListTypes';
 import { AsyncThunkConfigRecipesList } from '../../types/requestsTypes';
 
 import {
@@ -8,7 +10,7 @@ import {
 export const CAL_SLIDER_MIN_VALUE = 100;
 export const CAL_SLIDER_MAX_VALUE = 1200;
 
-export const fetchRecipes = createAsyncThunk<RecipeType[], null, AsyncThunkConfigRecipesList>(
+export const fetchRecipes = createAsyncThunk<RecipeType[], undefined, AsyncThunkConfigRecipesList>(
   'recipes/fetchRecipes',
   async (_, { rejectWithValue }) => {
     try {
@@ -29,7 +31,7 @@ const recipesListSlice = createSlice({
   initialState: {
     recipes: [],
     status: 'pending',
-    error: null,
+    error: undefined,
 
     initialRecipes: [],
     cuisines: [],
@@ -91,7 +93,7 @@ const recipesListSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchRecipes.pending, (state: RecipesStateType) => {
       state.status = 'pending';
-      state.error = null;
+      state.error = undefined;
     });
 
     builder.addCase(fetchRecipes.fulfilled, (
@@ -105,9 +107,11 @@ const recipesListSlice = createSlice({
 
       state.cuisines = action.payload
         .map((recipe) => recipe.cuisine)
-        .reduce((acc, cuisine) => ((acc.findIndex((x) => x.id === cuisine.id) === -1)
-          ? [...acc, cuisine]
-          : [...acc]), []);
+        .reduce((acc: CuisineType[], cuisine: CuisineType) => (
+          (acc.findIndex((x: CuisineType) => x.id === cuisine.id) === -1)
+            ? [...acc, cuisine]
+            : [...acc]
+        ), []);
 
       state.curFilterState.cuisineFilter = state.cuisines.map((item) => (
         { id: item.id, status: true }
@@ -117,7 +121,7 @@ const recipesListSlice = createSlice({
 
     builder.addCase(fetchRecipes.rejected, (
       state: RecipesStateType,
-      action: PayloadAction<string>,
+      action: PayloadAction<string | undefined>,
     ) => {
       state.status = 'rejected';
       state.error = action.payload;

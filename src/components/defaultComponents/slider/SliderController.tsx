@@ -4,18 +4,19 @@ import React, {
 
 import SliderView from './SliderView';
 import { GetStateHandle } from '../textField/types';
+import { ActiveThumb } from './types';
 
 interface SliderControllerProps {
-  value: number[],
   min: number,
   max: number,
   minDistance: number,
+  value?: number[],
   className?: string,
   onChange?: () => void,
 }
 
 const SliderController = React.forwardRef(({
-  value, min, max, minDistance, className = '', onChange = null,
+  min, max, minDistance, value = [min, max], className = '', onChange,
 }: SliderControllerProps, ref: RefObject<GetStateHandle>) => {
   const [localValue, setLocalValue] = useState<number[]>(value);
 
@@ -23,7 +24,7 @@ const SliderController = React.forwardRef(({
     setLocalValue(value);
   }, [value]);
 
-  const handleChange = (event: Event, newValue: number[], activeThumb: 0 | 1) => {
+  const handleChange = (event: Event, newValue: number[], activeThumb: ActiveThumb) => {
     if (!Array.isArray(newValue)) {
       setLocalValue(newValue);
       return;
@@ -35,7 +36,7 @@ const SliderController = React.forwardRef(({
       setLocalValue([value[0], Math.max(newValue[1], value[0] + minDistance)]);
     }
 
-    onChange();
+    onChange?.();
   };
 
   useImperativeHandle(ref, () => ({

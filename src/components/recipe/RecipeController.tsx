@@ -5,7 +5,7 @@ import RecipeView from './RecipeView';
 import WithLoader from '../higherOrderComponents/withLoader/WithLoader';
 import { fetchRecipeDetails } from '../../models/store/slices/recipeSlice';
 import { useAppDispatch } from '../../models/store';
-import { RecipeDetailsStateType } from '../../models/types/recipeDetails';
+import { RecipeDetailsStateType } from '../../models/types/recipeTypes';
 import styles from './styles/Recipe.module.scss';
 
 interface RecipeControllerProps {
@@ -19,10 +19,12 @@ const RecipeController: React.FC<RecipeControllerProps> = ({
   const params = useParams<string>();
 
   useEffect(() => {
-    dispatch(fetchRecipeDetails({ id: params.recipeId }));
+    if (params.recipeId) {
+      dispatch(fetchRecipeDetails({ id: params.recipeId }));
+    }
   }, []);
 
-  if (Object.keys(recipeDetailsState.recipeDetails).length) {
+  if (recipeDetailsState.recipeDetails) {
     const RecipeViewWithLoader = WithLoader(RecipeView);
     return (
       <RecipeViewWithLoader

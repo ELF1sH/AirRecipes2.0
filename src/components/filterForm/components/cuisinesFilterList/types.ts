@@ -1,3 +1,3 @@
-export type CuisineFilterStatus = {
+export interface CuisineFilterStatus {
   [key: number]: boolean,
-};
+}

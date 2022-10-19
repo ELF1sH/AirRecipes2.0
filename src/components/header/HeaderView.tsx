@@ -1,6 +1,6 @@
 import React, { RefObject } from 'react';
 
-import { Typography } from '@mui/material';
+import Typography from '@mui/material/Typography';
 
 import TextField from '../defaultComponents/textField/TextFieldController';
 import RoundButton from '../defaultComponents/roundButton/RoundButtonController';
@@ -19,7 +19,9 @@ interface HeaderViewProps {
 const HeaderView = React.forwardRef<CombinedRef, HeaderViewProps>(({
   isModalOpened, isFixed, setIsModalOpened, handleSearchFieldChange,
 }, ref: RefObject<CombinedRef>) => {
-  const { headerWrapperRef, textFieldRef, imageRef } = ref.current;
+  const { headerWrapperRef, textFieldRef, imageRef } = ref && ref.current
+    ? ref.current
+    : { headerWrapperRef: null, textFieldRef: null, imageRef: null };
 
   return (
     <>

@@ -25,12 +25,16 @@ export const expandImage = async (
   rectImage: DOMRect,
   headerWrapperRef: React.RefObject<HTMLDivElement>,
 ) => {
+  if (!imageRef.current) return;
+
   for (let i = 1; i <= 10; i += 1) {
     const newHeight = rectImage.height * (1 + IMAGE_HEIGHT_EXPAND_MULTIPLIER * i);
     imageRef.current.style.height = `${newHeight}px`;
 
-    const newRectImage = imageRef.current.getBoundingClientRect();
-    headerWrapperRef.current.style.marginBottom = `${newRectImage.height}px`;
+    if (headerWrapperRef.current) {
+      const newRectImage = imageRef.current.getBoundingClientRect();
+      headerWrapperRef.current.style.marginBottom = `${newRectImage.height}px`;
+    }
 
     await sleep(1);
   }
@@ -42,7 +46,12 @@ export const shrinkImage = (
   headerWrapperRef: React.RefObject<HTMLDivElement>,
 ) => {
   disableScroll();
-  imageRef.current.style.height = `${rectImage.height * IMAGE_HEIGHT_SHRINK_MULTIPLIER}px`;
-  headerWrapperRef.current.style.marginBottom = `${rectImage.height}px`;
+  if (imageRef.current) {
+    imageRef.current.style.height = `${rectImage.height * IMAGE_HEIGHT_SHRINK_MULTIPLIER}px`;
+  }
+
+  if (headerWrapperRef.current) {
+    headerWrapperRef.current.style.marginBottom = `${rectImage.height}px`;
+  }
   enableScroll();
 };

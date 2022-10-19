@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 
 import FilterFormController from './FilterFormController';
 import { RootState } from '../../models/store';
-import { RecipesStateType } from '../../models/types/recipes';
+import { RecipesStateType } from '../../models/types/recipesListTypes';
 
 interface FilterFormProviderProps {
   isModalOpened: boolean,

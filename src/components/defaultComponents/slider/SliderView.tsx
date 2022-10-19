@@ -1,19 +1,21 @@
 import React from 'react';
 
-import { Slider as MuiSlider } from '@mui/material';
+import Slider from '@mui/material/Slider';
+
+import { ActiveThumb } from './types';
 
 interface SliderViewProps {
   value: number[],
   min: number,
   max: number,
-  handleChange: (event: Event, newValue: number[], activeThumb: 0 | 1) => void,
   className: string,
+  handleChange?: (event: Event, newValue: number[], activeThumb: ActiveThumb) => void,
 }
 
 const SliderView = ({
   value, handleChange, min, max, className,
 } : SliderViewProps) => (
-  <MuiSlider
+  <Slider
     value={value}
     getAriaLabel={() => 'Minimum distance'}
     valueLabelDisplay="on"

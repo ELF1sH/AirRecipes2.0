@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 
 import { useAppDispatch } from '../../models/store';
-import { RecipesStateType } from '../../models/types/recipes';
+import { RecipesStateType } from '../../models/types/recipesListTypes';
 import RecipesListView from './RecipesListView';
 import { applyFilter, fetchRecipes } from '../../models/store/slices/recipesListSlice';
 import WithLoader from '../higherOrderComponents/withLoader/WithLoader';

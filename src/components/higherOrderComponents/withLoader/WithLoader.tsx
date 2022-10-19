@@ -1,7 +1,7 @@
 import React from 'react';
 
 import ProgressCircleView from '../../defaultComponents/progressCircle/ProgressCircleView';
-import { Status } from '../../../models/types/recipes';
+import { Status } from '../../../models/types/recipesListTypes';
 
 interface ComponentWithLoaderProps {
   curStatus: Status,

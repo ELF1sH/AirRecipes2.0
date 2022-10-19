@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Typography } from '@mui/material';
+import Typography from '@mui/material/Typography';
 
-import { RecipeDetailsType } from '../../models/types/recipeDetails';
+import { RecipeDetailsType } from '../../models/types/recipeTypes';
 import BriefInfoPanel from './components/briefInfoPanel/BriefInfoPanel';
 import List from '../defaultComponents/list/ListController';
 import styles from './styles/Recipe.module.scss';

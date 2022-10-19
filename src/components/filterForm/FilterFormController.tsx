@@ -2,7 +2,7 @@ import React, { useMemo, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 
 import FilterFormView from './FilterFormView';
-import { RecipesStateType } from '../../models/types/recipes';
+import { CuisineFilter, RecipesStateType } from '../../models/types/recipesListTypes';
 import {
   applyFilter,
   CAL_SLIDER_MAX_VALUE,
@@ -15,9 +15,9 @@ import {
 import { GetStateHandle } from '../defaultComponents/textField/types';
 
 interface FilterFormControllerProps {
+  recipesState: RecipesStateType,
   isModalOpened: boolean,
   setIsModalOpened: (status: boolean) => void,
-  recipesState: RecipesStateType,
 }
 
 const FilterFormController: React.FC<FilterFormControllerProps> = ({
@@ -27,19 +27,24 @@ const FilterFormController: React.FC<FilterFormControllerProps> = ({
 }) => {
   const dispatch = useDispatch();
 
-  const handleCheckboxChange = (id) => {
+  const handleCheckboxChange = (id: number) => {
+    if (!recipesState.curFilterState) return;
+
     const curState = structuredClone(recipesState.curFilterState.cuisineFilter);
-    const changedCuisineFilter = curState.find((x) => x.id === id);
+    const changedCuisineFilter = curState.find((x: CuisineFilter) => x.id === id);
     if (!changedCuisineFilter) {
       throw new Error('Changed cuisine filter was not found');
     }
     changedCuisineFilter.status = !changedCuisineFilter.status;
+
     dispatch(setCuisineFilter(curState));
   };
 
   const sliderRef = useRef<GetStateHandle>(null);
   const handleSliderChange = () => {
-    dispatch(setCalFilter(sliderRef.current.getState()));
+    if (sliderRef.current) {
+      dispatch(setCalFilter(sliderRef.current.getState()));
+    }
   };
 
   const handleBtnApplyClick = () => {
@@ -52,6 +57,8 @@ const FilterFormController: React.FC<FilterFormControllerProps> = ({
   };
 
   const getIsFilterChanged = () => {
+    if (!recipesState.curFilterState) return false;
+
     if (recipesState.curFilterState.calFilter[0] !== CAL_SLIDER_MIN_VALUE) return true;
     if (recipesState.curFilterState.calFilter[1] !== CAL_SLIDER_MAX_VALUE) return true;
     return !!recipesState.curFilterState.cuisineFilter.find((item) => !item.status);
@@ -59,7 +66,7 @@ const FilterFormController: React.FC<FilterFormControllerProps> = ({
 
   const isFilterChanged = useMemo(
     () => getIsFilterChanged(),
-    [recipesState.curFilterState.calFilter, recipesState.curFilterState.cuisineFilter],
+    [recipesState.curFilterState?.calFilter, recipesState.curFilterState?.cuisineFilter],
   );
 
   const handleClose = () => {

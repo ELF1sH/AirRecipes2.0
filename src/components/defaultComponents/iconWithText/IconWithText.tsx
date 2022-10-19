@@ -1,12 +1,13 @@
 import React from 'react';
 
-import { Typography } from '@mui/material';
+import Typography from '@mui/material/Typography';
 
 import styles from './styles/IconWithText.module.scss';
 import colors from '../../../scssAbstracts/_variables.scss';
+import { IconProps } from './types';
 
 interface IconWithTextProps {
-  Icon: React.ComponentType<{className: string, fill: string, stroke: string}>,
+  Icon: React.ComponentType<IconProps>,
   text: string,
   color?: string,
   className?: string,

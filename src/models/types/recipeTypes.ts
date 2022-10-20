@@ -17,7 +17,7 @@ export interface RecipeDetailsType {
 }
 
 export interface RecipeDetailsStateType {
-  recipeDetails?: RecipeDetailsType,
-  error: undefined | string,
   status: Status,
+  recipeDetails?: RecipeDetailsType,
+  error?: string,
 }

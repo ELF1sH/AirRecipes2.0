@@ -1,5 +1,5 @@
 import {
-  CuisineFilter, CuisineType, RecipesStateType, RecipeType,
+  CuisineFilter, CuisineType, RecipesStateType, RecipeType, Status,
 } from '../../types/recipesListTypes';
 import { AsyncThunkConfigRecipesList } from '../../types/requestsTypes';
 
@@ -30,7 +30,7 @@ const recipesListSlice = createSlice({
 
   initialState: {
     recipes: [],
-    status: 'pending',
+    status: Status.PENDING,
     error: undefined,
 
     initialRecipes: [],
@@ -92,7 +92,7 @@ const recipesListSlice = createSlice({
 
   extraReducers: (builder) => {
     builder.addCase(fetchRecipes.pending, (state: RecipesStateType) => {
-      state.status = 'pending';
+      state.status = Status.PENDING;
       state.error = undefined;
     });
 
@@ -100,7 +100,7 @@ const recipesListSlice = createSlice({
       state: RecipesStateType,
       action: PayloadAction<RecipeType[]>,
     ) => {
-      state.status = 'resolved';
+      state.status = Status.RESOLVED;
 
       state.recipes = action.payload;
       state.initialRecipes = action.payload;
@@ -123,7 +123,7 @@ const recipesListSlice = createSlice({
       state: RecipesStateType,
       action: PayloadAction<string | undefined>,
     ) => {
-      state.status = 'rejected';
+      state.status = Status.REJECTED;
       state.error = action.payload;
     });
   },

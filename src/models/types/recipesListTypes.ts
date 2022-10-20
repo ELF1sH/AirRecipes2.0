@@ -1,4 +1,8 @@
-export type Status = 'pending' | 'resolved' | 'rejected';
+export enum Status {
+  PENDING = 'pending',
+  RESOLVED = 'resolved',
+  REJECTED = 'rejected',
+}
 
 export interface CuisineType {
   id: number,
@@ -32,6 +36,6 @@ export interface RecipesStateType {
   filterState: FilterType,
   initialRecipes: RecipeType[],
   recipes: RecipeType[],
-  error: undefined | string,
   status: Status,
+  error?: string,
 }

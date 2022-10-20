@@ -1,5 +1,6 @@
 import { RecipeDetailsStateType, RecipeDetailsType } from '../../types/recipeTypes';
 import { RecipeDetailsFetchParam, AsyncThunkConfigRecipeDetails } from '../../types/requestsTypes';
+import { Status } from '../../types/recipesListTypes';
 
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
@@ -24,7 +25,7 @@ const recipeSlice = createSlice({
 
   initialState: {
     recipeDetails: undefined,
-    status: 'pending',
+    status: Status.PENDING,
     error: undefined,
   } as RecipeDetailsStateType,
 
@@ -32,7 +33,7 @@ const recipeSlice = createSlice({
 
   extraReducers: (builder) => {
     builder.addCase(fetchRecipeDetails.pending, (state: RecipeDetailsStateType) => {
-      state.status = 'pending';
+      state.status = Status.PENDING;
       state.error = undefined;
     });
 
@@ -40,7 +41,7 @@ const recipeSlice = createSlice({
       state: RecipeDetailsStateType,
       action: PayloadAction<RecipeDetailsType>,
     ) => {
-      state.status = 'resolved';
+      state.status = Status.RESOLVED;
       state.recipeDetails = action.payload;
     });
 
@@ -48,7 +49,7 @@ const recipeSlice = createSlice({
       state: RecipeDetailsStateType,
       action: PayloadAction<string | undefined>,
     ) => {
-      state.status = 'rejected';
+      state.status = Status.REJECTED;
       state.error = action.payload;
     });
   },

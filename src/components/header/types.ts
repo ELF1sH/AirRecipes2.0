@@ -1,7 +1,7 @@
 import { RefObject } from 'react';
 
-import { FixedHeaderState } from '@/src/components/header/headerBehaviorStates/states/fixedHeaderState';
-import { UnfixedHeaderState } from '@/src/components/header/headerBehaviorStates/states/unfixedHeaderState';
+import { FixedHeaderState } from './headerBehaviorStates/states/fixedHeaderState';
+import { UnfixedHeaderState } from './headerBehaviorStates/states/unfixedHeaderState';
 
 export interface CombinedRef {
   textFieldRef: RefObject<HTMLInputElement> | null,

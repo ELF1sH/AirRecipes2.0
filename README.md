@@ -6,7 +6,6 @@
 - Provide details about each recipe
 - Material ui
 ### Main dependencies:
-- [Typescript](https://www.typescriptlang.org/)
 - [Redux Toolkit](https://redux-toolkit.js.org)
 - [mui](https://mui.com/)
 - [https://v5.reactrouter.com/web/guides/quick-start](React-router-dom)

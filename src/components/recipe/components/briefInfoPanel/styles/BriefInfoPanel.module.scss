@@ -1,0 +1,9 @@
+@import "../../../../../index";
+
+.brief_info {
+  display: flex;
+  flex-wrap: wrap;
+  .icon_with_text {
+    margin-right: 32px;
+  }
+}

@@ -22,9 +22,17 @@
 }
 
 
-
 @mixin bg-image-center {
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;
+}
+
+
+@mixin elevate-effect {
+  transition: 0.2s ease-in box-shadow;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  &:hover {
+    box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  }
 }

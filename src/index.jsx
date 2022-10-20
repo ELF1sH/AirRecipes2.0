@@ -3,12 +3,12 @@ import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 
-import { ThemeProvider } from '@mui/material';
-
 import App from './App';
-import store from './models/store/index';
+import store from './models/store';
 import theme from './theme/theme';
 import reportWebVitals from './reportWebVitals';
+
+import { ThemeProvider } from '@mui/material';
 import './assets/fonts/Gilroy/stylesheet.scss';
 import './index.scss';
 

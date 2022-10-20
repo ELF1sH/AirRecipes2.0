@@ -3,7 +3,7 @@
 ### React Application
 ### Features:
 - Show list of recipes
-- Provide details about each recipe
+- Provide details of each recipe
 - Material ui
 ### Main dependencies:
 - [Typescript](https://www.typescriptlang.org/)

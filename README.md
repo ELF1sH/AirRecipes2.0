@@ -8,5 +8,5 @@
 ### Main dependencies:
 - [Redux Toolkit](https://redux-toolkit.js.org)
 - [mui](https://mui.com/)
-- [https://v5.reactrouter.com/web/guides/quick-start](React-router-dom)
-- [https://react-responsive-carousel.js.org/](react-responsive-carousel)
+- [React-router-dom](https://v5.reactrouter.com/web/guides/quick-start)
+- [react-responsive-carousel](https://react-responsive-carousel.js.org)

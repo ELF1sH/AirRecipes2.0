@@ -9,5 +9,5 @@
 - [Typescript](https://www.typescriptlang.org/)
 - [Redux Toolkit](https://redux-toolkit.js.org)
 - [mui](https://mui.com/)
-- [React-router-dom](https://v5.reactrouter.com/web/guides/quick-start)
-- [react-responsive-carousel](https://react-responsive-carousel.js.org/)
+- [React Router](https://v5.reactrouter.com/web/guides/quick-start)
+- [React Responsive Carousel](https://react-responsive-carousel.js.org/)

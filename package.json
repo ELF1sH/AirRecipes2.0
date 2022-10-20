@@ -1,7 +1,7 @@
 {
   "name": "air-recipes-2",
   "version": "0.1.0",
-  "homepage": "https://ray-janson.github.io/AirRecipes2.0",
+  "homepage": "https://Ray-Janson.github.io/AirRecipes2.0",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.4",

@@ -1,34 +1,30 @@
 import React, { useMemo } from 'react';
 
 import CuisinesFilterListView from './CuisinesFilterListView';
-import { RecipesStateType } from '../../../../models/types/recipesListTypes';
 import { CuisineFilterStatus } from './types';
+import { ICuisine } from '../../../../domain/entity/recipe/ICuisine';
+import { ICuisineFilter } from '../../../../domain/entity/filter/ICuisineFilter';
 
 interface CuisinesFilterListControllerProps {
-  recipesState: RecipesStateType,
+  cuisines: ICuisine[],
+  cuisinesFilter: ICuisineFilter[] | null,
   handleCheckboxChange: (id: number) => void,
 }
 
 const CuisinesFilterListController: React.FC<CuisinesFilterListControllerProps> = ({
-  recipesState,
+  cuisines,
+  cuisinesFilter,
   handleCheckboxChange,
 }) => {
-  const getCurCuisinesFiltersStatus = () => (
-    recipesState.curFilterState?.cuisineFilter.reduce(
-      (acc, item) => ({ ...acc, [item.id]: item.status }),
-      {},
-    )
-  );
-
   const curCuisinesFiltersStatus: CuisineFilterStatus | undefined = useMemo(
-    () => getCurCuisinesFiltersStatus(),
-    [recipesState?.curFilterState?.cuisineFilter],
+    () => cuisinesFilter?.reduce((acc, item) => ({ ...acc, [item.id]: item.status }), {}),
+    [cuisinesFilter],
   );
 
   return (
     <CuisinesFilterListView
+      cuisines={cuisines}
       handleCheckboxChange={handleCheckboxChange}
-      recipesState={recipesState}
       curCuisinesFiltersStatus={curCuisinesFiltersStatus}
     />
   );

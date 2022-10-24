@@ -1,97 +1,123 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { observer } from 'mobx-react-lite';
+import { useNavigate } from 'react-router-dom';
 
 import HeaderView from './HeaderView';
-import { applyFilter, setNameFilter } from '../../models/store/slices/recipesListSlice';
-import getHeaderState from './headerBehaviorStates/getHeaderState';
-import { CombinedRef, CurrentHeaderStateType } from './types';
+import { CombinedRef } from './types';
+import { HeaderViewModel } from './HeaderViewModel';
+import dims from './styles/Header.module.scss';
 
 interface HeaderControllerProps {
   isFixed: boolean,
+  viewModel: HeaderViewModel,
 }
 
-const HeaderController: React.FC<HeaderControllerProps> = ({ isFixed }) => {
-  const dispatch = useDispatch();
-
+const HeaderController: React.FC<HeaderControllerProps> = ({ isFixed, viewModel }) => {
   const textFieldRef = useRef<HTMLInputElement | null>(null);
-  const imageRef = useRef<HTMLDivElement | null>(null);
+  const upperHeaderBgRef = useRef<HTMLDivElement | null>(null);
   const headerWrapperRef = useRef<HTMLDivElement | null>(null);
-  const ref = useRef<CombinedRef>({ textFieldRef, imageRef, headerWrapperRef });
+  const ref = useRef<CombinedRef>({ textFieldRef, upperHeaderBgRef, headerWrapperRef });
 
-  const defImageHeight = useRef<number>(0);
+  const contentContainerRef = useRef<HTMLDivElement | null>(null);
+
   const inputMiddleY = useRef<number>(0);
   const rectTextField = useRef<DOMRect | null>(null);
 
-  let headerState: CurrentHeaderStateType = null;
+  const prevTranslateY = useRef<string>('');
+
+  const navigate = useNavigate();
+
+  const { setNameFilter, applyFilters, contentContainer } = viewModel;
 
   const handleScroll = () => {
-    headerState?.handleScroll();
-  };
+    if (!contentContainerRef.current) return;
 
-  const handleWheel = async (event: WheelEvent) => {
-    await headerState?.handleWheel(event);
+    if (contentContainerRef.current.getBoundingClientRect().top < inputMiddleY.current) {
+      upperHeaderBgRef.current!.style.display = 'block';
+    } else {
+      const diff = Math.abs(contentContainerRef.current.getBoundingClientRect().bottom
+        - window.innerHeight);
+
+      if (diff < 3) return;
+
+      contentContainerRef.current.style.transform = `translateY(-${window.scrollY}px)`;
+      upperHeaderBgRef.current!.style.display = 'none';
+    }
   };
 
   const handleSearchFieldChange = (value: string) => {
     if (!value) {
-      dispatch(setNameFilter(value));
-      dispatch(applyFilter());
+      setNameFilter(value);
+
+      (async () => {
+        await applyFilters();
+      })();
     }
   };
 
   const handleKeyUp = (event: KeyboardEvent) => {
     if (event.key === 'Enter' && textFieldRef.current !== null) {
-      dispatch(setNameFilter(textFieldRef.current.value.trim()));
-      dispatch(applyFilter());
+      setNameFilter(textFieldRef.current.value);
+
+      (async () => {
+        await applyFilters();
+      })();
+
+      navigate('/');
     }
   };
 
   useEffect(() => {
-    const rectImage = imageRef.current?.getBoundingClientRect();
-    defImageHeight.current = rectImage ? rectImage.height : 0;
+    contentContainerRef.current = contentContainer;
 
+    if (contentContainerRef.current) {
+      contentContainerRef.current.style.marginBottom = `-${headerWrapperRef.current!.getBoundingClientRect().height}px`;
+    }
+  }, [contentContainer]);
+
+  useEffect(() => {
     rectTextField.current = textFieldRef.current?.getBoundingClientRect() ?? null;
+
     inputMiddleY.current = rectTextField.current
       ? rectTextField.current.top + rectTextField.current.height / 2
       : 0;
 
-    if (rectImage && headerWrapperRef.current) {
-      headerWrapperRef.current.style.marginBottom = `${rectImage.height}px`;
-    }
-
-    window.addEventListener('keyup', handleKeyUp);
-    return () => {
-      window.removeEventListener('keyup', handleKeyUp);
-    };
-  }, []);
-
-  useEffect(() => {
-    headerState = getHeaderState(
-      isFixed,
-      imageRef,
-      headerWrapperRef,
-      rectTextField,
-      inputMiddleY,
-      defImageHeight,
-    );
-
-    headerState.init();
+    upperHeaderBgRef.current!.style.height = `${inputMiddleY.current}px`;
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('wheel', handleWheel, { passive: true });
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('wheel', handleWheel);
     };
-  }, [isFixed]);
+  }, []);
 
   const [isModalOpened, setIsModalOpened] = useState<boolean>(false);
+
+  useEffect(() => {
+    window.addEventListener('keyup', handleKeyUp);
+
+    return () => {
+      window.removeEventListener('keyup', handleKeyUp);
+    };
+  }, [isModalOpened]);
+
+  useEffect(() => {
+    if (!contentContainerRef.current) return;
+
+    if (isFixed) {
+      prevTranslateY.current = contentContainerRef.current.style.transform;
+
+      headerWrapperRef.current!.style.height = `${inputMiddleY.current}px`;
+      contentContainerRef.current.style.transform = 'translateY(0px)';
+    } else {
+      headerWrapperRef.current!.style.height = dims.headerWrapperDefaultHeight;
+      contentContainerRef.current.style.transform = prevTranslateY.current;
+    }
+  }, [isFixed, contentContainerRef.current]);
 
   return (
     <HeaderView
       ref={ref}
-      isFixed={isFixed}
       isModalOpened={isModalOpened}
       setIsModalOpened={setIsModalOpened}
       handleSearchFieldChange={handleSearchFieldChange}
@@ -99,4 +125,4 @@ const HeaderController: React.FC<HeaderControllerProps> = ({ isFixed }) => {
   );
 };
 
-export default HeaderController;
+export default observer(HeaderController);

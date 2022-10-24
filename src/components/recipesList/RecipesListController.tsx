@@ -1,35 +1,36 @@
 import React, { useEffect } from 'react';
+import { observer } from 'mobx-react-lite';
 
-import { useAppDispatch } from '../../models/store';
-import { RecipesStateType } from '../../models/types/recipesListTypes';
 import RecipesListView from './RecipesListView';
-import { applyFilter, fetchRecipes } from '../../models/store/slices/recipesListSlice';
 import WithLoader from '../higherOrderComponents/withLoader/WithLoader';
+import { RecipesListViewModel } from './RecipesListViewModel';
+import { Status } from '../../domain/entity/request/Status';
 import styles from './styles/RecipesList.module.scss';
 
 const RecipesListViewWithLoader = WithLoader(RecipesListView);
 
 interface RecipesListControllerProps {
-  recipesState: RecipesStateType,
+  viewModel: RecipesListViewModel,
 }
 
-const RecipesListController: React.FC<RecipesListControllerProps> = ({ recipesState }) => {
-  const dispatch = useAppDispatch();
+const RecipesListController: React.FC<RecipesListControllerProps> = ({ viewModel }) => {
+  const { recipes, fetchRecipes } = viewModel;
 
   useEffect(() => {
-    if (!recipesState.recipes.length) {
-      dispatch(fetchRecipes());
-      dispatch(applyFilter());
+    if (!recipes) {
+      (async () => {
+        await fetchRecipes();
+      })();
     }
   }, []);
 
   return (
     <RecipesListViewWithLoader
-      recipes={recipesState.recipes}
-      curStatus={recipesState.status}
+      recipes={recipes}
+      curStatus={!recipes ? Status.PENDING : Status.RESOLVED}
       progressCircleClassname={styles.progress_circle}
     />
   );
 };
 
-export default RecipesListController;
+export default observer(RecipesListController);

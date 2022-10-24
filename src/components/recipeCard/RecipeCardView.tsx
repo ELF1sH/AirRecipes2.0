@@ -6,12 +6,12 @@ import CardMedia from '@mui/material/CardMedia';
 import Chip from '@mui/material/Chip';
 import Typography from '@mui/material/Typography';
 
-import { RecipeType } from '../../models/types/recipesListTypes';
 import { getCookTime } from '../../helpers/recipesCalculations';
+import { IRecipe } from '../../domain/entity/recipe/IRecipe';
 import styles from './styles/RecipeCard.module.scss';
 
 interface RecipeCardViewProps {
-  recipe: RecipeType,
+  recipe: IRecipe,
   className: string,
   handleClick: () => void,
 }

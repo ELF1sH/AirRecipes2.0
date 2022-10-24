@@ -1,16 +1,15 @@
 import React from 'react';
+import CloseIcon from '@mui/icons-material/Close';
 
 import IconButton from '@mui/material/IconButton';
 import Modal from '@mui/material/Modal';
 
 import styles from './styles/Modal.module.scss';
 
-import CloseIcon from '@mui/icons-material/Close';
-
 interface ModalViewProps {
   isOpen: boolean,
   className: string,
-  handleClose: () => Promise<void>,
+  handleClose: () => void,
   children?: React.ReactNode,
 }
 

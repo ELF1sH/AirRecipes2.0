@@ -1,85 +1,186 @@
-import React, { useMemo, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import React, {
+  useEffect, useMemo, useReducer,
+} from 'react';
+import { observer } from 'mobx-react-lite';
+import { useNavigate } from 'react-router-dom';
 
 import FilterFormView from './FilterFormView';
-import { CuisineFilter, RecipesStateType } from '../../models/types/recipesListTypes';
+import { FilterFormViewModel } from './FilterFormViewModel';
+import { ICuisineFilter } from '../../domain/entity/filter/ICuisineFilter';
+import { CAL_SLIDER_MIN_VALUE, CAL_SLIDER_MAX_VALUE } from '../../data/constants';
+import { getDefaultCuisinesFilter } from './helpers/getDefaultCuisinesFilter';
 import {
-  applyFilter,
-  CAL_SLIDER_MAX_VALUE,
-  CAL_SLIDER_MIN_VALUE,
-  clearFilter,
-  resetCurFilterStateToPreviousState,
-  setCalFilter,
-  setCuisineFilter,
-} from '../../models/store/slices/recipesListSlice';
-import { GetStateHandle } from '../defaultComponents/textField/types';
+  Action,
+  ActionUpdateFilters,
+  FilterFormControllerState,
+  ActionType,
+  UpdateFiltersPayload,
+  ActionUpdateCaloricFilter,
+  ActionUpdateCuisinesFilter,
+  UpdateCaloricFilterPayload,
+  UpdateCuisinesFilterPayload,
+} from './types';
 
 interface FilterFormControllerProps {
-  recipesState: RecipesStateType,
+  viewModel: FilterFormViewModel,
   isModalOpened: boolean,
   setIsModalOpened: (status: boolean) => void,
 }
 
+const getUpdateFiltersAction = (
+  filters: UpdateFiltersPayload,
+): ActionUpdateFilters => ({
+  type: ActionType.UPDATE_FILTERS,
+  payload: filters,
+});
+
+const getUpdateCaloricFilterAction = (
+  caloricFilter: UpdateCaloricFilterPayload,
+): ActionUpdateCaloricFilter => ({
+  type: ActionType.UPDATE_CALORIC_FILTER,
+  payload: caloricFilter,
+});
+
+const getUpdateCuisinesFilterAction = (
+  cuisinesFilter: UpdateCuisinesFilterPayload,
+): ActionUpdateCuisinesFilter => ({
+  type: ActionType.UPDATE_CUISINES_FILTER,
+  payload: cuisinesFilter,
+});
+
+const initialState: FilterFormControllerState = {
+  caloricFilter: [],
+  cuisinesFilter: [],
+};
+
+const reducer = (state: FilterFormControllerState, action: Action): FilterFormControllerState => {
+  switch (action.type) {
+    case ActionType.UPDATE_FILTERS:
+      return {
+        ...state,
+        caloricFilter: (action as ActionUpdateFilters).payload.caloricFilter,
+        cuisinesFilter: (action as ActionUpdateFilters).payload.cuisinesFilter,
+      };
+
+    case ActionType.UPDATE_CALORIC_FILTER:
+      return {
+        ...state,
+        caloricFilter: (action as ActionUpdateCaloricFilter).payload,
+      };
+
+    case ActionType.UPDATE_CUISINES_FILTER:
+      return {
+        ...state,
+        cuisinesFilter: (action as ActionUpdateCuisinesFilter).payload,
+      };
+
+    default:
+      throw new Error('Action type does not exist');
+  }
+};
+
 const FilterFormController: React.FC<FilterFormControllerProps> = ({
+  viewModel,
   isModalOpened,
   setIsModalOpened,
-  recipesState,
 }) => {
-  const dispatch = useDispatch();
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const navigate = useNavigate();
 
-  const handleCheckboxChange = (id: number) => {
-    if (!recipesState.curFilterState) return;
+  const {
+    cuisines, setCuisinesFilter, setCalFilter, resetFilters, applyFilters,
+  } = viewModel;
 
-    const curState = structuredClone(recipesState.curFilterState.cuisineFilter);
-    const changedCuisineFilter = curState.find((x: CuisineFilter) => x.id === id);
-    if (!changedCuisineFilter) {
-      throw new Error('Changed cuisine filter was not found');
-    }
-    changedCuisineFilter.status = !changedCuisineFilter.status;
+  const actualizeLocalState = () => {
+    const { filterState } = viewModel;
 
-    dispatch(setCuisineFilter(curState));
+    dispatch(getUpdateFiltersAction({
+      caloricFilter: filterState.calFilter,
+      cuisinesFilter: filterState.cuisinesFilter || getDefaultCuisinesFilter(cuisines),
+    }));
   };
 
-  const sliderRef = useRef<GetStateHandle>(null);
-  const handleSliderChange = () => {
-    if (sliderRef.current) {
-      dispatch(setCalFilter(sliderRef.current.getState()));
+  useEffect(() => {
+    actualizeLocalState();
+  }, [cuisines]);
+
+  const handleCheckboxChange = (id: number) => {
+    const newCuisinesFilter = structuredClone(state.cuisinesFilter);
+    const cuisineFilter = newCuisinesFilter.find((x: ICuisineFilter) => x.id === id);
+
+    if (!cuisineFilter) {
+      throw new Error('Changed cuisine filter was not found');
     }
+
+    cuisineFilter.status = !cuisineFilter.status;
+
+    dispatch(getUpdateCuisinesFilterAction(newCuisinesFilter));
+  };
+
+  const handleSliderChange = (newValue: number[]) => {
+    dispatch(getUpdateCaloricFilterAction(newValue));
   };
 
   const handleBtnApplyClick = () => {
-    dispatch(applyFilter());
+    setCuisinesFilter(state.cuisinesFilter);
+    setCalFilter(state.caloricFilter);
+
+    (async () => {
+      await applyFilters();
+    })();
+
     setIsModalOpened(false);
+
+    navigate('/');
   };
+
+  const handleKeyUp = (event: KeyboardEvent) => {
+    if (event.key === 'Enter' && isModalOpened) {
+      handleBtnApplyClick();
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('keyup', handleKeyUp);
+
+    return () => {
+      window.removeEventListener('keyup', handleKeyUp);
+    };
+  }, [isModalOpened, state.cuisinesFilter, state.caloricFilter]);
 
   const handleClearForm = () => {
-    dispatch(clearFilter());
+    resetFilters();
+
+    (async () => {
+      await applyFilters();
+    })();
+
+    setIsModalOpened(false);
+
+    navigate('/');
   };
 
-  const getIsFilterChanged = () => {
-    if (!recipesState.curFilterState) return false;
+  const handleClose = () => {
+    actualizeLocalState();
 
-    if (recipesState.curFilterState.calFilter[0] !== CAL_SLIDER_MIN_VALUE) return true;
-    if (recipesState.curFilterState.calFilter[1] !== CAL_SLIDER_MAX_VALUE) return true;
-    return !!recipesState.curFilterState.cuisineFilter.find((item) => !item.status);
+    setIsModalOpened(false);
   };
 
   const isFilterChanged = useMemo(
-    () => getIsFilterChanged(),
-    [recipesState.curFilterState?.calFilter, recipesState.curFilterState?.cuisineFilter],
+    () => (
+      !!(state.cuisinesFilter.find(({ status }) => !status)
+      || state.caloricFilter[0] !== CAL_SLIDER_MIN_VALUE
+      || state.caloricFilter[1] !== CAL_SLIDER_MAX_VALUE)
+    ),
+    [state.cuisinesFilter, state.caloricFilter],
   );
-
-  const handleClose = () => {
-    setIsModalOpened(false);
-    dispatch(resetCurFilterStateToPreviousState());
-    // cause curFilter wasn't applied. That's why we need to reset it to previous state
-  };
 
   return (
     <FilterFormView
-      ref={sliderRef}
+      cuisines={cuisines || []}
+      cuisinesFilter={state.cuisinesFilter}
+      sliderValue={state.caloricFilter}
       isModalOpened={isModalOpened}
-      recipesState={recipesState}
       isFilterChanged={isFilterChanged}
       handleClose={handleClose}
       handleBtnApplyClick={handleBtnApplyClick}
@@ -90,4 +191,4 @@ const FilterFormController: React.FC<FilterFormControllerProps> = ({
   );
 };
 
-export default FilterFormController;
+export default observer(FilterFormController);

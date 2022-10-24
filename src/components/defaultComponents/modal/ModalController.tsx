@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import styles from './styles/Modal.module.scss';
 import ModalView from './ModalView';
@@ -17,19 +17,26 @@ const ModalController: React.FC<ModalControllerProps> = ({
 }) => {
   const [className, setClassName] = useState<string>('');
 
-  const localHandleClose = async () => {
-    setClassName(styles.disappear_animation);
+  const [localIsOpen, setLocalIsOpen] = useState<boolean>(false);
 
-    await sleep(200);
-    handleClose();
+  useEffect(() => {
+    if (!isOpen) {
+      setClassName(styles.disappear_animation);
 
-    setClassName('');
-  };
+      sleep(styles.animationSpeed * 1000)
+        .then(() => {
+          setClassName('');
+          setLocalIsOpen(false);
+        });
+    } else {
+      setLocalIsOpen(true);
+    }
+  }, [isOpen]);
 
   return (
     <ModalView
-      isOpen={isOpen}
-      handleClose={localHandleClose}
+      isOpen={localIsOpen}
+      handleClose={handleClose}
       className={className}
     >
       { children }

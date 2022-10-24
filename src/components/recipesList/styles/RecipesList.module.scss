@@ -1,11 +1,18 @@
 .grid_wrapper {
   display: grid;
   grid-template-columns: repeat(auto-fill, 348px);
-  grid-gap: 20px;
+  grid-column-gap: 20px;
+  grid-row-gap: 24px;
   justify-content: center;
   align-content: flex-start;
 }
 
 .progress_circle {
   margin-top: 100px;
+}
+
+.no_recipes_message {
+  grid-column-start: 1;
+  grid-column-end: -1;
+  text-align: center;
 }

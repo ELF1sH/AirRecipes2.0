@@ -1,17 +1,15 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 
 import RecipeController from './RecipeController';
-import { RootState } from '../../models/store';
-import { RecipeDetailsStateType } from '../../models/types/recipeTypes';
+import { RecipeViewModel } from './RecipeViewModel';
+import { useStore } from '../rootMobxStore/StoreProvider';
 
-const RecipeProvider = () => {
-  const recipeDetailsState = useSelector<RootState>(
-    (state) => state.recipeDetails,
-  ) as RecipeDetailsStateType;
+const RecipeProvider: React.FC = () => {
+  const { recipesStore } = useStore();
+  const viewModel = new RecipeViewModel(recipesStore);
 
   return (
-    <RecipeController recipeDetailsState={recipeDetailsState} />
+    <RecipeController viewModel={viewModel} />
   );
 };
 

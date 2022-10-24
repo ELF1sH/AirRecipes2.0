@@ -1,40 +1,40 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { observer } from 'mobx-react-lite';
 
 import RecipeView from './RecipeView';
 import WithLoader from '../higherOrderComponents/withLoader/WithLoader';
-import { fetchRecipeDetails } from '../../models/store/slices/recipeSlice';
-import { useAppDispatch } from '../../models/store';
-import { RecipeDetailsStateType } from '../../models/types/recipeTypes';
 import styles from './styles/Recipe.module.scss';
+import { RecipeViewModel } from './RecipeViewModel';
+import { Status } from '../../domain/entity/request/Status';
 
 interface RecipeControllerProps {
-  recipeDetailsState: RecipeDetailsStateType,
+  viewModel: RecipeViewModel,
 }
 
 const RecipeController: React.FC<RecipeControllerProps> = ({
-  recipeDetailsState,
+  viewModel,
 }) => {
-  const dispatch = useAppDispatch();
   const params = useParams<string>();
+  const { recipeDetails, fetchRecipeDetails } = viewModel;
 
   useEffect(() => {
-    if (params.recipeId) {
-      dispatch(fetchRecipeDetails({ id: params.recipeId }));
-    }
-  }, []);
+    (async () => {
+      if (params.recipeId) {
+        await fetchRecipeDetails(+params.recipeId);
+      }
+    })();
+  }, [params.recipeId]);
 
-  if (recipeDetailsState.recipeDetails) {
-    const RecipeViewWithLoader = WithLoader(RecipeView);
-    return (
-      <RecipeViewWithLoader
-        curStatus={recipeDetailsState.status}
-        recipeDetails={recipeDetailsState.recipeDetails}
-        progressCircleClassname={styles.progress_circle}
-      />
-    );
-  }
-  return null;
+  const RecipeViewWithLoader = WithLoader(RecipeView);
+
+  return (
+    <RecipeViewWithLoader
+      curStatus={!recipeDetails ? Status.PENDING : Status.RESOLVED}
+      recipeDetails={recipeDetails}
+      progressCircleClassname={styles.progress_circle}
+    />
+  );
 };
 
-export default RecipeController;
+export default observer(RecipeController);

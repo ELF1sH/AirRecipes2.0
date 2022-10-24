@@ -2,10 +2,10 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import RecipeCardView from './RecipeCardView';
-import { RecipeType } from '../../models/types/recipesListTypes';
+import { IRecipe } from '../../domain/entity/recipe/IRecipe';
 
 interface RecipeCardControllerProps {
-  recipe: RecipeType,
+  recipe: IRecipe,
   className?: string,
 }
 

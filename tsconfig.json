@@ -1,13 +1,3 @@
-//{
-//  "compilerOptions": {
-//    "outDir": "./built",
-//    "allowJs": true,
-//    "target": "es5",
-//    "allowSyntheticDefaultImports": true,
-//    "jsx": "react"
-//  },
-//  "include": ["./src/**/*"]
-//}
 {
   "compilerOptions": {
     "target": "es6",
@@ -40,7 +30,8 @@
     "./src/**/*",
     "next-env.d.ts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    "*.ts"
   ],
   "exclude": [
     "node_modules"

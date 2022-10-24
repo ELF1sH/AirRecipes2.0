@@ -6,23 +6,23 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 
 import styles from '../../styles/FilterForm.module.scss';
 import colors from '../../../../scssAbstracts/_variables.scss';
-import { CuisineType, RecipesStateType } from '../../../../models/types/recipesListTypes';
+import { ICuisine } from '../../../../domain/entity/recipe/ICuisine';
 import { CuisineFilterStatus } from './types';
 
 interface CuisinesFilterListViewProps {
-  recipesState: RecipesStateType,
+  cuisines: ICuisine[],
   curCuisinesFiltersStatus?: CuisineFilterStatus,
   handleCheckboxChange: (id: number) => void,
 }
 
 const CuisinesFilterListView: React.FC<CuisinesFilterListViewProps> = ({
-  recipesState,
+  cuisines,
   curCuisinesFiltersStatus,
   handleCheckboxChange,
 }) => (
   <>
     {
-      recipesState?.cuisines?.map((item: CuisineType) => (
+      cuisines?.map((item: ICuisine) => (
         <div key={item.id}>
           <div className={styles.cuisine_checkbox_wrapper}>
             <FormControlLabel

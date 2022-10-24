@@ -1,9 +1,8 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 
 import FilterFormController from './FilterFormController';
-import { RootState } from '../../models/store';
-import { RecipesStateType } from '../../models/types/recipesListTypes';
+import { FilterFormViewModel } from './FilterFormViewModel';
+import { useStore } from '../rootMobxStore/StoreProvider';
 
 interface FilterFormProviderProps {
   isModalOpened: boolean,
@@ -14,11 +13,12 @@ const FilterFormProvider: React.FC<FilterFormProviderProps> = ({
   isModalOpened,
   setIsModalOpened,
 }) => {
-  const recipesState = useSelector<RootState>((state) => state.recipes) as RecipesStateType;
+  const { recipesStore } = useStore();
+  const viewModel = new FilterFormViewModel(recipesStore);
 
   return (
     <FilterFormController
-      recipesState={recipesState}
+      viewModel={viewModel}
       isModalOpened={isModalOpened}
       setIsModalOpened={setIsModalOpened}
     />

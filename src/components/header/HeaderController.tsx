@@ -1,18 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { observer } from 'mobx-react-lite';
 
 import HeaderView from './HeaderView';
-import { applyFilter, setNameFilter } from '../../models/store/slices/recipesListSlice';
 import getHeaderState from './headerBehaviorStates/getHeaderState';
 import { CombinedRef, CurrentHeaderStateType } from './types';
+import { HeaderViewModel } from './HeaderViewModel';
 
 interface HeaderControllerProps {
   isFixed: boolean,
+  viewModel: HeaderViewModel,
 }
 
-const HeaderController: React.FC<HeaderControllerProps> = ({ isFixed }) => {
-  const dispatch = useDispatch();
-
+const HeaderController: React.FC<HeaderControllerProps> = ({ isFixed, viewModel }) => {
   const textFieldRef = useRef<HTMLInputElement | null>(null);
   const imageRef = useRef<HTMLDivElement | null>(null);
   const headerWrapperRef = useRef<HTMLDivElement | null>(null);
@@ -24,6 +23,8 @@ const HeaderController: React.FC<HeaderControllerProps> = ({ isFixed }) => {
 
   let headerState: CurrentHeaderStateType = null;
 
+  const { setNameFilter, applyFilters } = viewModel;
+
   const handleScroll = () => {
     headerState?.handleScroll();
   };
@@ -34,15 +35,21 @@ const HeaderController: React.FC<HeaderControllerProps> = ({ isFixed }) => {
 
   const handleSearchFieldChange = (value: string) => {
     if (!value) {
-      dispatch(setNameFilter(value));
-      dispatch(applyFilter());
+      setNameFilter(value);
+
+      (async () => {
+        await applyFilters();
+      })();
     }
   };
 
   const handleKeyUp = (event: KeyboardEvent) => {
     if (event.key === 'Enter' && textFieldRef.current !== null) {
-      dispatch(setNameFilter(textFieldRef.current.value.trim()));
-      dispatch(applyFilter());
+      setNameFilter(textFieldRef.current.value);
+
+      (async () => {
+        await applyFilters();
+      })();
     }
   };
 
@@ -99,4 +106,4 @@ const HeaderController: React.FC<HeaderControllerProps> = ({ isFixed }) => {
   );
 };
 
-export default HeaderController;
+export default observer(HeaderController);

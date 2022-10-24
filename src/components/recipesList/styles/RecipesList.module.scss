@@ -9,3 +9,9 @@
 .progress_circle {
   margin-top: 100px;
 }
+
+.no_recipes_message {
+  grid-column-start: 1;
+  grid-column-end: -1;
+  text-align: center;
+}

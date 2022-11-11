@@ -1,10 +1,21 @@
 @import "../../../index.scss";
 
+$headerWrapperHeight: 600px;
+
+:export {
+  headerWrapperDefaultHeight: $headerWrapperHeight;
+}
+
 .header_wrapper {
   position: relative;
+  height: $headerWrapperHeight;
+  background-color: $bgColor;
+  background-image: url("../../../assets/images/headerBG.png");
+  background-repeat: no-repeat;
+  background-position: right center;
   .header_content {
     position: fixed;
-    z-index: 99;
+    z-index: 1000;
     top: 128px;
     left: 220px;
     .header_desc {
@@ -20,17 +31,17 @@
   }
 }
 
-.image_wrapper {
+.header_upper_bg_image {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  height: 520px;
-  z-index: 9;
-  background-color: $bgColor;
+  z-index: 500;
   background-image: url("../../../assets/images/headerBG.png");
+  background-color: white;
+  background-position-y: center;
+  background-position-x: 100%;
   background-repeat: no-repeat;
-  background-position: right center;
 }
 
 @media (max-width: 1800px) {
@@ -40,20 +51,7 @@
     }
   }
 }
-@media (max-width: 1000px) {
-  .image_wrapper {
-    background-position: 200px center;
-  }
-}
-@media (max-width: 700px) {
-  .image_wrapper {
-    background-position: 100px center;
-  }
-}
 @media (max-width: 550px) {
-  .image_wrapper {
-    background-position: 100px center;
-  }
   .header_wrapper {
     .header_content {
       left: 50%;

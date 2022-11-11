@@ -2,6 +2,7 @@ import React, {
   useEffect, useMemo, useReducer,
 } from 'react';
 import { observer } from 'mobx-react-lite';
+import { useNavigate } from 'react-router-dom';
 
 import FilterFormView from './FilterFormView';
 import { FilterFormViewModel } from './FilterFormViewModel';
@@ -84,6 +85,7 @@ const FilterFormController: React.FC<FilterFormControllerProps> = ({
   setIsModalOpened,
 }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const navigate = useNavigate();
 
   const {
     cuisines, setCuisinesFilter, setCalFilter, resetFilters, applyFilters,
@@ -128,7 +130,22 @@ const FilterFormController: React.FC<FilterFormControllerProps> = ({
     })();
 
     setIsModalOpened(false);
+
+    navigate('/');
   };
+
+  const handleKeyUp = (event: KeyboardEvent) => {
+    if (event.key === 'Enter' && isModalOpened) {
+      handleBtnApplyClick();
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('keyup', handleKeyUp);
+    return () => {
+      window.removeEventListener('keyup', handleKeyUp);
+    };
+  }, [isModalOpened, state.cuisinesFilter, state.caloricFilter]);
 
   const handleClearForm = () => {
     resetFilters();
@@ -138,6 +155,8 @@ const FilterFormController: React.FC<FilterFormControllerProps> = ({
     })();
 
     setIsModalOpened(false);
+
+    navigate('/');
   };
 
   const handleClose = () => {

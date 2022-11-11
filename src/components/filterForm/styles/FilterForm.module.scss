@@ -14,3 +14,9 @@
     margin-bottom: 50px;
   }
 }
+
+@media (max-width: 504px) {
+  .modal_wrapper {
+    width: 100%;
+  }
+}

@@ -23,7 +23,7 @@ const ModalController: React.FC<ModalControllerProps> = ({
     if (!isOpen) {
       setClassName(styles.disappear_animation);
 
-      sleep(200)
+      sleep(styles.animationSpeed * 1000)
         .then(() => {
           setClassName('');
           setLocalIsOpen(false);

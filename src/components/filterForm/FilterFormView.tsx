@@ -7,43 +7,49 @@ import Slider from '../defaultComponents/slider/SliderController';
 import ButtonRow from './components/buttonRow/ButtonRowController';
 import CuisinesFilterListController from './components/cuisinesFilterList/CuisinesFilterListController';
 import styles from './styles/FilterForm.module.scss';
-import { CAL_SLIDER_MIN_VALUE, CAL_SLIDER_MAX_VALUE } from '../../models/store/slices/recipesListSlice';
-import { GetStateHandle } from '../defaultComponents/textField/types';
-import { RecipesStateType } from '../../models/types/recipesListTypes';
+import { CAL_SLIDER_MIN_VALUE, CAL_SLIDER_MAX_VALUE } from '../../data/constants';
+import { GetStateHandle } from '../defaultComponents/slider/types';
+import { ICuisine } from '../../domain/entity/recipe/ICuisine';
+import { ICuisineFilter } from '../../domain/entity/filter/ICuisineFilter';
 
 interface FilterFormViewProps {
-  recipesState: RecipesStateType,
+  cuisines: ICuisine[],
+  cuisinesFilter: ICuisineFilter[],
+  sliderValue: number[],
   isModalOpened: boolean,
   isFilterChanged: boolean,
   handleClose: () => void,
-  handleSliderChange: () => void,
+  handleSliderChange: (newValue: number[]) => void,
   handleBtnApplyClick: () => void,
   handleCheckboxChange: (id: number) => void,
   handleClearForm: () => void,
 }
 
 const FilterFormView = React.forwardRef<GetStateHandle, FilterFormViewProps>(({
+  cuisines,
+  cuisinesFilter,
+  sliderValue,
   isModalOpened,
   handleClose,
-  recipesState,
   handleSliderChange,
   isFilterChanged,
   handleBtnApplyClick,
   handleCheckboxChange,
   handleClearForm,
-}, ref) => (
+}, ref?) => (
   <Modal isOpen={isModalOpened} handleClose={handleClose}>
     <div className={styles.modal_wrapper}>
       <Typography variant="h3">Filter</Typography>
       <CuisinesFilterListController
-        recipesState={recipesState}
+        cuisines={cuisines}
+        cuisinesFilter={cuisinesFilter}
         handleCheckboxChange={handleCheckboxChange}
       />
 
       <Slider
         ref={ref}
         minDistance={50}
-        value={recipesState.curFilterState?.calFilter}
+        value={sliderValue}
         min={CAL_SLIDER_MIN_VALUE}
         max={CAL_SLIDER_MAX_VALUE}
         className={styles.slider}

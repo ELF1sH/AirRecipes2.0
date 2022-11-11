@@ -32,9 +32,6 @@ const theme = createTheme({
       lineHeight: '24px',
       color: colors.bodyFontColor,
     },
-    span: {
-      fontFamily: ['Roboto', 'sans-serif'].join(','),
-    },
   },
   components: {
     MuiBackdrop: {

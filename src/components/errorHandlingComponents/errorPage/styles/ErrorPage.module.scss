@@ -1,0 +1,7 @@
+@import '../../../../scssAbstracts/mixins';
+
+.content_wrapper {
+  min-height: 100vh;
+  @include flex-center();
+  flex-direction: column;
+}

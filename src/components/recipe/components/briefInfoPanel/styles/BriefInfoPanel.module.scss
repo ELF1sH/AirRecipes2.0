@@ -7,3 +7,13 @@
     margin-right: 32px;
   }
 }
+
+@media (max-width: 550px) {
+  .brief_info {
+    .icon_with_text {
+      width: 50%;
+      margin-right: 0;
+      margin-bottom: 10px;
+    }
+  }
+}

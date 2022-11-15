@@ -1,0 +1,23 @@
+@import '../../../../scssAbstracts/variables';
+
+$paddingBottom: 96px;
+
+$paddingTop: 30px;
+
+.content_container {
+  padding: $paddingTop 220px $paddingBottom 220px;
+  z-index: 100;
+  background-color: $bgColor;
+}
+
+@media (max-width: 1900px) {
+  .content_container {
+    padding: $paddingTop 50px $paddingBottom 50px;
+  }
+}
+
+@media (max-width: 700px) {
+  .content_container {
+    padding: $paddingTop 20px $paddingBottom 20px;
+  }
+}

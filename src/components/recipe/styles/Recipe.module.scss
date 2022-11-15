@@ -2,8 +2,11 @@
   margin-top: 100px;
 }
 
+$paddingTop: 48px;
+
 .flex_container {
   display: flex;
+  padding-top: $paddingTop;
   .flex_column {
     width: 50%;
     &:first-child {
@@ -34,18 +37,19 @@
 
 @media (max-width: 1900px) {
   .flex_container {
-    padding: 0 100px;
+    padding: $paddingTop 100px 0 100px;
   }
 }
 @media (max-width: 1400px) {
   .flex_container {
-    padding: 0;
+    padding: $paddingTop 0 0 0;
   }
 }
 
 @media (max-width: 1000px) {
   .flex_container {
     flex-direction: column;
+    padding: 0;
     .flex_column {
       width: 100%;
       &:first-child {

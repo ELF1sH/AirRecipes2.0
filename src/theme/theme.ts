@@ -38,6 +38,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           backgroundColor: 'rgba(255, 255, 255, 0.5)',
+          zIndex: '2000 !important',
         },
       },
     },
@@ -67,6 +68,13 @@ const theme = createTheme({
         },
         thumb: {
           userSelect: 'none',
+        },
+      },
+    },
+    MuiLink: {
+      styleOverrides: {
+        root: {
+          textDecoration: 'none',
         },
       },
     },

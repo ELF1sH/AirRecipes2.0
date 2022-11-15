@@ -16,9 +16,15 @@ const RecipeController: React.FC<RecipeControllerProps> = ({
   viewModel,
 }) => {
   const params = useParams<string>();
-  const { recipeDetails, fetchRecipeDetails } = viewModel;
+  const { recipeDetails, fetchRecipes, fetchRecipeDetails } = viewModel;
 
   useEffect(() => {
+    (async () => {
+      if (params.recipeId) {
+        await fetchRecipes();
+      }
+    })();
+
     (async () => {
       if (params.recipeId) {
         await fetchRecipeDetails(+params.recipeId);

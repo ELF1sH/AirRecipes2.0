@@ -9,15 +9,15 @@ import { ICuisine } from './ICuisine';
 import { IFilterState } from '../filter/IFilterState';
 
 export class RecipesMobxStore {
-  constructor() {
-    makeAutoObservable(this);
-  }
-
   @observable private _filteredRecipes: IRecipe[] | null = null;
 
   @observable private _recipeDetails: IRecipeDetails | null = null;
 
   @observable private _cuisines: ICuisine[] | null = null;
+
+  constructor() {
+    makeAutoObservable(this);
+  }
 
   public get filteredRecipes(): IRecipe[] | null {
     return toJS(this._filteredRecipes);

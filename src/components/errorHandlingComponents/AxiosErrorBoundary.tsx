@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios, { AxiosError } from 'axios';
 
+import ErrorPage from './errorPage/ErrorPageController';
+
 const getErrorMessageByCode = (code?: number) => {
   switch (code) {
     case 404:
@@ -37,9 +39,7 @@ export const AxiosErrorBoundary: React.FC<AxiosErrorBoundaryProps> = ({ children
   return (
     error.exists
       ? (
-        <h1>
-          {getErrorMessageByCode(error.error?.response?.status)}
-        </h1>
+        <ErrorPage errorMessage={getErrorMessageByCode(error?.error?.response?.status)} />
       )
       : <>{children}</>
   );

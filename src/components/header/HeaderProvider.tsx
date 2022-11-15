@@ -9,8 +9,8 @@ interface HeaderProviderProps {
 }
 
 const HeaderProvider: React.FC<HeaderProviderProps> = ({ isFixed = false }) => {
-  const { recipesStore } = useStore();
-  const viewModel = new HeaderViewModel(recipesStore!);
+  const { recipesStore, pageElementsRefsMobxStore } = useStore();
+  const viewModel = new HeaderViewModel(recipesStore, pageElementsRefsMobxStore);
 
   return (
     <HeaderController isFixed={isFixed} viewModel={viewModel} />

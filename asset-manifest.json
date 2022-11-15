@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/AirRecipes2.0/static/css/main.2ca244ac.css",
-    "main.js": "/AirRecipes2.0/static/js/main.6a979659.js",
+    "main.css": "/AirRecipes2.0/static/css/main.8c0f5d1e.css",
+    "main.js": "/AirRecipes2.0/static/js/main.5a1d08fd.js",
     "static/js/787.d57e79fb.chunk.js": "/AirRecipes2.0/static/js/787.d57e79fb.chunk.js",
     "static/media/headerBG.png": "/AirRecipes2.0/static/media/headerBG.cfbffb843e3378680061.png",
     "static/media/Gilroy-UltraLightItalic.ttf": "/AirRecipes2.0/static/media/Gilroy-UltraLightItalic.68a9a27f1aa1261013f3.ttf",
@@ -32,12 +32,12 @@
     "static/media/search.svg": "/AirRecipes2.0/static/media/search.b3cedf383210122e2497a6bdb14df20f.svg",
     "static/media/timeIcon.svg": "/AirRecipes2.0/static/media/timeIcon.3d9c8e8702fb158777d0dc2c9906b159.svg",
     "static/media/filter.svg": "/AirRecipes2.0/static/media/filter.13a662e84dca14496f0c10457bcedf44.svg",
-    "main.2ca244ac.css.map": "/AirRecipes2.0/static/css/main.2ca244ac.css.map",
-    "main.6a979659.js.map": "/AirRecipes2.0/static/js/main.6a979659.js.map",
+    "main.8c0f5d1e.css.map": "/AirRecipes2.0/static/css/main.8c0f5d1e.css.map",
+    "main.5a1d08fd.js.map": "/AirRecipes2.0/static/js/main.5a1d08fd.js.map",
     "787.d57e79fb.chunk.js.map": "/AirRecipes2.0/static/js/787.d57e79fb.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.2ca244ac.css",
-    "static/js/main.6a979659.js"
+    "static/css/main.8c0f5d1e.css",
+    "static/js/main.5a1d08fd.js"
   ]
 }

@@ -6,7 +6,7 @@
 
 - Run command `npm install` in the project directory to install all dependencies required for the project and `npm start` to view the project in your browser<br/>
 OR
-- Just follow a link https://ray-janson.github.io/AirRecipes2.0/ to see the project hosted on Github Pages
+- Just follow a link https://elf1sh.github.io/AirRecipes2.0/ to see the project hosted on Github Pages
 
 ## Available Scripts
 
